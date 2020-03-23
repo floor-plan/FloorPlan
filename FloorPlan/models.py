@@ -21,6 +21,7 @@ class TeamMember(models.Model):
     role = models.CharField(max_length=200)
     join_project = models.BooleanField(default=True)
 
+
     def __str__(self):
         return self.role
 
@@ -34,6 +35,17 @@ class Project(models.Model):
 
 	def __str__(self):
 		return f'Address and/or Lot number:{self.address}, {self.lot_number}'
+
+
+class Catergory(models.Model):
+		name = models.CharField(max_length=100)
+		task = models.TextField(max_length=255)
+		member = models.ForeignKey(
+			TeamMember, on_delete=models.CASCADE, related_name='category')
+
+		def __str__(self):
+			return self.member
+		
 
 
 
