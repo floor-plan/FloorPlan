@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 
     # Project-specific
     'users',
+    'phone_field',
 ]
 
 MIDDLEWARE = [
