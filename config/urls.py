@@ -21,6 +21,7 @@ from FloorPlan import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name = 'index'),
+    path('project<int/pk>', views.project, name='project')
 ]
 
 if settings.DEBUG:
