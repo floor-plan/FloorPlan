@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <script src="{% static 'main.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    {% block title %}<title>FloorPlan</title>{% endblock %}
+</head>
+
+<header>
+    <div class="title">
+        <a class="home-button" href="{% url 'myprojects' %}">FloorPlan</a>
+    </div>
+    <div class="logout-container header">
+        <a class="logout" href="/accounts/login/">Login </a>
+    </div>
+    <div class="logout-container header">
+        <a class="logout" href="/accounts/logout/">Logout </a>
+    </div>
+    <div class="logout-container header">
+        <a class="logout" href="/accounts/register/">Register </a>
+    </div>
+    <!-- <div class="search-bar">
+        <form action="" method="GET" id="search-form">
+            <input type="text" id="search" name="q" placeholder="Search for a project..." value="{{query}}" />
+        </form>
+    </div> -->
+</header>
+
+<body>
+    {% block content %}
+    {% endblock %}
+</body>
+
+</html>
