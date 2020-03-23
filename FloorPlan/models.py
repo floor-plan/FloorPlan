@@ -37,7 +37,7 @@ class Project(models.Model):
 		return f'Address and/or Lot number:{self.address}, {self.lot_number}'
 
 
-class Catergory(models.Model):
+class Category(models.Model):
 		name = models.CharField(max_length=100)
 		task = models.TextField(max_length=255)
 		member = models.ForeignKey(
