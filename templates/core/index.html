@@ -1,5 +1,35 @@
 {% extends 'base.html'%}
+{% block content %}
+<div class="task-container">
 
-{% block content%}
+<h1>Tasks</h1>
+{% for task in tasks %}
+<div class='task'>
+<h2> {{task.pk|capfirst}} {{project.name}}</h2>
+
+{% endfor %}
+
+</div>
+
+<div class="project-container">
+
+<h1>Projects</h1>
+{% for project in projects %}
+
+<div class='project'>
+<h2> Project {{project.pk}} {{project.name |capfirst}}</h2>
+    <div class='project-link-container'>
+    <a class='project-link' href={% url 'project' pk=project.pk %}>Details</a>
+    {% comment %} <a class='project-link' href={% url 'google.com' pk=project.pk %}>Manage Team</a> {% endcomment %}
+    {% comment %} how to reference team related to project {% endcomment %}
+    </div>
+
+</div>
+
+
+
+{% endfor %}
+
+</div>
 
 {% endblock %}
