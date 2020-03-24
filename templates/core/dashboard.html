@@ -1,35 +1,33 @@
-{% extends 'base.html'%}{% load static %}
-{% block content %}
+{% extends 'base.html'%}{% load static %} {% block content %}
+
+
+<h2>Tasks</h2>
 <div class="task-container">
-
-<h1>Tasks</h1>
-{% for task in tasks %}
-<div class='task'>
-<h2> {{task.pk|capfirst}} {{project.name}}</h2>
-
-{% endfor %}
-
-</div>
-
-<div class="project-container">
-
-<h1>Projects</h1>
-{% for project in projects %}
-
-<div class='project'>
-<h2> Project {{project.pk}} {{project.name | capfirst}}</h2>
-    <div class='project-link-container'>
-    <a class='project-link' href={% url 'project' pk=project.pk %}>Details</a>
-    {% comment %} <a class='project-link' href={% url 'google.com' pk=project.pk %}>Manage Team</a> {% endcomment %}
-    {% comment %} how to reference team related to project {% endcomment %}
+    {% for task in tasks %}
+    <div class='task'>
+        <p class='task-text'> {{task.pk|capfirst}} {{task.task}}{{task.due_date}}{{task.assignee}}</p>
     </div>
-
+    {% endfor %}
 </div>
+<p>View All</p>
 
 
 
-{% endfor %}
 
+<h2>Projects</h2>
+<div class="project-container">
+    {% for project in projects %}
+
+    <div class='project boxshadow'>
+        <p class='project-text'> Project {{project.pk}} {{project.name | capfirst}}</p>
+        <div class='project-link-container'>
+            <a class='project-link' href={% url 'project' pk=project.pk %}>Details</a> {% comment %} <a class='project-link' href={% url 'google.com' pk=project.pk %}>Manage Team</a> {% endcomment %} {% comment %} how to reference team related to project
+            {% endcomment %}
+        </div>
+
+    </div>
+    {% endfor %}
 </div>
+<p>View All</p>
 
 {% endblock %}
