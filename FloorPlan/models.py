@@ -39,6 +39,7 @@ class Project(models.Model):
 	lot_number = models.CharField(max_length=100, blank=True)
 	owner = models.ForeignKey(
 		ProjectManager, on_delete=models.CASCADE, related_name='projects')
+	team_members = models.ManyToManyField(TeamMember)
 
 	def __str__(self):
 		return f'Address and/or Lot number:{self.address}, {self.lot_number}'

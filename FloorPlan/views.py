@@ -4,26 +4,25 @@ from django.http import JsonResponse
 
 from .models import ProjectManager, TeamMember, Project, Category, Task
 
-def index(request):
+def dashboard(request):
     projects = Project.objects.all()
     tasks = Task.objects.all()
 
-
-    return render(request, "core/index.html", {'projects': projects, 'tasks': tasks})
+    return render(request, "core/dashboard.html", {'projects': projects, 'tasks': tasks})
 
 def project(request, pk):
     project = Project.objects.get(pk=pk)
     projects = Project.objects.all()
-    projectmanager = ProjectManager.objects.filter(project=project)  #May have to add project as a field to users?  Possibly unique constraints.
-    user = TeamMember.objects.filter(project=project)  #May have to add this as well.  Many to many. 
+    projectmanager = ProjectManager.objects.filter(project=project.owner) 
+    team_member = TeamMember.objects.filter(project=project.team_members) 
     return render(request, 'FloorPlan/project.html'), {'project': project, 'projects': projects, 'pk': pk, 'projectmanager': projectmanager, 'user': user}
 
 def new_project(request):
     if request.method == "POST":
-        form =  ProjectForm(request.POST) #Need to build a form here.
+        form =  ProjectForm(request.POST)
         if form.is_valid():
             project = form.save()
-            return redirect('index')
+            return redirect('dashboard')
     else:
         form = ProjectForm()
 
@@ -36,7 +35,7 @@ def edit_project(request, pk):
         if form.is_valid():
             project = form.save()
             form.save()
-            return redirect('index')
+            return redirect('dashboard')
     else:
         form = ProjectForm(instance=project)
     return render(request, 'FloorPlan/edit_project.html', {'form': form})
@@ -44,20 +43,20 @@ def edit_project(request, pk):
 def delete_project(request, pk):
     project = get_object_or_404(Project, pk=pk)
     project.delete()
-    return redirect('index')
+    return redirect('dashboard')
 
-
-def new_task(request, category, ppk):  #This can't be right... 
+def new_task(request, pk):  
     project = get_object_or_404(Project, pk=pk)
+    category = get_object_or_404(Category, pk=pk)
     task = Task(project=project)
     if request.method == "POST":
-        form = TaskForm(request.POST)  #This will need a form.
+        form = TaskForm(request.POST)  
         if form.is_valid():
             task = form.save()
-            return redirect('project', pk=project.pk) #This is going to need a pk. 
+            return redirect('project', pk=project.pk) 
         else:
             form = TaskForm(instance=task)
-        return render(request, 'FloorPlan/project.html', {'form': form, 'task': task, 'project': project})  #This is going to need a pk I think.
+    return render(request, 'FloorPlan/project.html', {'form': form, 'task': task, 'project': project, 'pk': pk})  
 
 def edit_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
@@ -66,13 +65,41 @@ def edit_task(request, pk):
         if form.is_valid():
             task = form.save()
             return redirect('project', pk=project.pk)
-    else:
-        form = TaskForm(instance=task)
-    return render(request, 'FloorPlan/edit_task.html', {'form': form, 'log': log, 'pk': pk})
+        else:
+            form = TaskForm(instance=task)
+    return render(request, 'FloorPlan/edit_task.html', {'form': form, 'pk': pk})
 
 def delete_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
     task.delete()
     return redirect('task-detail', pk=task.project.pk)
+
+def new_team_member(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    team_member = Team_Member(project=project)
+    if request.method == "POST":
+        form = NewTeamMemberForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('project', pk=project.pk)
+        else:
+            form = NewTeamMemberForm(instance=team_member)
+    return render(request, 'FloorPlan/project.html', {'form': form, 'project': project, 'pk': pk})
+
+def edit_team_member(request, pk):
+    team_member = get_object_or_404(TeamMember, pk=pk)
+    if request.method == "POST":
+        form = NewTeamMemberForm(request.POST, instance=team_member)
+        if form.is_valid():
+            team_member = form.save()
+            return redirect('project', pk=project.pk)
+        else:
+            form = NewTeamMemberForm(instance=team_member)
+    return render(request, 'FloorPlan/edit_team_member.html', {'form': form, 'pk':pk})
+
+def delete_team_member(request, pk):
+    team_member = get_object_or_404(TeamMember, pk=pk)
+    team_member.delete()
+    return redirect('project', pk=project.pk)
     
 
