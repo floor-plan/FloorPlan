@@ -6,7 +6,10 @@ from .models import ProjectManager, TeamMember, Project, Category, Task
 
 def index(request):
     projects = Project.objects.all()
-    return render(request, 'core/index.html')
+    tasks = Task.objects.all()
+
+
+    return render(request, "core/index.html", {'projects': projects, 'tasks': tasks})
 
 def project(request, pk):
     project = Project.objects.get(pk=pk)

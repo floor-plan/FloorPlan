@@ -41,7 +41,7 @@ class Project(models.Model):
 		ProjectManager, on_delete=models.CASCADE, related_name='projects')
 
 	def __str__(self):
-		return f'Address and/or Lot number:{self.address.pk}, {self.lot_number.pk}'
+		return f'Address and/or Lot number:{self.address}, {self.lot_number}'
 
 
 class Role(models.Model):
@@ -73,7 +73,7 @@ class Task(models.Model):
 		TeamMember, on_delete=models.CASCADE, related_name='tasks', default='')
 	
 	def __str__(self):
-		return f'{self.task.pk} done by {self.assignee.pk} => {self.role.pk}'
+		return f'{self.task} done by {self.assignee} => {self.role}'
 
 
 
