@@ -1,7 +1,7 @@
 {% extends 'base.html'%}{% load static %} {% block content %}
 
 
-<h1>Tasks</h1>
+<h2>Tasks</h2>
 <div class="task-container">
     {% for task in tasks %}
     <div class='task'>
@@ -9,23 +9,25 @@
     </div>
     {% endfor %}
 </div>
+<p>View All</p>
 
 
 
 
-<h1>Projects</h1>
+<h2>Projects</h2>
 <div class="project-container">
     {% for project in projects %}
 
-    <div class='project'>
-        <h2> Project {{project.pk}} {{project.name | capfirst}}</h2>
+    <div class='project boxshadow'>
+        <p class='project-text'> Project {{project.pk}} {{project.name | capfirst}}</p>
         <div class='project-link-container'>
             <a class='project-link' href={% url 'project' pk=project.pk %}>Details</a> {% comment %} <a class='project-link' href={% url 'google.com' pk=project.pk %}>Manage Team</a> {% endcomment %} {% comment %} how to reference team related to project
             {% endcomment %}
         </div>
 
     </div>
-
+    {% endfor %}
 </div>
+<p>View All</p>
 
-{% endfor %} {% endblock %}
+{% endblock %}
