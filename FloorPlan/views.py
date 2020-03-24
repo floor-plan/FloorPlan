@@ -20,7 +20,7 @@ def new_project(request):
         form =  ProjectForm(request.POST) #Need to build a form here.
         if form.is_valid():
             project = form.save()
-            return redirect('index')
+            return redirect('dashboard')
     else:
         form = ProjectForm()
 
@@ -33,7 +33,7 @@ def edit_project(request, pk):
         if form.is_valid():
             project = form.save()
             form.save()
-            return redirect('index')
+            return redirect('dashboard')
     else:
         form = ProjectForm(instance=project)
     return render(request, 'FloorPlan/edit_project.html', {'form': form})
@@ -41,7 +41,7 @@ def edit_project(request, pk):
 def delete_project(request, pk):
     project = get_object_or_404(Project, pk=pk)
     project.delete()
-    return redirect('index')
+    return redirect('dashboard')
 
 
 def new_task(request, category, ppk):  #This can't be right... 
