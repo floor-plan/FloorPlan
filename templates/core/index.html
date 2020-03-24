@@ -17,7 +17,7 @@
 {% for project in projects %}
 
 <div class='project'>
-<h2> Project {{project.pk}} {{project.name |capfirst}}</h2>
+<h2> Project {{project.pk}} {{project.name | capfirst}}</h2>
     <div class='project-link-container'>
     <a class='project-link' href={% url 'project' pk=project.pk %}>Details</a>
     {% comment %} <a class='project-link' href={% url 'google.com' pk=project.pk %}>Manage Team</a> {% endcomment %}
