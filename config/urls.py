@@ -20,8 +20,12 @@ from FloorPlan import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # doesn't this one need to be 'views.projects, name=projects'
     path('', views.index, name = 'index'),
-    path('project<int/pk>', views.project, name='project')
+    path('project<int/pk>', views.project, name='project'),
+    path('add-project', views.add_project, name='add_project'),
+    path('add-team-member', views.add_team_member, name='add_team_member'),
+    path()
 ]
 
 if settings.DEBUG:
