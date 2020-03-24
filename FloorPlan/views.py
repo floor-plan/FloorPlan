@@ -44,11 +44,32 @@ def delete_project(request, pk):
     return redirect('index')
 
 
-def new_task(request, category):  #This can't be right... 
-
+def new_task(request, category, ppk):  #This can't be right... 
+    project = get_object_or_404(Project, pk=pk)
+    task = Task(project=project)
     if request.method == "POST":
         form = TaskForm(request.POST)  #This will need a form.
         if form.is_valid():
+            task = form.save()
+            return redirect('project', pk=project.pk) #This is going to need a pk. 
+        else:
+            form = TaskForm(instance=task)
+        return render(request, 'FloorPlan/project.html', {'form': form, 'task': task, 'project': project})  #This is going to need a pk I think.
 
+def edit_task(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    if request.method == "POST":
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            task = form.save()
+            return redirect('project', pk=project.pk)
+    else:
+        form = TaskForm(instance=task)
+    return render(request, 'FloorPlan/edit_task.html', {'form': form, 'log': log, 'pk': pk})
+
+def delete_task(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    task.delete()
+    return redirect('task-detail', pk=task.project.pk)
     
 
