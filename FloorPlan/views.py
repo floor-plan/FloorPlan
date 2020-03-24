@@ -11,8 +11,8 @@ def index(request):
 def project(request, pk):
     project = Project.objects.get(pk=pk)
     projects = Project.objects.all()
-    projectmanager = ProjectManager.objects.filter(project=project)  #May have to add project as a field to users?
-    user = TeamMember.objects.filter(project=project)  #May have to add this as well.
+    projectmanager = ProjectManager.objects.filter(project=project)  #May have to add project as a field to users?  Possibly unique constraints.
+    user = TeamMember.objects.filter(project=project)  #May have to add this as well.  Many to many. 
     return render(request, 'FloorPlan/project.html'), {'project': project, 'projects': projects, 'pk': pk, 'projectmanager': projectmanager, 'user': user}
 
 def new_project(request):
@@ -45,7 +45,7 @@ def delete_project(request, pk):
 
 
 def new_task(request, category):  #This can't be right... 
-    
+
     if request.method == "POST":
         form = TaskForm(request.POST)  #This will need a form.
         if form.is_valid():
