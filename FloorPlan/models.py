@@ -16,17 +16,24 @@ class ProjectManager(models.Model):
 
 
 class TeamMember(models.Model):
-    title = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
-    role = models.CharField(max_length=200)
-    join_project = models.BooleanField(default=True)
+	title = models.CharField(max_length=100, blank=True)
+	name = models.CharField(max_length=100)
+	company = models.CharField(max_length=50, blank=True)
+	join_project = models.BooleanField(default=True)
+	# May need to remove following 4 lines
+	# category = models.ForeignKey(
+	# 	Category, on_delete=models.CASCADE, related_name='team_members')
+	# role = models.ForeignKey(
+	# 	Role, on_delete=CASCADE, related_name='team_members')
+	# task = models.ForeignKey(
+	# 	Task, on_delete=models.CASCADE, related_name='team_members')
 
-
-    def __str__(self):
-        return self.role
+	def __str__(self):
+		return f' Name:{self.name}, {self.title}, {self.company}'
 
 
 class Project(models.Model):
+	name = models.CharField(max_length=100, default='')
 	created_at = models.DateTimeField(auto_now_add=True)
 	address = models.CharField(max_length=400, blank=False)
 	lot_number = models.CharField(max_length=100, blank=True)
@@ -37,31 +44,36 @@ class Project(models.Model):
 		return f'Address and/or Lot number:{self.address.pk}, {self.lot_number.pk}'
 
 
-class Category(models.Model):
-	name = models.CharField(max_length=100)
+class Role(models.Model):
+	RoleType = models.TextChoices('RoleType', 'SUPPLIER SUB-CONTRACTOR HOMEOWNER')
+	role = models.CharField(blank=False, choices=RoleType.choices, max_length=30)
 	member = models.ForeignKey(
-		TeamMember, on_delete=models.CASCADE, related_name='category')
-
+		TeamMember, on_delete=models.CASCADE, related_name='roles')
+	
 	def __str__(self):
-		return self.member
+		return self.role
 
-# Maybe write Category like this:
-# class Category(models.Model):
-# 	GroupType = models.TextChoices('GroupType', 'SUPPLIER SUB-CONTRACTOR HOMEOWNER')
-# 	name = models.CharField(max_length=100)
-# 	group = models.CharField(blank=False, choices=GroupType.choices, max_length=30)
+class Category(models.Model):
+	CategoryType = models.TextChoices('CategoryType', 'PLUMBING ELECTRICAL MASONRY FRAMING ROOFING')
+	category = models.CharField(blank=False, choices=CategoryType.choices, max_length=30, default='')
+	member = models.ForeignKey(
+		TeamMember, on_delete=models.CASCADE, related_name='categories')
+	
+	def __str__(self):
+		return self.category
+	
 
 class Task(models.Model):
 	task = models.TextField(max_length=300)
 	category = models.ForeignKey(
 		Category, on_delete=models.CASCADE, related_name='tasks')
-	# Need to figure out exactly how responsibility is going to be applied
-	responsibilty = models.ForeignKey(
-		TeamMember, on_delete=models.CASCADE, related_name='assigned')
+	role = models.ForeignKey(
+		Role, on_delete=models.CASCADE, related_name='tasks', default='')
+	assignee = models.ForeignKey(
+		TeamMember, on_delete=models.CASCADE, related_name='tasks', default='')
 	
 	def __str__(self):
-		return f'{self.task.pk} => {self.category.pk}'
-		# Does responsibility need to go in the return string??
+		return f'{self.task.pk} done by {self.assignee.pk} => {self.role.pk}'
 
 
 
