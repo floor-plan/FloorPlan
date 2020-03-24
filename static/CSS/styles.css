@@ -1,0 +1,70 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    --dark-brown: #5b3000;
+    --light-brown: #66462c;
+    --background-color: #dce0d9;
+    --dark-gray: #595959;
+    --green-gray: #808f85;
+    /* categories for users */
+    --plumbing: #3399ff;
+    --electrical: #ff3300;
+    --project-manager: #cc0033;
+    --homeowner: #ffd803;
+    /* --default-fonts:  */
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--dark-gray);
+    /* font-family: var(--default-fonts); */
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h2 {
+    font-family: Arial, Helvetica, sans-serif
+}
+
+h3 {
+    font-family: Arial, Helvetica, sans-serif
+}
+
+h4 {
+    font-family: Arial, Helvetica, sans-serif
+}
+
+h5 {
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.task-container {
+    display: flex;
+}
+
+.task {
+    align-content: flex-start;
+}
+
+.project-container {
+    display: flex;
+}
+
+.project {
+    align-content: flex-start;
+}
+
+.project-link-container {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.project-link {
+    align-content: flex-start;
+}
