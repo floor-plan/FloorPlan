@@ -14,10 +14,11 @@ def dashboard(request):
 
 def project(request, pk):
     project = Project.objects.get(pk=pk)
+    tasks = Task.objects.filter(project=project)
     # projects = Project.objects.all()
     # projectmanager = ProjectManager.objects.filter(project=project.owner) 
     # team_member = TeamMember.objects.filter(project=project.team_members)
-    return render(request, 'core/project.html', {'project': project, 'pk': pk})
+    return render(request, 'core/project.html', {'project': project, 'tasks':tasks, 'pk': pk})
     
 
 def new_project(request):
@@ -50,16 +51,15 @@ def delete_project(request, pk):
 
 def new_task(request, pk):  
     project = get_object_or_404(Project, pk=pk)
-    # category = get_object_or_404(Category, pk=pk)
     task = Task(project=project)
-    form = TaskForm(request.POST or None) 
+    form = TaskForm(request.POST, instance=task) 
     if request.method == "POST": 
         if form.is_valid():
             task = form.save()
             return redirect('project', pk=project.pk) 
         else:
             form = TaskForm(instance=task)
-    return render(request, 'core/newtask.html', {'form': form, 'pk':pk})  
+    return render(request, 'core/newtask.html', {'form': form, 'task': task, 'project':project})  
 
 def edit_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
