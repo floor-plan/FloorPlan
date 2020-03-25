@@ -13,6 +13,7 @@ django-extensions = "*"
 django-phone-field = "*"
 psycopg2 = "*"
 django-heroku = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
