@@ -4,6 +4,8 @@ from django.http import JsonResponse
 from .import forms
 from .models import ProjectManager, TeamMember, Project, Category, Task
 
+from FloorPlan.forms import ProjectForm
+
 def dashboard(request):
     projects = Project.objects.all()
     tasks = Task.objects.all()
