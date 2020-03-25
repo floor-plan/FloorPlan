@@ -2,7 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from .import forms
-
 from .models import ProjectManager, TeamMember, Project, Category, Task
 
 def dashboard(request):
@@ -28,7 +27,7 @@ def new_project(request):
     else:
         form = ProjectForm()
 
-    return render(request, 'FloorPlan/new_project.html', {'form': form,})
+    return render(request, 'FloorPlan/new_project.html', {'form': form})
     
 def edit_project(request, pk):
     project = get_object_or_404(Project, pk=pk)

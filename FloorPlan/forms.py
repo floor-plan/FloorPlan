@@ -1,23 +1,22 @@
 from django import forms
-from .import models
-
+from .models import ProjectManager, TeamMember, Project, Role, Category, Task
 
 
 class ProjectForm(forms.ModelForm):
   class Meta:
-    model = models.Project
+    model = Project
     fields = ['name', 'address', 'lot_number', 'owner', 'team_members']
 
 
   class TaskForm(forms.ModelForm):
     class Meta:
-      model = models.Task
+      model = Task
       fields = ['task', 'category', 'role', 'assignee']
 
 
 
   class NewTeamMemberForm(forms.ModelForm):
     class Meta:
-      model = models.TeamMember
+      model = TeamMember
       fields = ['title', 'name', 'company', 'join_project']
 
