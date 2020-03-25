@@ -1,8 +1,7 @@
 from phone_field import PhoneField
 from django.db import models
 from users.models import User
-
-
+from model_utils import Choices
 
 
 class ProjectManager(models.Model):
