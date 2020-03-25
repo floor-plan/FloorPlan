@@ -5,7 +5,17 @@
 <h1>{{project.name}}</h1>
 
 
-<a href="{% url 'new_task' project.pk %}">Create New Task</a>
+<a href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
+
+
+{% for task in tasks %}
+
+<div class="task-container">
+    <div class='task'>
+        <p class='task-text'> {{task.pk|capfirst}} {{task.task}}{{task.due_date}}{{task.assignee}}</p>
+    </div>
+</div>
+{% endfor %}
 
 
 {% endblock %}
