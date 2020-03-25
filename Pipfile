@@ -11,6 +11,8 @@ django-environ = "*"
 django-debug-toolbar = "*"
 django-extensions = "*"
 django-phone-field = "*"
+psycopg2 = "*"
+django-heroku = "*"
 
 [requires]
 python_version = "3.7"
