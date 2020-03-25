@@ -92,7 +92,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'floorplan',
-        'USER': 'floorplan',
+        'USER': 'floorplantwo',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -153,4 +153,4 @@ INTERNAL_IPS = [
 # Configure Django App for Heroku.
 import django_heroku
 django_heroku.settings(locals())
-
+del DATABASES['default']['OPTIONS']['sslmode']
