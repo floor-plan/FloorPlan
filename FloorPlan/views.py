@@ -27,7 +27,7 @@ def new_project(request):
     else:
         form = ProjectForm()
 
-    return render(request, 'FloorPlan/new_project.html', {'form': form})
+    return render(request, 'core/new_project.html', {'form': form})
     
 def edit_project(request, pk):
     project = get_object_or_404(Project, pk=pk)
@@ -39,7 +39,7 @@ def edit_project(request, pk):
             return redirect('dashboard')
     else:
         form = ProjectForm(instance=project)
-    return render(request, 'FloorPlan/edit_project.html', {'form': form})
+    return render(request, 'core/edit_project.html', {'form': form})
 
 def delete_project(request, pk):
     project = get_object_or_404(Project, pk=pk)
@@ -68,7 +68,7 @@ def edit_task(request, pk):
             return redirect('project', pk=project.pk)
         else:
             form = TaskForm(instance=task)
-    return render(request, 'FloorPlan/edit_task.html', {'form': form, 'pk': pk})
+    return render(request, 'core/edit_task.html', {'form': form, 'pk': pk})
 
 def delete_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
@@ -85,7 +85,7 @@ def new_team_member(request, pk):
             return redirect('project', pk=project.pk)
         else:
             form = NewTeamMemberForm(instance=team_member)
-    return render(request, 'FloorPlan/project.html', {'form': form, 'project': project, 'pk': pk})
+    return render(request, 'core/project.html', {'form': form, 'project': project, 'pk': pk})
 
 def edit_team_member(request, pk):
     team_member = get_object_or_404(TeamMember, pk=pk)
@@ -96,7 +96,7 @@ def edit_team_member(request, pk):
             return redirect('project', pk=project.pk)
         else:
             form = NewTeamMemberForm(instance=team_member)
-    return render(request, 'FloorPlan/edit_team_member.html', {'form': form, 'pk':pk})
+    return render(request, 'core/edit_team_member.html', {'form': form, 'pk':pk})
 
 def delete_team_member(request, pk):
     team_member = get_object_or_404(TeamMember, pk=pk)
