@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
+from .import forms
 
 from .models import ProjectManager, TeamMember, Project, Category, Task
 
@@ -14,8 +15,9 @@ def project(request, pk):
     project = Project.objects.get(pk=pk)
     projects = Project.objects.all()
     projectmanager = ProjectManager.objects.filter(project=project.owner) 
-    team_member = TeamMember.objects.filter(project=project.team_members) 
+    team_member = TeamMember.objects.filter(project=project.team_members)
     return render(request, 'FloorPlan/project.html'), {'project': project, 'projects': projects, 'pk': pk, 'projectmanager': projectmanager, 'user': user}
+    
 
 def new_project(request):
     if request.method == "POST":
