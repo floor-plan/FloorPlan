@@ -21,7 +21,9 @@
     <div class='project boxshadow'>
         <p class='project-text'> Project {{project.pk}} {{project.name | capfirst}}</p>
         <div class='project-link-container'>
-            <a class='project-link' href={% url 'project' pk=project.pk %}>Details</a> {% comment %} <a class='project-link' href={% url 'google.com' pk=project.pk %}>Manage Team</a> {% endcomment %} {% comment %} how to reference team related to project
+            <a class='project-link' href="{% url 'project' pk=project.pk %}">Details</a> {% comment %} <a
+                class='project-link' href="{% url 'google.com' pk=project.pk %}">Manage Team</a> {% endcomment %}
+            {% comment %}
             {% endcomment %}
         </div>
 

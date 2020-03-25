@@ -1,0 +1,11 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+<h1>{{project.name}}</h1>
+
+
+<a href="{% url 'new_task' project.pk %}">Create New Task</a>
+
+
+{% endblock %}
