@@ -14,6 +14,10 @@ class ProjectManager(models.Model):
 	def __str__(self):
 		return f'Name:{self.first_name} {self.last_name} Company:{self.company} Phone Number:{self.phone}'
 
+	
+def get_project():
+	return Project.objects.get(id=1)
+
 
 class TeamMember(models.Model):
 	title = models.CharField(max_length=100, blank=True)
@@ -72,7 +76,7 @@ class Task(models.Model):
 		Role, on_delete=models.CASCADE, related_name='tasks', default='')
 	assignee = models.ForeignKey(
 		TeamMember, on_delete=models.CASCADE, related_name='tasks', default='')
-	project = models.ForeignKey(to=Project, related_name="tasks", on_delete=models.CASCADE, default='project', null=True)
+	project = models.ForeignKey(Project, related_name="tasks", on_delete=models.CASCADE, default=get_project)
 
 	def __str__(self):
 		return f'{self.task} done by {self.assignee} => {self.role}'
