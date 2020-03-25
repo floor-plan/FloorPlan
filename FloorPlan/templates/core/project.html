@@ -5,7 +5,7 @@
 <h1>{{project.name}}</h1>
 
 
-<a href="{% url 'new_task' project.pk %}">Create New Task</a>
+<a href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
 
 
 {% endblock %}

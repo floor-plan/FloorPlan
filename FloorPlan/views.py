@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from .import forms
 from .models import ProjectManager, TeamMember, Project, Category, Task
 
-from FloorPlan.forms import ProjectForm
+from .forms import ProjectForm, TaskForm
 
 def dashboard(request):
     projects = Project.objects.all()
@@ -52,14 +52,14 @@ def new_task(request, pk):
     project = get_object_or_404(Project, pk=pk)
     # category = get_object_or_404(Category, pk=pk)
     task = Task(project=project)
-    if request.method == "POST":
-        form = TaskForm(request.POST, instance=task)  
+    form = TaskForm(request.POST or None) 
+    if request.method == "POST": 
         if form.is_valid():
             task = form.save()
             return redirect('project', pk=project.pk) 
         else:
             form = TaskForm(instance=task)
-    return render(request, 'core/project.html', {'form': form, 'project': project})  
+    return render(request, 'core/newtask.html', {'form': form, 'pk':pk})  
 
 def edit_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
