@@ -4,6 +4,7 @@ from users.models import User
 
 
 
+
 class ProjectManager(models.Model):
 	first_name = models.CharField(max_length=30, blank=False)
 	last_name = models.CharField(max_length=30, blank=False)
