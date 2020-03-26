@@ -37,7 +37,7 @@ class TeamMember(models.Model):
 
 
 class Project(models.Model):
-	name = models.CharField(max_length=100, default='')
+	name = models.CharField(max_length=100, default='') 
 	created_at = models.DateTimeField(auto_now_add=True)
 	address = models.CharField(max_length=400, blank=False)
 	lot_number = models.CharField(max_length=100, blank=True)
@@ -64,8 +64,14 @@ class Category(models.Model):
 	member = models.ForeignKey(
 		TeamMember, on_delete=models.CASCADE, related_name='categories')
 	
+	
 	def __str__(self):
 		return self.category
+	
+	class Meta:
+		constraints = [models.UniqueConstraint(
+			fields=['category', 'project'], name='unique_team'),
+	]
 	
 
 class Task(models.Model):

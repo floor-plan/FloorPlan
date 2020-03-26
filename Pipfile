@@ -14,6 +14,7 @@ django-phone-field = "*"
 psycopg2 = "*"
 django-heroku = "*"
 gunicorn = "*"
+django-model-utils = "*"
 
 [requires]
 python_version = "3.7"
