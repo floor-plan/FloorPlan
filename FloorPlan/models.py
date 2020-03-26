@@ -67,7 +67,7 @@ class Category(models.Model):
 	def __str__(self):
 		return self.category
 	
-
+	
 class Task(models.Model):
 	task = models.TextField(max_length=300)
 	category = models.ForeignKey(
