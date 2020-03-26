@@ -1,5 +1,9 @@
 {% extends 'base.html'%}
 
-{% block content%}
-
+{% block content %}
+<form action="{% url 'invitemember' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" class="submit-button" value='Submit'>
+</form>
 {% endblock %}
