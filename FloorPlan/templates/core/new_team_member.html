@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="{% url 'new_team_member' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="submit-button" value='Submit'>
+</form>
+
+{% endblock %}

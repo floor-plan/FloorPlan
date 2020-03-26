@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from .import forms
 from .models import ProjectManager, TeamMember, Project, Category, Task
 from django.contrib.auth.models import User
-from .forms import ProjectForm, TaskForm
+from .forms import ProjectForm, TaskForm, NewTeamMemberForm
 
 def dashboard(request):
     projects = Project.objects.all()
@@ -80,28 +80,29 @@ def delete_task(request, pk):
 def new_team_member(request, pk):
     project = get_object_or_404(Project, pk=pk)
     # user= User.objects.get(username=request.user.username)
-    # team_member = Team_Member(project=project)
+    team_member = TeamMember(project.pk)
+    form = NewTeamMemberForm(request.POST) 
     if request.method == "POST":
         try:
             add_tm = User.objects.get(username=request.POST['teammember'])
         except ObjectDoesNotExist:
             form = NewTeamMemberForm()
-            return render(request, 'core/invitemember.html', {'form': form, 'type': 'new_team_member', 'message': "That team member not found"})
+            return render(request, 'core/new_team_member.html', {'form': form, 'type': 'new_team_member', 'message': "That team member not found"})
         if TeamMember.objects.filter(team_member=add_tm, project=project):
             form = NewTeamMemberForm()
-            return render(request, 'core/project.html', {'form': form, 'type': 'new_team_member','message': "You've already added that user as a team member"})
+            return render(request, 'core/new_team_member.html', {'form': form, 'type': 'new_team_member','message': "You've already added that user as a team member"})
         else:
             new_team_member = TeamMember(project=project, new_team_member=add_tm)
             new_team_member.save()
-            return redirect('project', pk)
+            return redirect('project', pk=project.pk)
     else:
         form = NewTeamMemberForm(request.POST)
         if form.is_valid():
             form.save()
-        return redirect('project', pk=project.pk)
+        return render(request, 'core/new_team_member.html', {'form': form, 'pk':pk})
     # else:
     #     form = NewTeamMemberForm()
-    return render(request, 'core/project.html', {'form': form})
+    return render(request, 'core/new_team_member.html', {'form': form})
 
 def edit_team_member(request, pk):
     team_member = get_object_or_404(TeamMember, pk=pk)
