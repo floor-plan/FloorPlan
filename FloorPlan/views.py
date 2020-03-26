@@ -30,7 +30,7 @@ def new_project(request):
     else:
         form = ProjectForm()
 
-    return render(request, 'core/new_project.html', {'form': form})
+    return render(request, 'core/new_project.html', {'form': form,})
     
 def edit_project(request, pk):
     project = get_object_or_404(Project, pk=pk)
@@ -51,7 +51,7 @@ def delete_project(request, pk):
 
 def new_task(request, pk):  
     project = get_object_or_404(Project, pk=pk)
-    task = Task(project=project)
+    # task = Task(project=project)
     form = TaskForm(request.POST) 
     if request.method == "POST":  
         if form.is_valid():
