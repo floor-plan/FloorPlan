@@ -14,11 +14,11 @@ def dashboard(request):
 
 def project(request, pk):
     project = Project.objects.get(pk=pk)
-    tasks = Task.objects.filter(project=project)
+    # tasks = Task.objects.filter(project=project)
     # projects = Project.objects.all()
     # projectmanager = ProjectManager.objects.filter(project=project.owner) 
     # team_member = TeamMember.objects.filter(project=project.team_members)
-    return render(request, 'core/project.html', {'project': project, 'tasks':tasks, 'pk': pk})
+    return render(request, 'core/project.html', {'project': project, 'pk': pk})
     
 
 def new_project(request):
@@ -59,7 +59,7 @@ def new_task(request, pk):
             return redirect('project', pk=project.pk) 
         else:
             form = TaskForm(instance=task)
-    return render(request, 'core/newtask.html', {'form': form, 'task': task, 'project':project})  
+    return render(request, 'core/newtask.html', {'form': form,'project':project})  
 
 def edit_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
