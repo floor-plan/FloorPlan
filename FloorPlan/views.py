@@ -58,7 +58,7 @@ def new_task(request, pk):
             return redirect('project', pk=project.pk) 
         else:
             form = TaskForm(instance=task)
-    return render(request, 'core/newtask.html', {'form': form, 'task': task, 'project':project})  
+    return render(request, 'core/newtask.html', {'form': form,'project':project})  
 
 def edit_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
