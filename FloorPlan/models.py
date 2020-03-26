@@ -60,10 +60,12 @@ class Role(models.Model):
 
 class Category(models.Model):
 	CategoryType = models.TextChoices('CategoryType', 'PLUMBING ELECTRICAL MASONRY FRAMING ROOFING')
-	category = models.CharField(blank=False, choices=CategoryType.choices, max_length=30, default='')
+	category = models.CharField(blank=False, choices=CategoryType.choices, max_length=30, default='misc')
 	member = models.ForeignKey(
 		TeamMember, on_delete=models.CASCADE, related_name='categories')
-	
+	project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name='categories', default='')
+
 	
 	def __str__(self):
 		return self.category
