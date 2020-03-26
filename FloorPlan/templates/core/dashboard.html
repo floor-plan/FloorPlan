@@ -6,6 +6,7 @@
     {% for task in tasks %}
     <div class='task'>
         <p class='task-text'> {{task.pk|capfirst}} {{task.task}}{{task.due_date}}{{task.assignee}}</p>
+        <a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
     </div>
     {% endfor %}
 </div>
