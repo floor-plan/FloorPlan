@@ -1,7 +1,9 @@
 from phone_field import PhoneField
 from django.db import models
-from users.models import User
 from model_utils import Choices
+# from django.contrib.auth.models import User
+from users.models import User
+
 
 
 class ProjectManager(models.Model):
@@ -9,7 +11,7 @@ class ProjectManager(models.Model):
 	last_name = models.CharField(max_length=30, blank=False)
 	company = models.CharField(max_length=100, blank=True)
 	email = models.EmailField(max_length=100, blank=False)
-	phone = PhoneField(max_length=9, blank=False)
+	phone = PhoneField(max_length=11, blank=False)
 
 	def __str__(self):
 		return f'Name:{self.first_name} {self.last_name} Company:{self.company} Phone Number:{self.phone}'
@@ -24,13 +26,7 @@ class TeamMember(models.Model):
 	name = models.CharField(max_length=100)
 	company = models.CharField(max_length=50, blank=True)
 	join_project = models.BooleanField(default=True)
-	# May need to remove following 4 lines
-	# category = models.ForeignKey(
-	# 	Category, on_delete=models.CASCADE, related_name='team_members')
-	# role = models.ForeignKey(
-	# 	Role, on_delete=CASCADE, related_name='team_members')
-	# task = models.ForeignKey(
-	# 	Task, on_delete=models.CASCADE, related_name='team_members')
+	team_member = models.ForeignKey(User, on_delete=models.CASCADE, related_name='team_members', default=1)
 
 	def __str__(self):
 		return f' Name:{self.name}, {self.title}, {self.company}'
@@ -64,7 +60,7 @@ class Category(models.Model):
 	member = models.ForeignKey(
 		TeamMember, on_delete=models.CASCADE, related_name='categories')
 	project = models.ForeignKey(
-        Project, on_delete=models.CASCADE, related_name='categories', default='')
+    Project, on_delete=models.CASCADE, related_name='categories', default='')
 
 	
 	def __str__(self):
