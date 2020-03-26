@@ -1,7 +1,7 @@
 from phone_field import PhoneField
 from django.db import models
 from users.models import User
-
+from model_utils import Choices
 
 
 class ProjectManager(models.Model):
@@ -37,7 +37,7 @@ class TeamMember(models.Model):
 
 
 class Project(models.Model):
-	name = models.CharField(max_length=100, default='')
+	name = models.CharField(max_length=100, default='') 
 	created_at = models.DateTimeField(auto_now_add=True)
 	address = models.CharField(max_length=400, blank=False)
 	lot_number = models.CharField(max_length=100, blank=True)
@@ -60,14 +60,22 @@ class Role(models.Model):
 
 class Category(models.Model):
 	CategoryType = models.TextChoices('CategoryType', 'PLUMBING ELECTRICAL MASONRY FRAMING ROOFING')
-	category = models.CharField(blank=False, choices=CategoryType.choices, max_length=30, default='')
+	category = models.CharField(blank=False, choices=CategoryType.choices, max_length=30, default='misc')
 	member = models.ForeignKey(
 		TeamMember, on_delete=models.CASCADE, related_name='categories')
+	project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name='categories', default='')
+
 	
 	def __str__(self):
 		return self.category
 	
+	class Meta:
+		constraints = [models.UniqueConstraint(
+			fields=['category', 'project'], name='unique_team'),
+	]
 	
+
 class Task(models.Model):
 	task = models.TextField(max_length=300)
 	category = models.ForeignKey(
