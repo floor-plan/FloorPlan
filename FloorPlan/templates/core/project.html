@@ -6,6 +6,7 @@
 
 
 <a href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
+<a href="{% url 'new_team_member' pk=project.pk %}">Add New Team Member</a>
 
 
 {% for task in tasks %}
