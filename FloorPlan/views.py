@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from .import forms
 from .models import ProjectManager, TeamMember, Project, Category, Task
-
+from django.contrib.auth.models import User
 from .forms import ProjectForm, TaskForm
 
 def dashboard(request):
@@ -79,15 +79,29 @@ def delete_task(request, pk):
 
 def new_team_member(request, pk):
     project = get_object_or_404(Project, pk=pk)
-    team_member = Team_Member(project=project)
+    # user= User.objects.get(username=request.user.username)
+    # team_member = Team_Member(project=project)
     if request.method == "POST":
+        try:
+            add_tm = User.objects.get(username=request.POST['teammember'])
+        except ObjectDoesNotExist:
+            form = NewTeamMemberForm()
+            return render(request, 'core/invitemember.html', {'form': form, 'type': 'new_team_member', 'message': "That team member not found"})
+        if TeamMember.objects.filter(team_member=add_tm, project=project):
+            form = NewTeamMemberForm()
+            return render(request, 'core/project.html', {'form': form, 'type': 'new_team_member','message': "You've already added that user as a team member"})
+        else:
+            new_team_member = TeamMember(project=project, new_team_member=add_tm)
+            new_team_member.save()
+            return redirect('project', pk)
+    else:
         form = NewTeamMemberForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('project', pk=project.pk)
-        else:
-            form = NewTeamMemberForm(instance=team_member)
-    return render(request, 'core/project.html', {'form': form, 'project': project, 'pk': pk})
+        return redirect('project', pk=project.pk)
+    # else:
+    #     form = NewTeamMemberForm()
+    return render(request, 'core/project.html', {'form': form})
 
 def edit_team_member(request, pk):
     team_member = get_object_or_404(TeamMember, pk=pk)
