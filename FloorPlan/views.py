@@ -53,7 +53,7 @@ def new_task(request, pk):
     project = get_object_or_404(Project, pk=pk)
     task = Task(project=project)
     form = TaskForm(request.POST, instance=task) 
-    if request.method == "POST": 
+    if request.method == "POST":  
         if form.is_valid():
             task = form.save()
             return redirect('project', pk=project.pk) 
