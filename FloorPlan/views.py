@@ -3,9 +3,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from .import forms
 from .models import ProjectManager, TeamMember, Project, Category, Task
-from django.contrib.auth.models import User
+from users.models import User
 from .forms import ProjectForm, TaskForm, NewTeamMemberForm
-from django.core.exceptions import ObjectDoesNotExist
+# from django.core.exceptions import DoesNotExist
+from django.contrib import messages
+
 
 
 def dashboard(request):
@@ -16,10 +18,10 @@ def dashboard(request):
 
 def project(request, pk):
     project = Project.objects.get(pk=pk)
-    tasks = Task.objects.filter(project=project)
+    # tasks = Task.objects.filter(project=project)
     projects = Project.objects.all()
-    projectmanager = ProjectManager.objects.filter(project=project.owner) 
-    team_member = TeamMember.objects.filter(project=project.team_members)
+    # projectmanager = ProjectManager.objects.filter(project=project.owner) 
+    # team_member = TeamMember.objects.filter(project=project.team_members)
     return render(request, 'core/project.html', {'project': project, 'pk': pk})
     
 
@@ -81,30 +83,30 @@ def delete_task(request, pk):
 
 def new_team_member(request, pk):
     project = get_object_or_404(Project, pk=pk)
-    # user= User.objects.get(username=request.user.username)
+    user = request.user
     team_member = TeamMember(project.pk)
-    form = NewTeamMemberForm(request.POST) 
+    # form = NewTeamMemberForm(request.POST) 
     if request.method == "POST":
-        try:
-           add_tm = User.objects.get(username=request.POST['team_member'])
-        except ObjectDoesNotExist:
-            form = NewTeamMemberForm()
-            return render(request, 'core/new_team_member.html', {'form': form, 'type': 'new_team_member', 'message': "That team member not found"})
-        if TeamMember.objects.filter(team_member=add_tm, project=project):
-            form = NewTeamMemberForm()
-            return render(request, 'core/new_team_member.html', {'form': form, 'type': 'new_team_member','message': "You've already added that user as a team member"})
-        else:
-            new_team_member = TeamMember(project=project, new_team_member=add_tm)
-            new_team_member.save()
-            return redirect('project', pk=project.pk)
-    else:
-        form = NewTeamMemberForm(request.POST)
+        form = NewTeamMemberForm(request.POST) 
         if form.is_valid():
-            form.save()
+            new_team_member = form.save(commit=False)
+            try:
+                team_member = TeamMember.objects.get(name=new_team_member.name, company=new_team_member.company)
+
+            except TeamMember.DoesNotExist:
+                new_team_member.project = project
+                new_team_member.team_member = user
+                form.save()
+                return redirect('project', pk=project.pk)
+            else:
+                print('user exists')
+                messages.warning(request, "This user already exists")
+                form = NewTeamMemberForm()
+                return render(request, 'core/new_team_member.html', {'form':form, 'project': project})
+    else:
+        form = NewTeamMemberForm()
         return render(request, 'core/new_team_member.html', {'form':form, 'project': project})
-    # else:
-    #     form = NewTeamMemberForm()
-    return render(request, 'dashboard', {'form': form})
+
 
 def edit_team_member(request, pk):
     team_member = get_object_or_404(TeamMember, pk=pk)

@@ -26,7 +26,7 @@ class TeamMember(models.Model):
 	name = models.CharField(max_length=100)
 	company = models.CharField(max_length=50, blank=True)
 	join_project = models.BooleanField(default=True)
-	team_member = models.ForeignKey(User, on_delete=models.CASCADE, related_name='team_members')
+	team_member = models.ForeignKey(User, on_delete=models.CASCADE, related_name='team_members', default=1)
 
 	def __str__(self):
 		return f' Name:{self.name}, {self.title}, {self.company}'
