@@ -51,7 +51,8 @@ def delete_project(request, pk):
 
 def new_task(request, pk):  
     project = get_object_or_404(Project, pk=pk)
-    form = TaskForm(request.POST, instance=task) 
+    task = Task(project=project)
+    form = TaskForm(request.POST) 
     if request.method == "POST":  
         if form.is_valid():
             task = form.save()
