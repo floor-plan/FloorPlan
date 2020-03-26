@@ -5,6 +5,8 @@ from .import forms
 from .models import ProjectManager, TeamMember, Project, Category, Task
 from django.contrib.auth.models import User
 from .forms import ProjectForm, TaskForm, NewTeamMemberForm
+from django.core.exceptions import ObjectDoesNotExist
+
 
 def dashboard(request):
     projects = Project.objects.all()
@@ -14,10 +16,10 @@ def dashboard(request):
 
 def project(request, pk):
     project = Project.objects.get(pk=pk)
-    # tasks = Task.objects.filter(project=project)
-    # projects = Project.objects.all()
-    # projectmanager = ProjectManager.objects.filter(project=project.owner) 
-    # team_member = TeamMember.objects.filter(project=project.team_members)
+    tasks = Task.objects.filter(project=project)
+    projects = Project.objects.all()
+    projectmanager = ProjectManager.objects.filter(project=project.owner) 
+    team_member = TeamMember.objects.filter(project=project.team_members)
     return render(request, 'core/project.html', {'project': project, 'pk': pk})
     
 
@@ -84,7 +86,7 @@ def new_team_member(request, pk):
     form = NewTeamMemberForm(request.POST) 
     if request.method == "POST":
         try:
-            add_tm = User.objects.get(username=request.POST['teammember'])
+           add_tm = User.objects.get(username=request.POST['team_member'])
         except ObjectDoesNotExist:
             form = NewTeamMemberForm()
             return render(request, 'core/new_team_member.html', {'form': form, 'type': 'new_team_member', 'message': "That team member not found"})
@@ -99,10 +101,10 @@ def new_team_member(request, pk):
         form = NewTeamMemberForm(request.POST)
         if form.is_valid():
             form.save()
-        return render(request, 'core/new_team_member.html', {'form': form, 'pk':pk})
+        return render(request, 'core/new_team_member.html', {'form':form, 'project': project})
     # else:
     #     form = NewTeamMemberForm()
-    return render(request, 'core/new_team_member.html', {'form': form})
+    return render(request, 'dashboard', {'form': form})
 
 def edit_team_member(request, pk):
     team_member = get_object_or_404(TeamMember, pk=pk)

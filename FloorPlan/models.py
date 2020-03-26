@@ -1,8 +1,9 @@
 from phone_field import PhoneField
 from django.db import models
-# from users.models import User
 from model_utils import Choices
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from users.models import User
+
 
 
 class ProjectManager(models.Model):
@@ -25,13 +26,7 @@ class TeamMember(models.Model):
 	name = models.CharField(max_length=100)
 	company = models.CharField(max_length=50, blank=True)
 	join_project = models.BooleanField(default=True)
-	# May need to remove following 4 lines
-	# category = models.ForeignKey(
-	# 	Category, on_delete=models.CASCADE, related_name='team_members')
-	# role = models.ForeignKey(
-	# 	Role, on_delete=CASCADE, related_name='team_members')
-	# task = models.ForeignKey(
-	# 	Task, on_delete=models.CASCADE, related_name='team_members')
+	team_member = models.ForeignKey(User, on_delete=models.CASCADE, related_name='team_members')
 
 	def __str__(self):
 		return f' Name:{self.name}, {self.title}, {self.company}'
@@ -65,7 +60,7 @@ class Category(models.Model):
 	member = models.ForeignKey(
 		TeamMember, on_delete=models.CASCADE, related_name='categories')
 	project = models.ForeignKey(
-        Project, on_delete=models.CASCADE, related_name='categories', default='')
+    Project, on_delete=models.CASCADE, related_name='categories', default='')
 
 	
 	def __str__(self):
