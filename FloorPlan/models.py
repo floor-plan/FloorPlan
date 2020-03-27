@@ -82,9 +82,10 @@ class Task(models.Model):
 		TeamMember, on_delete=models.CASCADE, related_name='tasks', default='')
 	project = models.ForeignKey(
 		Project, on_delete=models.CASCADE, related_name="tasks", default=1)
+		# This is adding all tasks to project 1 - can't get the pk attached with the default in tact
 
 	def __str__(self):
-		return {self.task} 
+		return f"{self.task.pk} => {self.project.pk}" 
 
 
 
