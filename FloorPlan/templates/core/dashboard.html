@@ -10,9 +10,6 @@
         <a href="{% url 'delete-project' pk=project.pk %}">Delete Project</a>
         <a href="{% url 'delete-team-member' pk=member.pk %}">Delete Team Member</a>
 
-        <!-- path('delete-task/<int:pk>/', views.delete_task, name='delete_task'), -->
-        <!-- path('delete-project/<int:pk>/', views.delete_project, name='delete_project'), -->
-        <!-- delete-team-member/<int:pk>/', views.delete_team_member, name='delete_team_member'), -->
     </div>
     {% endfor %}
 </div>

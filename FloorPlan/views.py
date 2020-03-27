@@ -37,16 +37,27 @@ def new_project(request):
     return render(request, 'core/new_project.html', {'form': form,})
     
 def edit_project(request, pk):
-    project = get_object_or_404(Project, pk=pk)
-    if request.method == 'POST':
-        form = ProjectForm(request.POST, instance=project)
-        if form.is_valid():
-            project = form.save()
-            form.save()
-            return redirect('dashboard')
+    if request.method == 'GET':
+        return render(request, 'core/edit_project.html', {'form':form})
     else:
-        form = ProjectForm(instance=project)
-    return render(request, 'core/edit_project.html', {'form': form})
+        try:
+            form = ProjectForm(request.POST)
+            editproject = form.save(commit=False)
+            editproject.save()
+            return redirect('dashboard')
+        except ValueError:
+            return render(request, 'core/edit_project.html', {'form':form})
+            
+    # project = get_object_or_404(Project, pk=pk)
+    # if request.method == 'POST':
+    #     form = ProjectForm(request.POST, instance=project)
+    #     if form.is_valid():
+    #         project = form.save()
+    #         form.save()
+    #         return redirect('dashboard')
+    # else:
+    #     form = ProjectForm(instance=project)
+    # return render(request, 'core/edit_project.html', {'form': form})
 
 def delete_project(request, pk):
     project = get_object_or_404(Project, pk=pk)
