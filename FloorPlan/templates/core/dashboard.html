@@ -1,15 +1,19 @@
 {% extends 'base.html'%}{% load static %} {% block content %}
 
+<p>Our user is: {{request.user.username}}</p>
+<!-- <p>Assignee is: {{task.assignee}}</p> -->
+
 
 <h2>Tasks</h2>
 <div class="task-container">
     {% for task in tasks %}
+    {% if task.assignee == user %}
     <div class='task'>
         <p class='task-text'> {{task.pk|capfirst}} {{task.task}}{{task.due_date}}{{task.assignee}}</p>
         <a class="small-button" href="{% url 'edit_task' task.pk %}">Edit Task</a>
         <a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
-
     </div>
+    {% endif %}
     {% endfor %}
 </div>
 <p>View All</p>
