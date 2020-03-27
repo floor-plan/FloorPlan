@@ -46,7 +46,7 @@ class Project(models.Model):
 
 
 class Role(models.Model):
-	RoleType = models.TextChoices('RoleType', 'SUPPLIER SUB-CONTRACTOR HOMEOWNER')
+	RoleType = models.TextChoices('RoleType', 'PROJECT-MANAGER SUPPLIER SUB-CONTRACTOR HOMEOWNER')
 	role = models.CharField(blank=False, choices=RoleType.choices, max_length=30)
 	member = models.ForeignKey(
 		TeamMember, on_delete=models.CASCADE, related_name='roles')
@@ -55,7 +55,7 @@ class Role(models.Model):
 		return self.role
 
 class Category(models.Model):
-	CategoryType = models.TextChoices('CategoryType', 'PLUMBING ELECTRICAL MASONRY FRAMING ROOFING')
+	CategoryType = models.TextChoices('CategoryType', 'PLUMBING ELECTRICAL MASONRY FRAMING ROOFING HOMEOWNER')
 	category = models.CharField(blank=False, choices=CategoryType.choices, max_length=30, default='misc')
 	member = models.ForeignKey(
 		TeamMember, on_delete=models.CASCADE, related_name='categories')
@@ -74,6 +74,7 @@ class Category(models.Model):
 
 class Task(models.Model):
 	task = models.TextField(max_length=300)
+	pk = Project.pk
 	category = models.ForeignKey(
 		Category, on_delete=models.CASCADE, related_name='tasks')
 	role = models.ForeignKey(
@@ -81,10 +82,11 @@ class Task(models.Model):
 	assignee = models.ForeignKey(
 		TeamMember, on_delete=models.CASCADE, related_name='tasks', default='')
 	project = models.ForeignKey(
-		Project, on_delete=models.CASCADE, related_name="tasks", default=1)
+		Project, on_delete=models.CASCADE, related_name="tasks")
+
 
 	def __str__(self):
-		return {self.task} 
+		return f"{self.task.pk} => {self.project.pk}" 
 
 
 
