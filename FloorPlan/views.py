@@ -9,7 +9,7 @@ from .forms import ProjectForm, TaskForm, NewTeamMemberForm
 from django.contrib import messages
 
 
-
+@login_required
 def dashboard(request):
     projects = Project.objects.all()
     user = User.objects.get(username=request.user.username)
