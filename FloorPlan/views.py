@@ -78,14 +78,33 @@ def new_task(request, pk):
 
 def edit_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
+    form = TaskForm(request.POST, instance=task)
     if request.method == "POST":
-        form = TaskForm(request.POST, instance=task)
+        
         if form.is_valid():
-            task = form.save()
-            return redirect('project', pk=project.pk)
+            form.save()
+            return redirect('dashboard')
         else:
             form = TaskForm(instance=task)
-    return render(request, 'core/edit_task.html', {'form': form, 'pk': pk})
+
+
+    return render(request, 'core/edit_task.html', {'form': form, 'pk':pk, 'task': task})
+
+
+
+# def edit_habit(request, pk):
+#     habit = get_object_or_404(Habit, pk=pk)
+
+#     if request.method == 'POST':
+#         form = HabitForm(request.POST, instance=habit)
+#         if form.is_valid():
+#             form.save()
+
+#             return redirect('home')
+#     else:
+#         form = HabitForm(instance=habit)
+
+#     return render(request, 'core/edit_habit.html', {"form": form})    
 
 def delete_task(request, pk):
     task = get_object_or_404(Task, pk=pk)

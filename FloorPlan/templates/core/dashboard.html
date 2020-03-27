@@ -6,6 +6,7 @@
     {% for task in tasks %}
     <div class='task'>
         <p class='task-text'> {{task.pk|capfirst}} {{task.task}}{{task.due_date}}{{task.assignee}}</p>
+        <a class="small-button" href={% url 'edit_task' task.pk %}>Edit</a>
         <a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
         <a href="{% url 'delete-project' pk=project.pk %}">Delete Project</a>
         <a href="{% url 'delete-team-member' pk=member.pk %}">Delete Team Member</a>
@@ -25,10 +26,7 @@
     <div class='project boxshadow'>
         <p class='project-text'> Project {{project.pk}} {{project.name | capfirst}}</p>
         <div class='project-link-container'>
-            <a class='project-link' href="{% url 'project' pk=project.pk %}">Details</a> {% comment %} <a
-                class='project-link' href="{% url 'google.com' pk=project.pk %}">Manage Team</a> {% endcomment %}
-            {% comment %}
-            {% endcomment %}
+            <a class='project-link' href="{% url 'project' pk=project.pk %}">Details</a> {% comment %} <a class='project-link' href="{% url 'google.com' pk=project.pk %}">Manage Team</a> {% endcomment %} {% comment %} {% endcomment %}
         </div>
 
     </div>
