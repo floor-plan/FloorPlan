@@ -1,24 +1,40 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /> {
-    % load static %
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
-<script src="{% static 'main.js' %}" defer></script><link href="https://fonts.googleapis.com/css?family=Oswald|Saira+Condensed:700&display=swap" rel="stylesheet" /><link rel="stylesheet" href="{% static 'CSS/styles.css' %}" /> {
-    % block title %
+:root {
+    --dark-brown: #5b3000;
+    --light-brown: #66462c;
+    --background-color: #dce0d9;
+    --dark-gray: #595959;
+    --green-gray: #808f85;
+    /* categories for users */
+    --plumbing: #3399ff;
+    --electrical: #ff3300;
+    --project-manager: #cc0033;
+    --homeowner: #ffd803;
+    /* --default-fonts:  */
 }
 
-<title>FloorPlan</title> {
-    % endblock %
+body {
+    background-color: var(--background-color);
+    color: var(--dark-gray);
+    /* font-family: var(--default-fonts); */
 }
 
-</head><header><div><a class="floor-plan-text" href="{% url 'dashboard' %}">FloorPlan</a></div><div class="logout-container header"><a class="logout" href="/accounts/login/">Login </a></div><div class="logout-container header"><a class="logout" href="/accounts/logout/">Logout </a></div><div class="logout-container header"><a class="logout" href="/accounts/register/">Register </a></div><!-- <div class="search-bar"><form action="" method="GET" id="search-form"><input type="text" id="search" name="q" placeholder="Search for a project..." value="{{query}}" /></form></div>--></header><body> {
-    % block content %
+a:link {
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    color: none;
 }
 
-{
-    % endblock %
+a:visited {
+    text-decoration: none;
 }
 
-</body></html> {
+a:hover {
     text-decoration: none;
     color: red;
 }
