@@ -80,10 +80,11 @@ class Task(models.Model):
 		Role, on_delete=models.CASCADE, related_name='tasks', default='')
 	assignee = models.ForeignKey(
 		TeamMember, on_delete=models.CASCADE, related_name='tasks', default='')
-	# project = models.ForeignKey(Project, related_name="tasks", on_delete=models.CASCADE, default=0)
+	project = models.ForeignKey(
+		Project, on_delete=models.CASCADE, related_name="tasks", default=1)
 
 	def __str__(self):
-		return f'{self.task} done by {self.assignee} => {self.role}'
+		return {self.task} 
 
 
 
