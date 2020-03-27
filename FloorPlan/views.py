@@ -18,11 +18,11 @@ def dashboard(request):
 
 def project(request, pk):
     project = Project.objects.get(pk=pk)
-    # tasks = Task.objects.filter(project=project)
+    tasks = Task.objects.filter(project=project)
     projects = Project.objects.all()
     # projectmanager = ProjectManager.objects.filter(project=project.owner) 
     # team_member = TeamMember.objects.filter(project=project.team_members)
-    return render(request, 'core/project.html', {'project': project, 'pk': pk})
+    return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'pk': pk})
     
 
 def new_project(request):
@@ -98,7 +98,7 @@ def edit_task(request, pk):
 def delete_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
     task.delete()
-    return redirect('dashboard')
+    return redirect('project', pk=pk)
 
 def new_team_member(request, pk):
     project = get_object_or_404(Project, pk=pk)
