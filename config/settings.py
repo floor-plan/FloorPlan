@@ -139,7 +139,9 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+SIMPLE_BACKEND_REDIRECT_URL = '/'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ACCOUNT_ACTIVATION_DAYS = 1
 

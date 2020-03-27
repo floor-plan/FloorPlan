@@ -12,9 +12,10 @@ from django.contrib import messages
 
 def dashboard(request):
     projects = Project.objects.all()
+    user = User.objects.get(username=request.user.username)
     tasks = Task.objects.all()
-
-    return render(request, "core/dashboard.html", {'projects': projects, 'tasks': tasks})
+    assignee = Task.objects.filter(assignee=user)
+    return render(request, "core/dashboard.html", {'projects': projects, 'tasks': tasks, 'user':user})
 
 def project(request, pk):
     project = Project.objects.get(pk=pk)

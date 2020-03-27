@@ -74,19 +74,18 @@ class Category(models.Model):
 
 class Task(models.Model):
 	task = models.TextField(max_length=300)
-	pk = Project.pk
 	category = models.ForeignKey(
 		Category, on_delete=models.CASCADE, related_name='tasks')
 	role = models.ForeignKey(
 		Role, on_delete=models.CASCADE, related_name='tasks', default='')
 	assignee = models.ForeignKey(
-		TeamMember, on_delete=models.CASCADE, related_name='tasks', default='')
+		User, on_delete=models.CASCADE, related_name='tasks', default='')
 	project = models.ForeignKey(
 		Project, on_delete=models.CASCADE, related_name="tasks")
 
 
 	def __str__(self):
-		return f"{self.task.pk} => {self.project.pk}" 
+		return f'{self.task} => {self.project}, {self.assignee}' 
 
 
 
