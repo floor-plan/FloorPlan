@@ -4,6 +4,7 @@
 
 <a href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
 <a href="{% url 'new_team_member' pk=project.pk %}">Add New Team Member</a>
+<a class="small-button" href="{% url 'edit_project' pk=project.pk %}">Edit Project</a>
 
 <div class="task-container">
     <a href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
@@ -13,7 +14,7 @@
         {% for task in tasks %}
         <div class='task'>
             <p class='task-text'> {{task.task|capfirst}}{{task.due_date}}{{task.assignee}}</p>
-            <a class="small-button" href={% url 'edit_task' task.pk %}>Edit</a>
+            <a class="small-button" href="{% url 'edit_task' pk=task.pk %}">Edit Task</a>
             <a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
         </div>
         {% endfor %}
@@ -21,4 +22,3 @@
 </div>
 
 {% endblock %}
-

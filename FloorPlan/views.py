@@ -36,7 +36,19 @@ def new_project(request):
 
     return render(request, 'core/new_project.html', {'form': form,})
     
-def edit_project(request, pk):
+# def edit_project(request, pk): 
+#     if request.method == 'GET':
+#         return render(request, 'core/edit_project.html', {'form':form})
+#     else:
+#         try:
+#             form = ProjectForm(request.POST)
+#             editproject = form.save(commit=False)
+#             editproject.save()
+#             return redirect('dashboard')
+#         except ValueError:
+#             return render(request, 'core/edit_project.html', {'form':form})
+
+def edit_project(request, pk):         
     project = get_object_or_404(Project, pk=pk)
     if request.method == 'POST':
         form = ProjectForm(request.POST, instance=project)
@@ -47,6 +59,7 @@ def edit_project(request, pk):
     else:
         form = ProjectForm(instance=project)
     return render(request, 'core/edit_project.html', {'form': form})
+    
 
 def delete_project(request, pk):
     project = get_object_or_404(Project, pk=pk)
@@ -67,16 +80,13 @@ def new_task(request, pk):
 
 def edit_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
-    form = TaskForm(request.POST, instance=task)
     if request.method == "POST":
-        
+        form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
             return redirect('dashboard')
-        else:
-            form = TaskForm(instance=task)
-
-
+    else:
+        form = TaskForm(instance=task)
     return render(request, 'core/edit_task.html', {'form': form, 'pk':pk, 'task': task})
 
 
