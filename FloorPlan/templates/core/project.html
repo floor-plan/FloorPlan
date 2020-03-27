@@ -1,23 +1,18 @@
-{% extends 'base.html'%}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <h1>{{project.name}}</h1>
 
-
 <a href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
 
-
-{% for task in tasks %}
-
 <div class="task-container">
-    <div class='task'>
-        <p class='task-text'> {{task.pk|capfirst}} {{task.task}}{{task.due_date}}{{task.assignee}}</p>
+    {% for task in tasks %}
+
+    <div class="task">
+        <p class="task-text">
+            {{task.pk|capfirst}} {{task.task}}{{task.due_date}}{{task.assignee}}</p>
+        <a class="small-button" href={% url 'edit_task' task.pk %}>Edit</a>
     </div>
 </div>
-{% endfor %}
-
-
-{% endblock %}
+{% endfor %} {% endblock %}
 
 <a href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
