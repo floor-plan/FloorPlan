@@ -80,16 +80,13 @@ def new_task(request, pk):
 
 def edit_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
-    form = TaskForm(request.POST, instance=task)
     if request.method == "POST":
-        
+        form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
             return redirect('dashboard')
-        else:
-            form = TaskForm(instance=task)
-
-
+    else:
+        form = TaskForm(instance=task)
     return render(request, 'core/edit_task.html', {'form': form, 'pk':pk, 'task': task})
 
 
