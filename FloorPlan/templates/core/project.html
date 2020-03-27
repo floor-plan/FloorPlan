@@ -12,26 +12,24 @@
     <div class="task">
         <p class="task-text">
             {{task.pk|capfirst}} {{task.task}}{{task.due_date}}{{task.assignee}}</p>
-        
+
     </div>
 </div>
 {% endfor %} {% endblock %}
 
 <a href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
 
-    <div class='task'>
-        <p class='task-text'> {{task.pk|capfirst}} {{task.task}}{{task.due_date}}{{task.assignee}}</p>
-        <a class="small-button" href={% url 'edit_task' task.pk %}>Edit</a>
-        <a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
-        <a href="{% url 'delete_project' pk=project.pk %}">Delete Project</a>
-        <a href="{% url 'delelte_team_member' pk=member.pk %}">Delete Team Member</a>
+<div class='task'>
+    <p class='task-text'> {{task.pk|capfirst}} {{task.task}}{{task.due_date}}{{task.assignee}}</p>
+    <a class="small-button" href="{% url 'edit_task' pk=task.pk %}">Edit</a>
+    <a class="small-button" href="{% url 'edit_project' pk=project.pk %}">Edit Project</a>
+    <a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
+    <a href="{% url 'delete_project' pk=project.pk %}">Delete Project</a>
+    <a href="{% url 'delelte_team_member' pk=member.pk %}">Delete Team Member</a>
 
-
-
-    </div>
+</div>
 </div>
 {% endfor %}
 
 
 {% endblock %}
-
