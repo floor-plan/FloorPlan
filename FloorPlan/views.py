@@ -34,12 +34,14 @@ def new_project(request):
         form =  ProjectForm(request.POST)
         if form.is_valid():
             project = form.save()
-            return redirect('dashboard')
+            return redirect('project', project.pk)
     else:
         form = ProjectForm()
 
     return render(request, 'core/new_project.html', {'form': form,})
-    
+
+
+
 # def edit_project(request, pk): 
 #     if request.method == 'GET':
 #         return render(request, 'core/edit_project.html', {'form':form})
