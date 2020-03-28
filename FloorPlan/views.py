@@ -32,13 +32,15 @@ def dashboard(request):
     assignee = Task.objects.filter(assignee=user)
     return render(request, "core/dashboard.html", {'projects': projects, 'tasks': tasks, 'user':user})
 
+@login_required
 def project(request, pk):
     project = Project.objects.get(pk=pk)
     tasks = Task.objects.filter(project=project)
-    users = User.objects.all()
+    users = User.objects.filer(project=project)
     return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'users':users,'pk': pk})
     
 
+@login_required
 def new_project(request):
     if request.method == "POST":
         form =  ProjectForm(request.POST)
@@ -64,6 +66,7 @@ def new_project(request):
 #         except ValueError:
 #             return render(request, 'core/edit_project.html', {'form':form})
 
+@login_required
 def edit_project(request, pk):         
     project = get_object_or_404(Project, pk=pk)
     if request.method == 'POST':
@@ -77,11 +80,14 @@ def edit_project(request, pk):
     return render(request, 'core/edit_project.html', {'form': form})
     
 
+@login_required
 def delete_project(request, pk):
     project = get_object_or_404(Project, pk=pk)
     project.delete()
     return redirect('dashboard')
 
+
+@login_required
 def new_task(request, pk):  
     project = get_object_or_404(Project, pk=pk)
     form = TaskForm(request.POST) 
@@ -95,6 +101,8 @@ def new_task(request, pk):
             form = TaskForm(instance=task)
     return render(request, 'core/newtask.html', {'form': form,'task': task, 'project':project})  
 
+
+@login_required
 def edit_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
     if request.method == "POST":
@@ -123,11 +131,14 @@ def edit_task(request, pk):
 
 #     return render(request, 'core/edit_habit.html', {"form": form})    
 
+@login_required
 def delete_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
     task.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
+
+@login_required
 def new_team_member(request, pk):
     project = get_object_or_404(Project, pk=pk)
     user = request.user
@@ -155,6 +166,7 @@ def new_team_member(request, pk):
         return render(request, 'core/new_team_member.html', {'form':form, 'project': project})
 
 
+@login_required
 def edit_team_member(request, pk):
     team_member = get_object_or_404(TeamMember, pk=pk)
     if request.method == "POST":
@@ -166,6 +178,8 @@ def edit_team_member(request, pk):
             form = NewTeamMemberForm(instance=team_member)
     return render(request, 'core/edit_team_member.html', {'form': form, 'pk':pk})
 
+
+@login_required
 def delete_team_member(request, pk):
     team_member = get_object_or_404(TeamMember, pk=pk)
     team_member.delete()
