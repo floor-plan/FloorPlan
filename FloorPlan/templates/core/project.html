@@ -4,23 +4,29 @@
 <h2>Address: {{project.address}}</h2>
 <h3>Lot: {{project.lot}}</h3>
 
-<a href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
-<a href="{% url 'new_team_member' pk=project.pk %}">Add New Team Member</a>
 <a class="small-button" href="{% url 'edit_project' pk=project.pk %}">Edit Project</a
 >
+<a class="small-button" href="{% url 'delete_project' pk=project.pk %}">Delete Project</a
+>
 
+<h2>Tasks</h2>
+<a href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
 <div class="task-container">
-    <h2>Tasks</h2>
-    <div class="task-container">
-        {% for task in tasks %}
-        <div class="task">
-            <p class="task-text">
-                {{task.task|capfirst}}{{task.due_date}}{{task.assignee}}</p>
-            <a class="small-button" href="{% url 'edit_task' pk=task.pk %}">Edit Task</a
-      >
-      <a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
-        </div>
-        {% endfor %}
+    {% for task in tasks %}
+    <div class="task">
+        <p class="task-text">
+            {{task.task|capfirst}}{{task.due_date}}{{task.assignee}}</p>
+        <a class="small-button" href="{% url 'edit_task' pk=task.pk %}">Edit Task</a
+    >
+    <a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="team-container">
+    <h2>Team</h2>
+    <div class="team-member">
+        <a href="{% url 'new_team_member' pk=project.pk %}">Add New Team Member</a>
     </div>
 </div>
 

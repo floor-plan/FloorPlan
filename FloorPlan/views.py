@@ -70,15 +70,16 @@ def delete_project(request, pk):
 
 def new_task(request, pk):  
     project = get_object_or_404(Project, pk=pk)
-    # task = Task(project=project)
     form = TaskForm(request.POST) 
+    task = None
     if request.method == "POST":  
         if form.is_valid():
+            projectpk = form.cleaned_data['project'].pk
             task = form.save()
-            return redirect('project', pk=project.pk) 
-        else:
+            return redirect('project', projectpk) 
+    else:
             form = TaskForm(instance=task)
-    return render(request, 'core/newtask.html', {'form': form,'project':project})  
+    return render(request, 'core/newtask.html', {'form': form,'task': task, 'project':project})  
 
 def edit_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
