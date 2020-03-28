@@ -6,23 +6,9 @@ from users.models import User
 from django.utils import timezone
 
 
-class Project(models.Model):
-	name = models.CharField(max_length=100, blank=True) 
-	created_at = models.DateTimeField(auto_now_add=True)
-	address = models.CharField(max_length=400, blank=False)
-	lot_number = models.CharField(max_length=100, blank=True)
-	owner = models.ForeignKey(
-		User, on_delete=models.CASCADE, related_name='projects')
-	team_members = models.ManyToManyField(User)
-
-	def __str__(self):
-		return f'Address and/or Lot number:{self.address}, {self.lot_number}'
-
-
 class Category(models.Model):
-	project = models.ForeignKey(
-    	Project, on_delete=models.CASCADE, related_name='categories', default='')
-
+	ProjectCategory = models.TextChoices('ProjectCategory', 'PLUMBING ELECTRICAL MASONRY FRAMING ROOFING HOMEOWNER')
+	category = models.CharField(choices=ProjectCategory.choices, max_length=30, default='HOMEOWNER')
 	
 	def __str__(self):
 		return self.category
@@ -32,6 +18,17 @@ class Category(models.Model):
 	# 	fields=['category', 'project'], name='unique_team'),
 	# 	]
 		
+class Project(models.Model):
+	name = models.CharField(max_length=100, blank=True) 
+	created_at = models.DateTimeField(auto_now_add=True)
+	address = models.CharField(max_length=400, blank=False)
+	lot_number = models.CharField(max_length=100, blank=True)
+	owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='projects')
+	team_members = models.ManyToManyField(User)
+	category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='categories', default='')
+
+	def __str__(self):
+		return f'Address and/or Lot number:{self.address}, {self.lot_number}'
 
 
 class Task(models.Model):
