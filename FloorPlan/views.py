@@ -111,7 +111,7 @@ def edit_task(request, pk):
 def delete_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
     task.delete()
-    return redirect('project',pk)
+    return redirect('dashboard')
 
 def new_team_member(request, pk):
     project = get_object_or_404(Project, pk=pk)

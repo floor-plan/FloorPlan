@@ -82,6 +82,8 @@ class Task(models.Model):
 		User, on_delete=models.CASCADE, related_name='tasks', default='')
 	project = models.ForeignKey(
 		Project, on_delete=models.CASCADE, related_name="tasks")
+	due_date = date
+	created_at = models.TimeField(verbose_name=None, name=None, auto_now=True, auto_now_add=False, **kwargs)
 
 
 	def __str__(self):
