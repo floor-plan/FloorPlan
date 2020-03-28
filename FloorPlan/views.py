@@ -7,6 +7,8 @@ from users.models import User
 from .forms import ProjectForm, TaskForm, NewTeamMemberForm
 # from django.core.exceptions import DoesNotExist
 from django.contrib import messages
+from django.http import HttpResponseRedirect
+
 
 
 
@@ -112,7 +114,7 @@ def edit_task(request, pk):
 def delete_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
     task.delete()
-    return redirect('dashboard')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def new_team_member(request, pk):
     project = get_object_or_404(Project, pk=pk)
