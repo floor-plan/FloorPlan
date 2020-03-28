@@ -35,10 +35,8 @@ def dashboard(request):
 def project(request, pk):
     project = Project.objects.get(pk=pk)
     tasks = Task.objects.filter(project=project)
-    # projects = Project.objects.all()
-    # projectmanager = ProjectManager.objects.filter(project=project.owner) 
-    # team_member = TeamMember.objects.filter(project=project.team_members)
-    return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'pk': pk})
+    users = User.objects.all()
+    return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'users':users,'pk': pk})
     
 
 def new_project(request):
