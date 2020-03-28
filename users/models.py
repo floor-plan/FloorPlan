@@ -15,7 +15,8 @@ class User(AbstractUser):
     is_project_manager = models.BooleanField(default=False)
                 
     def __str__(self):
-        return f'User: {self.username}, {self.UserRole}, {self.UserCategory}'
+        return f'{self.username}'
+        # , {self.UserRole}, {self.UserCategory}
 
 
 

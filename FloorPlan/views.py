@@ -36,7 +36,7 @@ def dashboard(request):
 def project(request, pk):
     project = Project.objects.get(pk=pk)
     tasks = Task.objects.filter(project=project)
-    users = User.objects.filer(project=project)
+    users = User.objects.filter(project=project)
     return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'users':users,'pk': pk})
     
 
