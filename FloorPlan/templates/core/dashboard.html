@@ -3,18 +3,16 @@
 <p>Our user is: {{request.user.username}}</p>
 <!-- <p>Assignee is: {{task.assignee}}</p> -->
 
-
 <h2>Tasks</h2>
 <div class="task-container">
-    {% for task in tasks %}
-    {% if task.assignee == user %}
-    <div class='task'>
-        <p class='task-text'> {{task.pk|capfirst}} {{task.task}}{{task.due_date}}{{task.assignee}}</p>
-        <a class="small-button" href="{% url 'edit_task' task.pk %}">Edit Task</a>
-        <a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
+    {% for task in tasks %} {% if task.assignee == user %}
+    <div class="task">
+        <p class="task-text">
+            {{task.pk|capfirst}} {{task.task}}{{task.due_date}}{{task.assignee}}</p>
+        <!-- <a class="small-button" href="{% url 'edit_task' task.pk %}">Edit Task</a>
+        <a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a> -->
     </div>
-    {% endif %}
-    {% endfor %}
+    {% endif %} {% endfor %}
 </div>
 <p>View All</p>
 
@@ -24,16 +22,20 @@
 <div class="project-container">
     {% for project in projects %}
 
-    <div class='project boxshadow'>
-        <p class='project-text'> Project {{project.pk}} {{project.name | capfirst}}</p>
-        <div class='project-link-container'>
-            <a class='project-link' href="{% url 'project' pk=project.pk %}">Details</a> {% comment %} <a
-                class='project-link' href="{% url 'google.com' pk=project.pk %}">Manage Team</a> {% endcomment %}
-
-        </div>
-
+    <div class="project boxshadow">
+        <p class="project-text">
+            Project {{project.pk}} {{project.name | capfirst}}</p>
+        <div class="project-link-container">
+            <a class="project-link" href="{% url 'project' pk=project.pk %}">Details</a
+      >
+      {% comment %}
+      <a class="project-link" href="{% url 'google.com' pk=project.pk %}"
+        >Manage Team</a
+      >
+      {% endcomment %}
     </div>
-    {% endfor %}
+  </div>
+  {% endfor %}
 </div>
 <p>View All</p>
 

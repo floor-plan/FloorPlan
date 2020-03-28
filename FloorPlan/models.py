@@ -3,6 +3,7 @@ from django.db import models
 from model_utils import Choices
 # from django.contrib.auth.models import User
 from users.models import User
+from django.utils import timezone
 
 
 class Project(models.Model):
@@ -43,10 +44,10 @@ class Task(models.Model):
 		Project, on_delete=models.CASCADE, related_name="tasks")
 	#completed as boolean?
 
-
 	def __str__(self):
 		return f'{self.task} => {self.project}, {self.assignee}'
 		
+
 
 
 

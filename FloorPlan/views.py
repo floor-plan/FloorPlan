@@ -7,6 +7,7 @@ from users.models import User
 from .forms import ProjectForm, TaskForm
 # from django.core.exceptions import DoesNotExist
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
 
@@ -21,6 +22,7 @@ def sign_up(request):
         login(request, user)
         return redirect('dashboard')
     return render(request, 'sign_up.html', {'form': form})
+
 
 @login_required
 def dashboard(request):
@@ -44,12 +46,14 @@ def new_project(request):
         form =  ProjectForm(request.POST)
         if form.is_valid():
             project = form.save()
-            return redirect('dashboard')
+            return redirect('project', project.pk)
     else:
         form = ProjectForm()
 
     return render(request, 'core/new_project.html', {'form': form,})
-    
+
+
+
 # def edit_project(request, pk): 
 #     if request.method == 'GET':
 #         return render(request, 'core/edit_project.html', {'form':form})
@@ -69,7 +73,7 @@ def edit_project(request, pk):
         if form.is_valid():
             project = form.save()
             form.save()
-            return redirect('dashboard')
+            return redirect('project', pk)
     else:
         form = ProjectForm(instance=project)
     return render(request, 'core/edit_project.html', {'form': form})
@@ -82,15 +86,16 @@ def delete_project(request, pk):
 
 def new_task(request, pk):  
     project = get_object_or_404(Project, pk=pk)
-    # task = Task(project=project)
     form = TaskForm(request.POST) 
+    task = None
     if request.method == "POST":  
         if form.is_valid():
+            projectpk = form.cleaned_data['project'].pk
             task = form.save()
-            return redirect('project', pk=project.pk) 
-        else:
+            return redirect('project', projectpk) 
+    else:
             form = TaskForm(instance=task)
-    return render(request, 'core/newtask.html', {'form': form,'project':project})  
+    return render(request, 'core/newtask.html', {'form': form,'task': task, 'project':project})  
 
 def edit_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
@@ -123,7 +128,7 @@ def edit_task(request, pk):
 def delete_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
     task.delete()
-    return redirect('project',pk)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def new_team_member(request, pk):
     project = get_object_or_404(Project, pk=pk)

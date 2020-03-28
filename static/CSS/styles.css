@@ -85,7 +85,22 @@ h5 {
     display: flex;
     flex-flow: column;
     padding: 25px;
-    border: solid green 2px;
+    /* border: solid green 2px; */
+}
+
+.log-container {
+    display: flex;
+    flex-flow: row;
+    padding: 5px;
+    /* border: solid green 2px; */
+}
+
+.log-link {
+    display: flex;
+    flex-flow: column;
+    padding: 5px;
+    color: var(--dark-brown);
+    font-family: 'Saira Condensed', sans-serif;
 }
 
 .task {
@@ -95,7 +110,7 @@ h5 {
 .project-container {
     display: flex;
     flex-flow: column;
-    border: red 6px solid;
+    /* border: red 6px solid; */
     padding: 25px;
 }
 

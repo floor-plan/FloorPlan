@@ -11,19 +11,20 @@
 </head>
 
 <header>
-    <div>
+    <div class='log-container'>
         <a class="floor-plan-text" href="{% url 'dashboard' %}">FloorPlan</a>
-    </div>
-    <div class="logout-container header">
-        <a class="logout" href="/accounts/login/">Login </a>
-    </div>
-    <div class="logout-container header">
-        <a class="logout" href="/accounts/logout/">Logout </a>
-    </div>
-    <div class="logout-container header">
-        <a class="logout" href="/accounts/register/">Register </a>
-    </div>
-    <!-- <div class="search-bar">
+
+
+        <div class="log-link">
+            <a class="logout" href="/accounts/login/">Login </a>
+        </div>
+        <div class="log-link">
+            <a class="logout" href="/accounts/logout/">Logout </a>
+        </div>
+        <div class="log-link">
+            <a class="logout" href="/accounts/register/">Register </a>
+        </div>
+        <!-- <div class="search-bar">
         <form action="" method="GET" id="search-form">
             <input type="text" id="search" name="q" placeholder="Search for a project..." value="{{query}}" />
         </form>
