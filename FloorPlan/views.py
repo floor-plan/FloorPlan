@@ -9,6 +9,7 @@ from .forms import ProjectForm, TaskForm, NewTeamMemberForm
 from django.contrib import messages
 
 
+
 @login_required
 def dashboard(request):
     projects = Project.objects.all()
@@ -84,8 +85,9 @@ def edit_task(request, pk):
     if request.method == "POST":
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
+            projectpk = form.cleaned_data['project'].pk
             form.save()
-            return redirect('dashboard')
+            return redirect('project', projectpk)
     else:
         form = TaskForm(instance=task)
     return render(request, 'core/edit_task.html', {'form': form, 'pk':pk, 'task': task})
