@@ -1,5 +1,6 @@
 from django import forms
-from .models import ProjectManager, TeamMember, Project, Role, Category, Task
+from .models import Project, Category, Task
+
 
 
 class ProjectForm(forms.ModelForm):
@@ -11,12 +12,12 @@ class ProjectForm(forms.ModelForm):
 class TaskForm(forms.ModelForm):
   class Meta:
     model = Task
-    fields = ['project', 'task', 'category', 'role', 'assignee']
+    fields = ['project', 'task', 'category', 'assignee']
 
 
 
-class NewTeamMemberForm(forms.ModelForm):
-  class Meta:
-    model = TeamMember
-    fields = ['title', 'name', 'company', 'join_project']
+# class NewTeamMemberForm(forms.ModelForm):
+  # class Meta:
+  #   model = User
+  #   fields = ['role', 'category', 'is_project_manager']
 

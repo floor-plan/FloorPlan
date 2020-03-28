@@ -7,6 +7,7 @@ from FloorPlan import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
+    path('sign_up/', views.sign_up, name='sign_up'),
     path('', views.dashboard, name = 'dashboard'),
     path('project/<int:pk>', views.project, name='project'),
     path('new-project/', views.new_project, name='new_project'),
@@ -29,3 +30,8 @@ if settings.DEBUG:
         # For django versions before 2.0:
         # url(r'^__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
+
+#Add Django site authentication urls (for login, logout, password management)
+# urlpatterns += [
+#     path('accounts/', include('django.contrib.auth.urls')),
+# ]
