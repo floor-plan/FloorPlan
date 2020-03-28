@@ -57,7 +57,7 @@ def edit_project(request, pk):
         if form.is_valid():
             project = form.save()
             form.save()
-            return redirect('dashboard')
+            return redirect('project', pk)
     else:
         form = ProjectForm(instance=project)
     return render(request, 'core/edit_project.html', {'form': form})

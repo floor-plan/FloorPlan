@@ -3,6 +3,7 @@ from django.db import models
 from model_utils import Choices
 # from django.contrib.auth.models import User
 from users.models import User
+from django.utils import timezone
 
 
 
@@ -82,12 +83,10 @@ class Task(models.Model):
 		User, on_delete=models.CASCADE, related_name='tasks', default='')
 	project = models.ForeignKey(
 		Project, on_delete=models.CASCADE, related_name="tasks")
-	due_date = date
-	created_at = models.TimeField(verbose_name=None, name=None, auto_now=True, auto_now_add=False, **kwargs)
-
 
 	def __str__(self):
 		return f'{self.task} => {self.project}, {self.assignee}' 
+
 
 
 
