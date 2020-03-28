@@ -2,13 +2,25 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from .import forms
-from .models import ProjectManager, TeamMember, Project, Category, Task
+from .models import Project, Category, Task
 from users.models import User
-from .forms import ProjectForm, TaskForm, NewTeamMemberForm
+from .forms import ProjectForm, TaskForm
 # from django.core.exceptions import DoesNotExist
 from django.contrib import messages
+from django.contrib.auth import authenticate
+from django.contrib.auth.forms import UserCreationForm
 
 
+def sign_up(request):
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+        form.save()
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password1')
+        user = authenticate(username=username, password=password)
+        login(request, user)
+        return redirect('dashboard')
+    return render(request, 'sign_up.html', {'form': form})
 
 @login_required
 def dashboard(request):
