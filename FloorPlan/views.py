@@ -2,9 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from .import forms
-from .models import Project, Category, Task
-from users.models import User
-from .forms import ProjectForm, TaskForm
+from .models import Project, Category, Task, User
+from .forms import ProjectForm, TaskForm, NewTeamMemberForm
 # from django.core.exceptions import DoesNotExist
 from django.contrib import messages
 from django.http import HttpResponseRedirect
@@ -27,7 +26,8 @@ def sign_up(request):
 @login_required
 def dashboard(request):
     projects = Project.objects.all()
-    user = User.objects.get(username=request.user.username)
+    user = User.objects.all()
+    # user = User.objects.get(username=request.user.username)     ***Lines 30, 39, and 40 may need some attention***
     tasks = Task.objects.all()
     assignee = Task.objects.filter(assignee=user)
     return render(request, "core/dashboard.html", {'projects': projects, 'tasks': tasks, 'user':user})
@@ -36,7 +36,8 @@ def dashboard(request):
 def project(request, pk):
     project = Project.objects.get(pk=pk)
     tasks = Task.objects.filter(project=project)
-    users = User.objects.filter(project=project)
+    users=User.objects.all()  # We're going to have to tweak what Steven did, or add that as a User attribute perhaps?
+    # users = User.objects.filter(project=project)
     return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'users':users,'pk': pk})
     
 
@@ -52,19 +53,6 @@ def new_project(request):
 
     return render(request, 'core/new_project.html', {'form': form,})
 
-
-
-# def edit_project(request, pk): 
-#     if request.method == 'GET':
-#         return render(request, 'core/edit_project.html', {'form':form})
-#     else:
-#         try:
-#             form = ProjectForm(request.POST)
-#             editproject = form.save(commit=False)
-#             editproject.save()
-#             return redirect('dashboard')
-#         except ValueError:
-#             return render(request, 'core/edit_project.html', {'form':form})
 
 @login_required
 def edit_project(request, pk):         
@@ -114,22 +102,7 @@ def edit_task(request, pk):
     else:
         form = TaskForm(instance=task)
     return render(request, 'core/edit_task.html', {'form': form, 'pk':pk, 'task': task})
-
-
-
-# def edit_habit(request, pk):
-#     habit = get_object_or_404(Habit, pk=pk)
-
-#     if request.method == 'POST':
-#         form = HabitForm(request.POST, instance=habit)
-#         if form.is_valid():
-#             form.save()
-
-#             return redirect('home')
-#     else:
-#         form = HabitForm(instance=habit)
-
-#     return render(request, 'core/edit_habit.html', {"form": form})    
+  
 
 @login_required
 def delete_task(request, pk):
@@ -142,16 +115,15 @@ def delete_task(request, pk):
 def new_team_member(request, pk):
     project = get_object_or_404(Project, pk=pk)
     user = request.user
-    team_member = TeamMember(project.pk)
-    # form = NewTeamMemberForm(request.POST) 
+    team_member = User(project.pk)
     if request.method == "POST":
         form = NewTeamMemberForm(request.POST) 
         if form.is_valid():
             new_team_member = form.save(commit=False)
             try:
-                team_member = TeamMember.objects.get(name=new_team_member.name, company=new_team_member.company)
+                team_member = User.objects.get(username=new_team_member.username)
 
-            except TeamMember.DoesNotExist:
+            except User.DoesNotExist:
                 new_team_member.project = project
                 new_team_member.team_member = user
                 form.save()
@@ -168,21 +140,22 @@ def new_team_member(request, pk):
 
 @login_required
 def edit_team_member(request, pk):
-    team_member = get_object_or_404(TeamMember, pk=pk)
+    team_member = get_object_or_404(User, pk=pk)
     if request.method == "POST":
         form = NewTeamMemberForm(request.POST, instance=team_member)
         if form.is_valid():
-            team_member = form.save()
-            return redirect('project', pk=project.pk)
-        else:
-            form = NewTeamMemberForm(instance=team_member)
-    return render(request, 'core/edit_team_member.html', {'form': form, 'pk':pk})
+            projectpk = form.cleaned_data['project'].pk
+            form.save()
+            return redirect('project', projectpk)
+    else:
+        form = NewTeamMemberForm(instance=team_member)
+    return render(request, 'core/edit_team_member.html', {'form': form, 'pk': pk, 'team_member': team_member})
 
 
 @login_required
 def delete_team_member(request, pk):
-    team_member = get_object_or_404(TeamMember, pk=pk)
+    team_member = get_object_or_404(User, pk=pk)
     team_member.delete()
-    return redirect('project', pk=project.pk)
+    return redirect('dashboard')
     
 
