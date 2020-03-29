@@ -156,6 +156,6 @@ def edit_team_member(request, pk):
 def delete_team_member(request, pk):
     team_member = get_object_or_404(User, pk=pk)
     team_member.delete()
-    return redirect('dashboard')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     
-
+    

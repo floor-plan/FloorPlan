@@ -15,23 +15,23 @@
     --electrical: #ff3300;
     --project-manager: #cc0033;
     --homeowner: #ffd803;
-    /* --default-fonts:  */
+    --default-fonts: 'Saira Condensed', sans-serif
 }
 
 body {
     background-color: var(--background-color);
     color: var(--dark-gray);
-    /* font-family: var(--default-fonts); */
+    font-family: var(--default-fonts);
 }
 
 a:link {
     text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
-    color: none;
+    font-family: var(--default-fonts) color: none;
 }
 
 a:visited {
     text-decoration: none;
+    color: none;
 }
 
 a:hover {
@@ -45,23 +45,25 @@ a:active {
 }
 
 h1 {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--default-fonts);
+    padding: 25px;
 }
 
 h2 {
-    font-family: Arial, Helvetica, sans-serif
+    font-family: var(--default-fonts);
+    padding: 25px;
 }
 
 h3 {
-    font-family: Arial, Helvetica, sans-serif
+    font-family: var(--default-fonts)
 }
 
 h4 {
-    font-family: Arial, Helvetica, sans-serif
+    font-family: var(--default-fonts)
 }
 
 h5 {
-    font-family: Arial, Helvetica, sans-serif
+    font-family: var(--default-fonts)
 }
 
 
@@ -69,16 +71,20 @@ h5 {
 
 .floor-plan-text {
     font-family: 'Saira Condensed', sans-serif;
-    font-size: 200%;
+    font-size: 300%;
+    color: var(--dark-brown)
 }
 
 .task-text {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--default-fonts);
+    color: var(--dark-gray);
 }
 
 .project-text {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--default-fonts);
     font-size: 140%;
+    color: white;
+    padding: 12px;
 }
 
 .task-container {
@@ -88,19 +94,27 @@ h5 {
     /* border: solid green 2px; */
 }
 
+.heading-container {
+    display: flex;
+    flex-flow: row;
+    padding-left: 25px;
+    /* border: solid green 2px; */
+    align-content: center;
+}
+
 .log-container {
     display: flex;
     flex-flow: row;
-    padding: 5px;
+    padding-left: 25px;
     /* border: solid green 2px; */
+    align-content: center;
 }
 
 .log-link {
     display: flex;
-    flex-flow: column;
     padding: 5px;
     color: var(--dark-brown);
-    font-family: 'Saira Condensed', sans-serif;
+    font-family: var(--default-fonts)
 }
 
 .task {
@@ -133,9 +147,10 @@ h5 {
 .project-link-container {
     display: flex;
     flex-flow: row nowrap;
-    padding: 25px;
+    padding: 10px;
 }
 
 .project-link {
     align-content: flex-start;
+    color: white;
 }
