@@ -1,5 +1,7 @@
 from django import forms
-from .models import Project, Category, Task, User
+from .models import Project, Category, Task, Profile
+from users.models import User
+
 
 
 class ProjectForm(forms.ModelForm):
@@ -17,6 +19,6 @@ class TaskForm(forms.ModelForm):
 
 class NewTeamMemberForm(forms.ModelForm):
   class Meta:
-    model = User
-    fields = ['username', 'email', 'project', 'role', 'category', 'is_project_manager']
+    model = Profile
+    fields = ['username', 'project', 'role', 'category', 'is_project_manager']
 
