@@ -39,7 +39,7 @@ class TaskForm(forms.ModelForm):
   class Meta:
     model = Task
     fields = ['project', 'task', 'category', 'assignee']
-    # need to add assignee back
+    
 
 
 
