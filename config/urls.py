@@ -7,7 +7,8 @@ from FloorPlan import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
-    path('sign_up/', views.sign_up, name='sign_up'),
+    path('signup/', views.sign_up, name='sign_up'),
+    path('signin/', views.sign_in, name='sign_in'),
     path('', views.dashboard, name = 'dashboard'),
     path('project/<int:pk>', views.project, name='project'),
     path('new-project/', views.new_project, name='new_project'),

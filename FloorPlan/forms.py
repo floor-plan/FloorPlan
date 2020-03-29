@@ -7,7 +7,7 @@ from users.models import User
 class ProjectForm(forms.ModelForm):
   class Meta:
     model = Project
-    fields = ['name', 'address', 'lot_number', 'category']
+    fields = ['address', 'lot_number', 'name']
 
 
 class TaskForm(forms.ModelForm):

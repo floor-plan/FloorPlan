@@ -14,20 +14,20 @@ class Category(models.Model):
 	def __str__(self):
 		return self.category
 	
-	# class Meta:
-	# 	constraints = [models.UniqueConstraint(
-	# 	fields=['category', 'project'], name='unique_team'),
-	# 	]
 		
 class Project(models.Model):
 	name = models.CharField(max_length=100, blank=True) 
 	created_at = models.DateTimeField(auto_now_add=True)
 	address = models.CharField(max_length=400, blank=False)
 	lot_number = models.CharField(max_length=100, blank=True) 
-	category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='categories', default='')
 
 	def __str__(self):
 		return f'Address and/or Lot number:{self.address}, {self.lot_number}'
+	
+class Meta:
+		constraints = [models.UniqueConstraint(
+		fields=['category', 'project'], name='unique_category'),
+		]
     
 
 class Task(models.Model):
@@ -55,6 +55,11 @@ class Profile(models.Model):
 
 	def __str__(self):
 		return f'{self.username}'
+
+	# class Meta:
+	# 	constraints = [models.UniqueConstraint(
+	# 	fields=['profile', 'project'], name='unique_team'),
+	# 	]
 		
 
 
