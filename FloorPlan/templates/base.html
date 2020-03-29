@@ -32,6 +32,11 @@
 </header>
 
 <body>
+    {% if user.is_authenticated and user.is_project_manager %}
+      <link rel="stylesheet" type="text/css" href="{% static 'css/project_manager.css' %}">
+    {% else %}
+      <link rel="stylesheet" type="text/css" href="{% static 'css/members.css' %}">
+    {% endif %}
     {% block content %} {% endblock %}
 </body>
 

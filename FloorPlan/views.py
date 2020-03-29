@@ -2,54 +2,55 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from .import forms
-from .models import Project, Category, Task, Profile
-from users.models import User
-from .forms import ProjectForm, TaskForm, NewTeamMemberForm
 # from django.core.exceptions import DoesNotExist
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.views.generic import CreateView, TemplateView
+from .forms import ProjectForm, TaskForm, NewTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm
+from .models import User, Project, Category, Task, Profile
 
 
-def sign_up(request):
-    if request.user.is_authenticated:
-        return redirect('/')
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('/')
+
+
+class SignUpView(TemplateView):
+    template_name = 'signup.html'
+
+    def home(request):
+        if request.user.is_authenticated:
+            if request.user.is_project_manager:
+                return redirect('projects')
         else:
-            return render(request, 'sign_up.html', {'form': form})
-    else:
-        form = UserCreationForm()
-        return render(request, 'sign_up.html', {'form': form})
+            return redirect('dashboard')
+        return render(request, 'core/dashboard.html')
 
-def sign_in(request):
-    if request.user.is_authenticated:
-        return render(request, 'dashboard.html')
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('/')
-        else:
-            form = AuthenticationForm(request.POST)
-            return render(request, 'sign_in.html', {'form': form})
-    else:
-        form = AuthenticationForm()
-        return render(request, 'sign_in.html', {'form': form})
+class ProjectManagerSignUpView(CreateView):
+    model = User
+    form_class = ProjectManagerSignUpForm
+    template_name = 'registration/signup_form.html'
 
-def signout(request):
-    logout(request)
-    return redirect('/')
+    def get_context_data(self, **kwargs):
+        kwargs['user_type'] = 'project_manager'
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('project_manager:projects')
+
+class MemberSignUpView(CreateView):
+    model = User
+    form_class = MemberSignUpForm
+    template_name = 'registration/signup_form.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['user_type'] = 'member'
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('member:projects')
 
 @login_required
 def dashboard(request):
@@ -75,7 +76,7 @@ def new_project(request):
     if request.method == "POST":
         form =  ProjectForm(request.POST)
         if form.is_valid():
-            form.save()
+            project = form.save()
             return redirect('project', project.pk)
     else:
         form = ProjectForm()
@@ -89,7 +90,6 @@ def edit_project(request, pk):
     if request.method == 'POST':
         form = ProjectForm(request.POST, instance=project)
         if form.is_valid():
-            project = form.save()
             form.save()
             return redirect('project', pk)
     else:

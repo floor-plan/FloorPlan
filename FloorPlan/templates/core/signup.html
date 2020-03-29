@@ -4,7 +4,11 @@
 <form action="{% url 'sign_up' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
+    <p class="lead">Select below the type of account you want to create</p>
+    <a href="{% url 'project_manager_signup' %}" role="button">I'm a project manager</a>
+    <a href="{% url 'member_signup' %}" role="button">I'm a Sub-Contractor, Supplier, or Homeowner</a>
     <input type="submit" class="submit-button" value='Submit'>
 </form>
 
 {% endblock %}
+

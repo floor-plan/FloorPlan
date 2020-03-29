@@ -3,12 +3,16 @@ from django.contrib import admin
 from django.conf import settings
 from django.urls import include, path
 from FloorPlan import views
+from FloorPlan.views import SignUpView, ProjectManagerSignUpView, MemberSignUpView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('registration.backends.simple.urls')),
-    path('signup/', views.sign_up, name='sign_up'),
-    path('signin/', views.sign_in, name='sign_in'),
+    # path('accounts/', include('registration.backends.simple.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    # path('signup/', views.sign_up, name='sign_up'),
+    path('accounts/signup/', SignUpView.as_view(), name='signup'),
+    path('accounts/signup/project_manager/', ProjectManagerSignUpView.as_view(), name='project_manager_signup'),
+    path('accounts/signup/member/', MemberSignUpView.as_view(), name='member_signup'),
     path('', views.dashboard, name = 'dashboard'),
     path('project/<int:pk>', views.project, name='project'),
     path('new-project/', views.new_project, name='new_project'),
