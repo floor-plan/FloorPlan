@@ -64,8 +64,7 @@ def project(request, pk):
     tasks = Task.objects.filter(project=project)
     categories = Category.objects.filter(project=project)
     users=Member.objects.all()  
-    teammembers = Profile.objects.filter(project=project)
-    return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'categories':categories, 'teammembers':teammembers, 'users':users, 'pk': pk})
+    return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'categories':categories, 'users':users, 'pk': pk})
     
 
 @login_required
