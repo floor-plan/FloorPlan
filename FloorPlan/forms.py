@@ -1,11 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from users.models import Member
-from .models import Project, Category, Task, Profile
+from .models import Project, Category, Task
 from django.db import transaction
 
 class ProjectManagerSignUpForm(UserCreationForm):
-
     class Meta(UserCreationForm.Meta):
         model = Member
 
@@ -46,7 +45,7 @@ class TaskForm(forms.ModelForm):
 
 class NewTeamMemberForm(forms.ModelForm):
   class Meta:
-    model = Profile
-    fields = ['profile', 'project', 'role', 'category', 'is_project_manager']
+    model = Member
+    fields = ['role', 'category', 'is_project_manager']
 
 

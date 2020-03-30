@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login
 from django.views.generic import CreateView, TemplateView
 from .forms import ProjectForm, TaskForm, NewTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm
 from users.models import Member
-from .models import Project, Category, Task, Profile
+from .models import Project, Category, Task
 
 
 

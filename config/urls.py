@@ -8,11 +8,11 @@ from FloorPlan.views import SignUpView, ProjectManagerSignUpView, MemberSignUpVi
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('accounts/', include('registration.backends.simple.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
     # path('signup/', views.sign_up, name='sign_up'),
     path('accounts/signup/', SignUpView.as_view(), name='signup'),
     path('accounts/signup/project_manager/', ProjectManagerSignUpView.as_view(), name='project_manager_signup'),
     path('accounts/signup/member/', MemberSignUpView.as_view(), name='member_signup'),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('', views.dashboard, name = 'dashboard'),
     path('project/<int:pk>', views.project, name='project'),
     path('new-project/', views.new_project, name='new_project'),
