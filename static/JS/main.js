@@ -1,36 +1,46 @@
 console.log("helloworld");
 
-function taskComplete() {
+updateButton = document.getElementById('update-button')
 
-    var taskCheckbox = document.getElementById("taskCheckbox");
+const taskCheckbox = document.getElementById("checkbox");
 
-    var taskText = document.querySelector("#task-text");
+updateButton.addEventListener("click", function(event) {
+    updateTasks();
+});
 
-    if (taskCheckbox.checked == true) {
-        taskText.classList.add('completed-task');
-    } else {
-        taskText.style.display = "none";
+function updateTasks() {
+    if (taskCheckbox.checked) {
+        task.pk("{% url 'myapp:movieDataUpdate' pk=task.pk %}",
+
+
+        }
     }
-}
 
-// function check(checked = true) {
-//     const cbs = document.querySelectorAll('input[name="color"]');
-//     cbs.forEach((cb) => {
-//         cb.checked = checked;
-//     });
-// }
+    checkboxes = document.querySelectorAll('taskCheckbox')
 
-// const btn = document.querySelector('#btn');
-// btn.onclick = checkAll;
 
-// function checkAll() {
-//     check();
-//     // reassign click event handler
-//     this.onclick = uncheckAll;
-// }
+    function taskComplete() {
 
-// function uncheckAll() {
-//     check(false);
-//     // reassign click event handler
-//     this.onclick = checkAll;
-// }
+        var taskCheckbox = document.getElementById("taskCheckbox");
+
+        var taskText = document.querySelector("#task-text");
+
+        if (taskCheckbox.checked == true) {
+            taskText.classList.add('completed-task');
+        } else {
+            taskText.style.display = "none";
+        }
+    }
+
+
+
+    // $("#my_checkbox1").change(function() {
+    //     if (this.checked) {
+    //         $.post("{% url 'myapp:movieDataUpdate' pk=movie.pk %}", {},
+    //             function(data, status) {
+    //                 console.log("Data: " + data + "\nStatus: " + status);
+    //             });
+    //     }
+    //     // If you want, make an
+    //     // else
+    // });

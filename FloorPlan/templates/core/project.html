@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block meta %}
+{% extends 'base.html' %} {% load static %} {% block meta %}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 {% endblock meta %} {% block content %}
 <h1>Name: {{project.name}}</h1>
@@ -10,23 +10,21 @@
 <a class="small-button" href="{% url 'delete_project' pk=project.pk %}">Delete Project</a
 >
 
-<div style="width: 80px; height: 20px; background-color: red;" 
-        onmouseover="document.getElementById('div1').style.display = 'block';">
-   <div id="div1" style="display: none;">Text</div>
-</div>
-
 <h2>Tasks</h2>
 <a href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
+{% comment %} <a href="{% url 'new_task' pk=project.pk %}">Completed Tasks</a> {% endcomment %}
 <div class="task-container">
     <div class='task-container'>
+    {% comment %} <button id='update-button' class='update-button'>Update</button> {% endcomment %}
 {% for task in tasks %}
+{%   if task.is_complete == False %}
 
 <div class="form-group ">
     <label for="inputName" class="col-md-1 control-label"></label>  
     <div class="col-md-5">
         <div class="checkbox">
-            <input type="checkbox" name="packersOff" value="1"/>
-             <label class="strikethrough" id="{{task.pk}}" class='task-text'>
+            <input id='checkbox' type="checkbox" name="packersOff" value="1"/>
+             <label class="strikethrough" class='task-text'>
       {{task.task|capfirst}} {{task.due_date}} Assigned to:
           {{task.assignee}} </label>
           <div class='task-link-container'><a class="small-button " href="{% url 'edit_task' pk=task.pk %}"
@@ -34,9 +32,12 @@
     >
     <a href="{% url 'delete_task' pk=task.pk %} ">Delete Task</a>
   </div>
+  <a href="{% url 'complete_task' pk=task.pk %} ">Mark As Complete</a>
+  </div>
         </div>
      </div>
 </div>
+{% endif %}
 {% endfor %}
 </div>
 
@@ -57,5 +58,6 @@
   </div>
   {% endfor %}
 </div>
+<script src="{% static 'JS/main.js' %}"></script>
 
 {% endblock content %}

@@ -19,6 +19,7 @@ urlpatterns = [
     path('project/<int:pk>/new-team-member/', views.new_team_member, name='new_team_member'),
     path('edit-team-member/<int:pk>/', views.edit_team_member, name='edit_team_member'),
     path('delete-team-member/<int:pk>/', views.delete_team_member, name='delete_team_member'),
+    path('complete_task/<int:pk>/', views.complete_task, name='complete_task')
     
 ]
 

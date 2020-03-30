@@ -39,7 +39,9 @@ def project(request, pk):
     users=User.objects.all()  # We're going to have to tweak what Steven did, or add that as a User attribute perhaps?
     # users = User.objects.filter(project=project)
     return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'users':users,'pk': pk})
-    
+
+
+
 
 @login_required
 def new_project(request):
@@ -103,6 +105,19 @@ def edit_task(request, pk):
         form = TaskForm(instance=task)
     return render(request, 'core/edit_task.html', {'form': form, 'pk':pk, 'task': task})
   
+@login_required
+def complete_task(request,pk):
+    task = get_object_or_404(Task, pk=pk)
+    if request.method == "POST":
+        form = TaskForm(request.POST, instance=task)
+        task.is_complete=True
+        task.save()
+        return redirect
+        ('dashboard')
+    else:
+        task = task
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'),
+        {'pk':pk, 'task': task})
 
 @login_required
 def delete_task(request, pk):
