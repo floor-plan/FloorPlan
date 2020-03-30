@@ -7,13 +7,18 @@ from users.models import User
 class ProjectForm(forms.ModelForm):
   class Meta:
     model = Project
-    fields = ['name', 'address', 'lot_number', 'category']
+    fields = ['name', 'address', 'lot_number']
 
 
 class TaskForm(forms.ModelForm):
   class Meta:
     model = Task
     fields = ['project', 'task', 'category', 'assignee']
+
+class CategoryForm(forms.ModelForm):
+  class Meta:
+    model = Category
+    fields = ['project', 'category']
 
 
 
