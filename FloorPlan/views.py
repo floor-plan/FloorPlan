@@ -54,20 +54,18 @@ class MemberSignUpView(CreateView):
 @login_required
 def dashboard(request):
     projects = Project.objects.all()
-    users = Member.objects.all()
-    user = Member.objects.get(username=request.user.username)
-    # ***Lines 30, 39, and 40 may need some attention***
-    tasks = Task.objects.all()
-    # assignee = Task.objects.filter(assignee=user)
-    return render(request, "core/dashboard.html", {'projects': projects, 'tasks': tasks, 'user':user})
+    user = request.user
+    tasks = Task.objects.filter(assignee=user)
+    return render(request, "core/dashboard.html", {'projects': projects, 'tasks': tasks})
 
 @login_required
 def project(request, pk):
     project = Project.objects.get(pk=pk)
     tasks = Task.objects.filter(project=project)
+    categories = Category.objects.filter(project=project)
     users=Member.objects.all()  
     teammembers = Profile.objects.filter(project=project)
-    return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'teammembers':teammembers, 'users':users, 'pk': pk})
+    return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'categories':categories, 'teammembers':teammembers, 'users':users, 'pk': pk})
     
 
 @login_required
@@ -184,6 +182,42 @@ def edit_team_member(request, pk):
 def delete_team_member(request, pk):
     team_member = get_object_or_404(Member, pk=pk)
     team_member.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+@login_required
+def new_category(request, pk):  
+    project = get_object_or_404(Project, pk=pk)
+    form = CategoryForm(request.POST) 
+    category = None
+    if request.method == "POST":  
+        if form.is_valid():
+            projectpk = form.cleaned_data['project'].pk
+            category = form.save()
+            return redirect('project', projectpk) 
+    else:
+            form = CategoryForm(instance=category)
+    return render(request, 'core/new_category.html', {'form': form, 'category': category, 'project': project})
+    
+
+@login_required
+def edit_category(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    if request.method == "POST":
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            projectpk = form.cleaned_data['project'].pk
+            form.save()
+            return redirect('project', projectpk)
+    else:
+        form = CategoryForm(instance=category)
+    return render(request, 'core/edit_category.html', {'form': form, 'pk':pk, 'category': category})
+  
+
+@login_required
+def delete_category(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    category.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     
     

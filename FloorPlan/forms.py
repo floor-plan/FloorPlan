@@ -33,11 +33,17 @@ class ProjectForm(forms.ModelForm):
     fields = ['address', 'lot_number', 'name']
 
 
+
 class TaskForm(forms.ModelForm):
   class Meta:
     model = Task
     fields = ['project', 'task', 'category', 'assignee']
     
+
+class CategoryForm(forms.ModelForm):
+  class Meta:
+    model = Category
+    fields = ['project', 'category']
 
 
 

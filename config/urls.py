@@ -33,6 +33,9 @@ urlpatterns = [
     path('project/<int:pk>/new-team-member/', views.new_team_member, name='new_team_member'),
     path('edit-team-member/<int:pk>/', views.edit_team_member, name='edit_team_member'),
     path('delete-team-member/<int:pk>/', views.delete_team_member, name='delete_team_member'),
+    path('project/<int:pk>/new-category/', views.new_category, name='new_category'),
+    path('project/edit-category/<int:pk>/', views.edit_category, name='edit_category'),
+    path('delete-category/<int:pk>/', views.delete_category, name='delete_category'),
     
 ]
 

@@ -5,6 +5,15 @@ from model_utils import Choices
 from django.utils import timezone
 from phone_field import PhoneField
 
+		
+class Project(models.Model):
+	name = models.CharField(max_length=100, blank=True) 
+	created_at = models.DateTimeField(auto_now_add=True)
+	address = models.CharField(max_length=400, blank=False)
+	lot_number = models.CharField(max_length=100, blank=True) 
+
+	def __str__(self):
+		return f'Address and/or Lot number:{self.address}, {self.lot_number}'
 
 
 # class Member(AbstractUser):
@@ -14,6 +23,7 @@ from phone_field import PhoneField
 class Category(models.Model):
 	ProjectCategory = models.TextChoices('ProjectCategory', 'PLUMBING ELECTRICAL MASONRY FRAMING ROOFING HOMEOWNER')
 	category = models.CharField(choices=ProjectCategory.choices, max_length=30, default='HOMEOWNER')
+
 	def __str__(self):
 		return f'{self.category}'
 
@@ -49,6 +59,7 @@ class Project(models.Model):
 	
 # 	def __str__(self):
 # 		return f'{self.member} => {self.project}'
+
 
 class Task(models.Model):
 	task = models.TextField(max_length=300)
