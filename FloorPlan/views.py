@@ -8,7 +8,8 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.views.generic import CreateView, TemplateView
 from .forms import ProjectForm, TaskForm, NewTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm
-from .models import User, Project, Category, Task, Profile
+from users.models import Member
+from .models import Project, Category, Task, Profile
 
 
 
@@ -25,9 +26,9 @@ class SignUpView(TemplateView):
         return render(request, 'core/dashboard.html')
 
 class ProjectManagerSignUpView(CreateView):
-    model = User
+    model = Member
     form_class = ProjectManagerSignUpForm
-    template_name = 'registration/signup_form.html'
+    template_name = 'signup_form.html'
 
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'project_manager'
@@ -39,9 +40,9 @@ class ProjectManagerSignUpView(CreateView):
         return redirect('project_manager:projects')
 
 class MemberSignUpView(CreateView):
-    model = User
+    model = Member
     form_class = MemberSignUpForm
-    template_name = 'registration/signup_form.html'
+    template_name = 'signup_form.html'
 
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'member'
@@ -55,18 +56,18 @@ class MemberSignUpView(CreateView):
 @login_required
 def dashboard(request):
     projects = Project.objects.all()
-    # user = User.objects.all()
-    user = User.objects.get(username=request.user.username)
+    users = Member.objects.all()
+    user = Member.objects.get(username=request.user.username)
     # ***Lines 30, 39, and 40 may need some attention***
     tasks = Task.objects.all()
-    assignee = Task.objects.filter(assignee=user)
+    # assignee = Task.objects.filter(assignee=user)
     return render(request, "core/dashboard.html", {'projects': projects, 'tasks': tasks, 'user':user})
 
 @login_required
 def project(request, pk):
     project = Project.objects.get(pk=pk)
     tasks = Task.objects.filter(project=project)
-    users=User.objects.all()  
+    users=Member.objects.all()  
     teammembers = Profile.objects.filter(project=project)
     return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'teammembers':teammembers, 'users':users, 'pk': pk})
     
@@ -144,7 +145,7 @@ def delete_task(request, pk):
 def new_team_member(request, pk):
     project = get_object_or_404(Project, pk=pk)
     user = request.user.username
-    team_member = User(project.pk)
+    team_member = Member(project.pk)
     if request.method == "POST":
         form = NewTeamMemberForm(request.POST) 
         if form.is_valid():
@@ -152,7 +153,7 @@ def new_team_member(request, pk):
             try:
                 team_member = user
 
-            except User.DoesNotExist:
+            except Member.DoesNotExist:
                 new_team_member.project = project
                 new_team_member.team_member = user
                 form.save()
@@ -169,7 +170,7 @@ def new_team_member(request, pk):
 
 @login_required
 def edit_team_member(request, pk):
-    team_member = get_object_or_404(User, pk=pk)
+    team_member = get_object_or_404(Member, pk=pk)
     if request.method == "POST":
         form = NewTeamMemberForm(request.POST, instance=team_member)
         if form.is_valid():
@@ -183,7 +184,7 @@ def edit_team_member(request, pk):
 
 @login_required
 def delete_team_member(request, pk):
-    team_member = get_object_or_404(User, pk=pk)
+    team_member = get_object_or_404(Member, pk=pk)
     team_member.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     

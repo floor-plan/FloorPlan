@@ -150,7 +150,7 @@ LOGIN_REDIRECT_URL = '/'
 # Custom user model
 
 
-AUTH_USER_MODEL = 'FloorPlan.User'
+AUTH_USER_MODEL = 'users.Member'
 
 
 # Debug toolbar config

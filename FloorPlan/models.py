@@ -1,4 +1,5 @@
-from django.contrib.auth.models import AbstractUser
+# from django.contrib.auth.models import AbstractUser
+from users.models import Member
 from django.db import models
 from model_utils import Choices
 from django.utils import timezone
@@ -6,9 +7,9 @@ from phone_field import PhoneField
 
 
 
-class User(AbstractUser):
-    is_project_manager = models.BooleanField('project_manager status', default=False)
-    is_member = models.BooleanField('member status', default=False)
+# class Member(AbstractUser):
+#     is_project_manager = models.BooleanField('project_manager status', default=False)
+#     is_member = models.BooleanField('member status', default=False)
 
 class Category(models.Model):
 	ProjectCategory = models.TextChoices('ProjectCategory', 'PLUMBING ELECTRICAL MASONRY FRAMING ROOFING HOMEOWNER')
@@ -19,9 +20,9 @@ class Category(models.Model):
 	class Meta:
 		verbose_name = ('category')
 		verbose_name_plural = ('categories')
-		constraints = [models.UniqueConstraint(
-		fields=['category', 'project'], name='unique_team'),
-		]
+		# constraints = [models.UniqueConstraint(
+		# fields=['category', 'project'], name='unique_team'),
+		# ]
 
 
 class Project(models.Model):
@@ -36,7 +37,7 @@ class Project(models.Model):
 
 
 class Profile(models.Model):
-	# profile = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profiles', default='')
+	profile = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='members', default='')
 	email = models.EmailField(max_length=254, unique=True)
 	project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="profile_members")
 	UserRole = models.TextChoices('UserRole', 'PROJECT-MANAGER SUPPLIER SUB-CONTRACTOR HOMEOWNER')
@@ -46,16 +47,16 @@ class Profile(models.Model):
 	is_project_manager = models.BooleanField(default=False)
 	
 	def __str__(self):
-		return f'{self.email} => {self.project}'
+		return f'{self.profile} => {self.project}'
 
 class Task(models.Model):
 	task = models.TextField(max_length=300)
 	category = models.ForeignKey(
-		Category, on_delete=models.CASCADE, related_name='tasks')
+		Category, on_delete=models.CASCADE, related_name='categories')
 	assignee = models.ForeignKey(
-		Profile, on_delete=models.CASCADE, related_name='tasks', default='')
+		Profile, on_delete=models.CASCADE, related_name='assigned', default='')
 	project = models.ForeignKey(
-		Project, on_delete=models.CASCADE, related_name="tasks")
+		Project, on_delete=models.CASCADE, related_name="projects")
 	#completed as boolean?
 	def __str__(self):
 		return f'{self.task} => {self.project}, {self.assignee}'
