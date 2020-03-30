@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 
 
-
 {% block content %}
+
+<a href="{% url 'project_manager_signup' %}" role="button">Sign-up as a project manager</a>
+<br>
+<a href="{% url 'member_signup' %}" role="button">Sign-up as a Sub-Contractor, Supplier, or Homeowner</a>
 
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
@@ -34,7 +37,6 @@
   <input type="hidden" name="next" value="{{ next }}">
 </form>
 
-{# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+<p><a href="{% url 'password_reset' %}">Lost password?</a></p> 
 
 {% endblock %}

@@ -8,13 +8,11 @@ class ProjectManagerSignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = Member
 
-    @transaction.atomic
-    def save(self):
+    def save(self, commit=True):
         user = super().save(commit=False)
-        user.is_project_manager = True
-        user.save()
-        project_manager = ProjectManager.objects.create(user=user)
-        project_manager.projects.add(*self.cleaned_data.get('projects'))
+        user.is_member = True
+        if commit:
+            user.save()
         return user
 
 class MemberSignUpForm(UserCreationForm):
