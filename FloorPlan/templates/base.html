@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /> {% load static %}
-    <script src="{% static 'main.js' %}" defer></script>
+    <script src="{% static 'JS/main.js' %}"></script>
     <link href="https://fonts.googleapis.com/css?family=Oswald|Saira+Condensed:700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'CSS/styles.css' %}" /> {% block title %}
     <title>FloorPlan</title>{% endblock %}
@@ -33,6 +33,7 @@
 
 <body>
     {% block content %} {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </body>
 
 </html>

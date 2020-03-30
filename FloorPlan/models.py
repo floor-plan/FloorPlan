@@ -4,6 +4,7 @@ from model_utils import Choices
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
+import datetime
 
 
 class Category(models.Model):
@@ -50,7 +51,7 @@ class Task(models.Model):
 		User, on_delete=models.CASCADE, related_name='tasks', default='')
 	project = models.ForeignKey(
 		Project, on_delete=models.CASCADE, related_name="tasks")
-	#completed as boolean?
+	is_complete = models.BooleanField(default=False)
 
 	def __str__(self):
 		return f'{self.task} => {self.project}, {self.assignee}'
