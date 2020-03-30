@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # Third-party
     'debug_toolbar',
     'django_extensions',
+    'crispy_forms',
 
     # Project-specific
     'users',

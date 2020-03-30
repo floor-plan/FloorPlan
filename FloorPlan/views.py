@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
@@ -5,7 +6,6 @@ from .import forms
 # from django.core.exceptions import DoesNotExist
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.contrib.auth import authenticate, login
 from django.views.generic import CreateView, TemplateView
 from .forms import ProjectForm, TaskForm, NewTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm
 from users.models import Member
@@ -13,9 +13,19 @@ from .models import Project, Category, Task
 
 
 
+class LoginView(TemplateView):
+    template_name = 'login.html'
+
+    def home(request):
+        if request.user.is_authenticated:
+            if request.user.is_project_manager:
+                return redirect('projects')
+        else:
+            return redirect('dashboard')
+        return render(request, 'login.html')
 
 class SignUpView(TemplateView):
-    template_name = 'signup.html'
+    template_name = 'signup_form.html'
 
     def home(request):
         if request.user.is_authenticated:

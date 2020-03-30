@@ -22,7 +22,7 @@
             <a class="logout" href="/accounts/logout/">Logout </a>
         </div>
         <div class="log-link">
-            <a class="logout" href="/accounts/register/">Register </a>
+            <a class="logout" href="{% url 'signup' %}">Register </a>
         </div>
         <!-- <div class="search-bar">
         <form action="" method="GET" id="search-form">
@@ -33,9 +33,9 @@
 
 <body>
     {% if user.is_authenticated and user.is_project_manager %}
-      <link rel="stylesheet" type="text/css" href="{% static 'css/project_manager.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/project_manager.css' %}">
     {% else %}
-      <link rel="stylesheet" type="text/css" href="{% static 'css/members.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/members.css' %}">
     {% endif %}
     {% block content %} {% endblock %}
 </body>
