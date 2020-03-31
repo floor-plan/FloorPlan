@@ -10,14 +10,13 @@
 <a class="small-button" href="{% url 'delete_project' pk=project.pk %}">Delete Project</a
 >
 
-<h2>Tasks</h2>
+<h2>My Tasks</h2>
 <a href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
-{% comment %} <a href="{% url 'new_task' pk=project.pk %}">Completed Tasks</a> {% endcomment %}
-<div class="task-container">
     <div class='task-container'>
     {% comment %} <button id='update-button' class='update-button'>Update</button> {% endcomment %}
 {% for task in tasks %}
-{%   if task.is_complete == False %}
+{% if task.is_complete == False and if task.assignee == user %}
+     
 
 <div class="form-group ">
     <label for="inputName" class="col-md-1 control-label"></label>  
@@ -39,6 +38,25 @@
 </div>
 {% endif %}
 {% endfor %}
+
+
+<h2>Categories</h2>
+<a href="{% url 'new_category' pk=project.pk %}">Create New Category</a>
+<div class='category-container'>
+    {% for category in categories %}
+    <div>
+        <p class="category-text">{{category.category}}</p>
+        <a class="small-button" href="{% url 'edit_category' pk=category.pk %}">Edit Category</a>
+        <a href="{% url 'delete_category' pk=category.pk %}">Delete Category</a>
+        {% for task in tasks %}
+        {% if task.category == category %}
+        <p>{{task.task|capfirst}}</p>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    {% endfor %}
+
 </div>
 
 <div class="team-container ">
