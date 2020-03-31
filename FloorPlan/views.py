@@ -128,6 +128,28 @@ def edit_task(request, pk):
         form = TaskForm(instance=task)
     return render(request, 'core/edit_task.html', {'form': form, 'pk':pk, 'task': task})
   
+@login_required
+def complete_task(request,pk):
+    task = get_object_or_404(Task, pk=pk)
+    if request.method == "POST":
+        task.is_complete == True
+        task.save()
+        return redirect
+        ('dashboard')
+    else:
+        task = task
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'),
+        {'pk':pk, 'task': task})
+
+# post = request.POST.copy() # to make it mutable
+# post['field'] = value
+# # or set several values from dict
+# post.update({'postvar': 'some_value', 'var': 'value'})
+# # or set list
+# post.setlist('list_var', ['some_value', 'other_value']))
+
+# # and update original POST in the end
+# request.POST = post
 
 @login_required
 def delete_task(request, pk):

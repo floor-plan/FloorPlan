@@ -3,7 +3,13 @@ from users.models import Member
 from django.db import models
 from model_utils import Choices
 from django.utils import timezone
+<<<<<<< HEAD
+from django.contrib.auth.models import AbstractUser
+import datetime
+
+=======
 from phone_field import PhoneField
+>>>>>>> master
 
 		
 class Project(models.Model):
@@ -41,6 +47,7 @@ class Task(models.Model):
 		Member, on_delete=models.CASCADE, related_name='tasks', default='')
 	project = models.ForeignKey(
 		Project, on_delete=models.CASCADE, related_name="tasks")
-	#completed as boolean?
+	is_complete = models.BooleanField(default=False)
+
 	def __str__(self):
 		return f'{self.task} => {self.project}, {self.assignee}'

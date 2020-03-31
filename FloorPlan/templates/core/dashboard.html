@@ -1,7 +1,6 @@
 {% extends 'base.html'%}{% load static %} {% block content %}
 
-<p>Our user is: {{request.user.username}}</p>
-<!-- <p>Assignee is: {{task.assignee}}</p> -->
+<p>Logged in as: {{request.user.username}}</p>
 
 <h2>Tasks</h2>
 <div class="task-container">

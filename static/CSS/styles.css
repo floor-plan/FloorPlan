@@ -4,6 +4,10 @@
     margin: 0;
 }
 
+input[type=checkbox]:checked+label.strikethrough {
+    text-decoration: line-through;
+}
+
 :root {
     --dark-brown: #5b3000;
     --light-brown: #66462c;
@@ -119,6 +123,16 @@ h5 {
 
 .task {
     align-content: flex-start;
+    text-decoration: none;
+}
+
+.task-text:checked+span {
+    text-decoration: line-through
+}
+
+.completed-task {
+    align-content: flex-start;
+    text-decoration: line-through;
 }
 
 .project-container {
