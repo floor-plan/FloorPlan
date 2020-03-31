@@ -10,6 +10,7 @@ from django.views.generic import CreateView, TemplateView
 from .forms import ProjectForm, TaskForm, NewTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm, CategoryForm, CompleteTaskForm
 from users.models import Member
 from .models import Project, Category, Task
+from django.views.decorators.csrf import csrf_exempt
 
 class SignUpView(TemplateView):
     template_name = 'registration/signup.html'
@@ -129,18 +130,13 @@ def edit_task(request, pk):
     return render(request, 'core/edit_task.html', {'form': form, 'pk':pk, 'task': task})
   
 @login_required
-def complete_task(request,pk):
+@csrf_exempt
+def complete_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
     if request.method == "POST":
-        form = CompleteTaskForm(request.POST, instance=task)
-        if form.is_valid():
-            projectpk = form.cleaned_data['project'].pk
-            form.save()
-            return redirect('project', projectpk)
-       
-    else:
-        form = CompleteTaskForm(instance=task)
-    return render(request, 'core/complete_task.html', {'form': form, 'pk':pk, 'task': task})
+        task.is_complete = True
+        task.save()
+    return JsonResponse({"status": "ok", "data": None})
 
 # post = request.POST.copy() # to make it mutable
 # post['field'] = value
