@@ -18,7 +18,8 @@
     <div class='task-container'>
     {% comment %} <button id='update-button' class='update-button'>Update</button> {% endcomment %}
 {% for task in tasks %}
-{%   if task.is_complete == False %}
+{%   if task.is_complete == False and task.assignee == user %}
+
 
 <div class="form-group ">
     <label for="inputName" class="col-md-1 control-label"></label>  
@@ -41,7 +42,7 @@
 {% endif %}
 {% endfor %}
 
-    {% for task in tasks %}
+    {% comment %} {% for task in tasks %}
     {% if task.assignee == user %}
     <div class="task">
         <p class="task-text">
@@ -50,7 +51,7 @@
         <a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
     </div>
     {% endif %}
-    {% endfor %}
+    {% endfor %} {% endcomment %}
 </div>
 
 <h2>Categories</h2>
@@ -75,7 +76,7 @@
 <div class="team-container ">
   <h2>Team</h2>
   <div class="team-member ">
-    <a href="{% url 'new_team_member' pk=project.pk %} ">Add New Team Member</a>
+    {% comment %} <a href="{% url 'new_team_member' pk=project.pk %} ">Add New Team Member</a> {% endcomment %}
   </div>
 </div>
 

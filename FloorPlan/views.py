@@ -7,7 +7,7 @@ from .import forms
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, TemplateView
-from .forms import ProjectForm, TaskForm, NewTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm, CategoryForm
+from .forms import ProjectForm, TaskForm, NewTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm, CategoryForm, CompleteTaskForm
 from users.models import Member
 from .models import Project, Category, Task
 
@@ -132,14 +132,15 @@ def edit_task(request, pk):
 def complete_task(request,pk):
     task = get_object_or_404(Task, pk=pk)
     if request.method == "POST":
-        task.is_complete == True
-        task.save()
-        return redirect
-        ('dashboard')
+        form = CompleteTaskForm(request.POST, instance=task)
+        if form.is_valid():
+            projectpk = form.cleaned_data['project'].pk
+            form.save()
+            return redirect('project', projectpk)
+       
     else:
-        task = task
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'),
-        {'pk':pk, 'task': task})
+        form = CompleteTaskForm(instance=task)
+    return render(request, 'core/complete_task.html', {'form': form, 'pk':pk, 'task': task})
 
 # post = request.POST.copy() # to make it mutable
 # post['field'] = value
