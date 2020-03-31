@@ -3,13 +3,10 @@ from users.models import Member
 from django.db import models
 from model_utils import Choices
 from django.utils import timezone
-<<<<<<< HEAD
 from django.contrib.auth.models import AbstractUser
 import datetime
-
-=======
 from phone_field import PhoneField
->>>>>>> master
+
 
 		
 class Project(models.Model):

@@ -7,7 +7,7 @@ from .import forms
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, TemplateView
-from .forms import ProjectForm, TaskForm, NewTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm
+from .forms import ProjectForm, TaskForm, NewTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm, CategoryForm
 from users.models import Member
 from .models import Project, Category, Task
 
@@ -214,7 +214,7 @@ def new_category(request, pk):
     if request.method == "POST":  
         if form.is_valid():
             projectpk = form.cleaned_data['project'].pk
-            category = form.save()
+            form.save()
             return redirect('project', projectpk) 
     else:
             form = CategoryForm(instance=category)
