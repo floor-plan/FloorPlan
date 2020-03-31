@@ -1,47 +1,71 @@
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from .import forms
-from .models import Project, Category, Task, User
-from .forms import ProjectForm, TaskForm, NewTeamMemberForm
 # from django.core.exceptions import DoesNotExist
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.contrib.auth import authenticate
-from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import CreateView, TemplateView
+from .forms import ProjectForm, TaskForm, NewTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm
+from users.models import Member
+from .models import Project, Category, Task
+
+class SignUpView(TemplateView):
+    template_name = 'registration/signup.html'
+
+    def home(request):
+        if request.user.is_authenticated:
+            if request.user.is_teacher:
+                return redirect('dashboard')
+            else:
+                return redirect('dashboard')
+        return render(request, 'dashboard.html')
 
 
-def sign_up(request):
-    form = UserCreationForm(request.POST)
-    if form.is_valid():
-        form.save()
-        username = form.cleaned_data.get('username')
-        password = form.cleaned_data.get('password1')
-        user = authenticate(username=username, password=password)
-        login(request, user)
-        return redirect('dashboard')
-    return render(request, 'sign_up.html', {'form': form})
+class ProjectManagerSignUpView(CreateView):
+    model = Member
+    form_class = ProjectManagerSignUpForm
+    template_name = 'registration/signup_form.html'
 
+    def get_context_data(self, **kwargs):
+        kwargs['user_type'] = 'project_manager'
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('login')
+
+class MemberSignUpView(CreateView):
+    model = Member
+    form_class = MemberSignUpForm
+    template_name = 'registration/signup_form.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['user_type'] = 'member'
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('login')
 
 @login_required
 def dashboard(request):
     projects = Project.objects.all()
-    user = User.objects.all()
-    # user = User.objects.get(username=request.user.username)     ***Lines 30, 39, and 40 may need some attention***
-    tasks = Task.objects.all()
-    assignee = Task.objects.filter(assignee=user)
-    return render(request, "core/dashboard.html", {'projects': projects, 'tasks': tasks, 'user':user})
+    user = request.user
+    tasks = Task.objects.filter(assignee=user)
+    return render(request, "core/dashboard.html", {'projects': projects, 'tasks': tasks})
 
 @login_required
 def project(request, pk):
     project = Project.objects.get(pk=pk)
     tasks = Task.objects.filter(project=project)
-    users=User.objects.all()  # We're going to have to tweak what Steven did, or add that as a User attribute perhaps?
-    # users = User.objects.filter(project=project)
-    return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'users':users,'pk': pk})
-
-
-
+    categories = Category.objects.filter(project=project)
+    users=Member.objects.all()  
+    return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'categories':categories, 'users':users, 'pk': pk})
+    
 
 @login_required
 def new_project(request):
@@ -62,7 +86,6 @@ def edit_project(request, pk):
     if request.method == 'POST':
         form = ProjectForm(request.POST, instance=project)
         if form.is_valid():
-            project = form.save()
             form.save()
             return redirect('project', pk)
     else:
@@ -138,16 +161,16 @@ def delete_task(request, pk):
 @login_required
 def new_team_member(request, pk):
     project = get_object_or_404(Project, pk=pk)
-    user = request.user
-    team_member = User(project.pk)
+    user = request.user.username
+    team_member = Member(project.pk)
     if request.method == "POST":
         form = NewTeamMemberForm(request.POST) 
         if form.is_valid():
             new_team_member = form.save(commit=False)
             try:
-                team_member = User.objects.get(username=new_team_member.username)
+                team_member = user
 
-            except User.DoesNotExist:
+            except Member.DoesNotExist:
                 new_team_member.project = project
                 new_team_member.team_member = user
                 form.save()
@@ -164,7 +187,7 @@ def new_team_member(request, pk):
 
 @login_required
 def edit_team_member(request, pk):
-    team_member = get_object_or_404(User, pk=pk)
+    team_member = get_object_or_404(Member, pk=pk)
     if request.method == "POST":
         form = NewTeamMemberForm(request.POST, instance=team_member)
         if form.is_valid():
@@ -178,8 +201,44 @@ def edit_team_member(request, pk):
 
 @login_required
 def delete_team_member(request, pk):
-    team_member = get_object_or_404(User, pk=pk)
+    team_member = get_object_or_404(Member, pk=pk)
     team_member.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+@login_required
+def new_category(request, pk):  
+    project = get_object_or_404(Project, pk=pk)
+    form = CategoryForm(request.POST) 
+    category = None
+    if request.method == "POST":  
+        if form.is_valid():
+            projectpk = form.cleaned_data['project'].pk
+            category = form.save()
+            return redirect('project', projectpk) 
+    else:
+            form = CategoryForm(instance=category)
+    return render(request, 'core/new_category.html', {'form': form, 'category': category, 'project': project})
+    
+
+@login_required
+def edit_category(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    if request.method == "POST":
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            projectpk = form.cleaned_data['project'].pk
+            form.save()
+            return redirect('project', projectpk)
+    else:
+        form = CategoryForm(instance=category)
+    return render(request, 'core/edit_category.html', {'form': form, 'pk':pk, 'category': category})
+  
+
+@login_required
+def delete_category(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    category.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     
     

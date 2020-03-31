@@ -9,6 +9,7 @@
     <title>FloorPlan</title>{% endblock %}
 </head>
 
+
 <header>
     <div class='log-container'>
         <a class="floor-plan-text" href="{% url 'dashboard' %}">FloorPlan</a>
@@ -20,9 +21,6 @@
         <div class="log-link">
             <a class="logout" href="/accounts/logout/">Logout </a>
         </div>
-        <div class="log-link">
-            <a class="logout" href="/accounts/register/">Register </a>
-        </div>
         <!-- <div class="search-bar">
         <form action="" method="GET" id="search-form">
             <input type="text" id="search" name="q" placeholder="Search for a project..." value="{{query}}" />
@@ -33,6 +31,11 @@
 <body>
     {% block content %} {% endblock %}
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    {% if user.is_authenticated and user.is_project_manager %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/project_manager.css' %}"> {% else %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/members.css' %}"> {% endif %}
 </body>
+
+{% block content %}{% endblock %}
 
 </html>
