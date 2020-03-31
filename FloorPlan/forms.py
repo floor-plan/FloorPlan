@@ -53,3 +53,8 @@ class NewTeamMemberForm(forms.ModelForm):
     fields = ['role', 'category', 'is_project_manager']
 
 
+
+class CompleteTaskForm(forms.ModelForm):
+  class Meta:
+    model = Task
+    fields = ['is_complete', 'project']
