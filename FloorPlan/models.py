@@ -20,7 +20,7 @@ class Category(models.Model):
 	ProjectCategory = models.TextChoices('ProjectCategory', 'PLUMBING ELECTRICAL MASONRY FRAMING ROOFING HOMEOWNER')
 	category = models.CharField(choices=ProjectCategory.choices, max_length=30, default='HOMEOWNER')
 	project = models.ForeignKey(
-		Project, on_delete=models.CASCADE, related_name="categories")
+		Project, on_delete=models.CASCADE, related_name="categories", default='')
 	def __str__(self):
 		return f'{self.category}'
 
