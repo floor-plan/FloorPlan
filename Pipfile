@@ -16,11 +16,8 @@ django-heroku = "*"
 gunicorn = "*"
 django-model-utils = "*"
 django-registration-redux = "*"
-<<<<<<< HEAD
 vue = "*"
-=======
 django-crispy-forms = "*"
->>>>>>> master
 
 [requires]
 python_version = "3.7"

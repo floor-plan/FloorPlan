@@ -2,35 +2,38 @@ console.log("helloworld");
 
 updateButton = document.getElementById('update-button')
 
-const taskCheckbox = document.getElementById("checkbox");
+checkboxes = document.querySelectorAll('.checkbox')
 
-updateButton.addEventListener("click", function(event) {
-    updateTasks();
-});
-
-function updateTasks() {
-    if (taskCheckbox.checked) {
-        task.pk("{% url 'myapp:movieDataUpdate' pk=task.pk %}",
-
-
+function editThisTask(id) {
+    console.log("Where does this show up?")
+    console.log(id)
+    return fetch(`/complete_task/${id}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         }
-    }
+    })
+        .then(response => response.json())
+}
 
-    checkboxes = document.querySelectorAll('taskCheckbox')
 
+for (let checkbox of checkboxes) {
+    checkbox.addEventListener('change', function (event) {
+        event.preventDefault()
+        console.log("How many times does this happen?")
+        editThisTask(checkbox.id)
+        checkbox.classList.add("strikethrough")
+    })
+}
 
-    function taskComplete() {
+// `/complete_task/${id}`
 
-        var taskCheckbox = document.getElementById("taskCheckbox");
-
-        var taskText = document.querySelector("#task-text");
-
-        if (taskCheckbox.checked == true) {
-            taskText.classList.add('completed-task');
-        } else {
-            taskText.style.display = "none";
-        }
-    }
+// .then(json => {
+//     if (json.status === 'ok') {
+//         document.getElementById(id).classList.add(".strikethrough")
+//     }
+// }
 
 
 
