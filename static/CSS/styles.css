@@ -26,6 +26,15 @@ body {
     background-color: var(--background-color);
     color: var(--dark-gray);
     font-family: var(--default-fonts);
+
+}
+
+.logged-in-text{
+    padding: 10px;
+}
+
+p{
+    padding: 10px;
 }
 
 a:link {
@@ -56,7 +65,7 @@ h4,
 h5,
 h6 {
     font-family: var(--default-fonts);
-    padding: 10px;
+    padding-left: 10px;
 }
 
 
@@ -66,12 +75,13 @@ h6 {
     font-family: "Saira Condensed", sans-serif;
     font-size: 300%;
     color: var(--dark-brown);
+    padding-left: 10px;
 }
 
 .task-text {
     font-family: var(--default-fonts);
     color: var(--dark-gray);
-    margin: 5px;
+    /* margin: 5px; */
 }
 
 .project-text {
@@ -84,7 +94,7 @@ h6 {
 .task-container {
     display: flex;
     flex-flow: column;
-    padding: 25px;
+    padding: 10px;
     /* border: solid green 2px; */
     width: 40%;
     float: left;
@@ -103,14 +113,23 @@ h6 {
     background-size: cover;
     height: 100px;
     width: 100%;
+    padding-left: 0px;
 }
 
 .log-container {
     display: flex;
     flex-flow: row;
-    padding-left: 25px;
+    padding-left: 10px;
     /* border: solid green 2px; */
     align-content: center;
+    color: var(--dark-brown);
+}
+
+.log-link-container{
+    display: flex;
+    flex-flow: row;
+    padding: 15px;
+    padding-top: 25px;
 }
 
 .log-link {
@@ -163,8 +182,8 @@ h6 {
 
 .project-name {
     font-family: "Saira Condensed", sans-serif;
-    font-size: 300%;
-    color: var(--dark-brown);
+    font-size: 200%;
+    color: var(--light-brown);
     /* text-decoration: underline; */
 }
 
@@ -200,4 +219,8 @@ h6 {
 .project-categories,
 .project-tasks {
     /* text-decoration: underline; */
+}
+
+.small-button{
+    padding-left: 10px;
 }
