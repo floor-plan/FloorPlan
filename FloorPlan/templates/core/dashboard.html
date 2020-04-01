@@ -4,8 +4,8 @@
 
 <h1 class="project-tasks">My Tasks</h1>
 <div class="task-container">
-    {% for task in tasks|slice:":5" %} {% if task.assignee == user %}
-
+    {% for task in tasks%} {% if task.assignee == user %}
+    <!-- |slice:":5"  -->
     {% if task.is_complete != True %}
 
     <div class="task">

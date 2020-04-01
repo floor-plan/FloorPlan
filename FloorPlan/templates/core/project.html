@@ -29,12 +29,10 @@
         <label class='task-text project-tasks'>
           {{task.task|capfirst}} {{task.due_date}} Assigned to:
           {{task.assignee}}</label>
-
-        <div class='task-link-container task-text'><a class="small-button " href="{% url 'edit_task' pk=task.pk %}">Edit
-            Task</a>
-          <a class="task-text" href="{% url 'delete_task' pk=task.pk %} ">Delete Task</a>
-        </div>
-
+      </div>
+      <div class='task-link-container task-text'><a class="small-button " href="{% url 'edit_task' pk=task.pk %}">Edit
+          Task</a>
+        <a class="task-text" href="{% url 'delete_task' pk=task.pk %} ">Delete Task</a>
       </div>
     </div>
   </div>
