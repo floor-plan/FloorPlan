@@ -81,7 +81,15 @@ h6 {
 .task-text {
     font-family: var(--default-fonts);
     color: var(--dark-gray);
-    /* margin: 5px; */
+    margin: 5px;
+    padding: 5px;
+}
+
+.task {
+    font-family: var(--default-fonts);
+    color: var(--dark-gray);
+    margin: 5px;
+    padding: 5px;
 }
 
 .project-text {
@@ -147,9 +155,10 @@ h6 {
     align-content: flex-start;
     text-decoration: none;
     margin: 5px;
-    padding: 5px;
+    padding-left: 5px;
     border: 2px solid var(--light-brown);
-    border-radius: 4px;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
     width: 90%;
 }
 
@@ -188,19 +197,29 @@ h6 {
 }
 
 .project-tasks {
+    padding-left: 10px;
     width: 40%;
 }
 
-.boxshadow {
+/* .boxshadow {
     position: relative;
     box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
     padding: 10px;
-}
+    display:block;
+    text-decoration:none;
+} */
 
 .project-link-container {
-    display: flex;
+    /* display: flex; */
     flex-flow: row nowrap;
+    border-radius: 25px;
     padding: 10px;
+    position: relative;
+    background-color: var(--dark-gray);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 5);
+    /* padding: 10px; */
+    display:block;
+    text-decoration:none;
 }
 
 .project-link {
