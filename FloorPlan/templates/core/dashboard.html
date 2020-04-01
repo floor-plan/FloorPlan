@@ -5,14 +5,18 @@
 <h1 class="project-tasks">My Tasks</h1>
 <div class="task-container">
     {% for task in tasks|slice:":5" %} {% if task.assignee == user %}
+
+    {% if task.is_complete != True %}
+
     <div class="task">
-        <p class="task-text">
-            {{task.task|capfirst}} {{task.due_date}} {{task.assignee}}</p>
-        <a class="small-button" href="{% url 'edit_task' pk=task.pk %}">Edit Task</a
-    >
-    <a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
+        <p class="task-test">Task Name: {{task.task|capfirst}}</p>
+        <p class="task-text">Assignee: {{task.assignee}}</p>
+        <a class="small-button task-text" href="{% url 'edit_task' pk=task.pk %}">Edit Task</a>
+        <a class="task-text" href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
     </div>
-    {% endif %} {% endfor %}
+    {% endif %}
+    {% endif %}
+    {% endfor %}
 </div>
 
 <div class="project-container">
@@ -24,18 +28,15 @@
 
     <div class="project boxshadow">
         <p class="project-text">
-            Project {{project.pk}} {{project.name | capfirst}}</p>
+            Project Name: {{project.name | capfirst}}</p>
         <div class="project-link-container">
-            <a class="project-link" href="{% url 'project' pk=project.pk %}">Details</a
-      >
-      {% comment %}
-      <a class="project-link" href="{% url 'google.com' pk=project.pk %}"
-        >Manage Team</a
-      >
-      {% endcomment %}
+            <a class="project-link" href="{% url 'project' pk=project.pk %}">Details</a>
+            {% comment %}
+            <a class="project-link" href="{% url 'google.com' pk=project.pk %}">Manage Team</a>
+            {% endcomment %}
+        </div>
     </div>
-  </div>
-  {% endfor %}
+    {% endfor %}
 </div>
 
 {% endblock %}
