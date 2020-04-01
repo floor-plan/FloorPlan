@@ -1,62 +1,64 @@
 {% extends 'base.html' %} {% load static %} {% block meta %}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 {% endblock meta %} {% block content %}
-<h1>Name: {{project.name}}</h1>
+<h1 class="project-name">Name: {{project.name}}</h1>
 <h2>Address: {{project.address}}</h2>
 <h3>Lot: {{project.lot_number}}</h3>
-
 <a class="small-button" href="{% url 'edit_project' pk=project.pk %}">Edit Project</a>
 <a class="small-button" href="{% url 'delete_project' pk=project.pk %}">Delete Project</a>
 
-<h2>My Tasks</h2>
+<hr>
+
+<div class="project-tasks"></div>
+<h1 class="project-tasks">My Tasks</h1>
 <a href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
 {% comment %} <a href="{% url 'new_task' pk=project.pk %}">Completed Tasks</a> {% endcomment %}
-<div class="task-container">
-
-  <div class='task-container'>
-    {% comment %} <button id='update-button' class='update-button'>Update</button> {% endcomment %}
-    {% for task in tasks %}
-    {%   if task.is_complete == False and task.assignee == user %}
 
 
-    <div class="form-group">
-      <label for="inputName" class="col-md-1 control-label"></label>
-      <div class="col-md-5">
-        <div class="checkbox">
-          <input class='checkbox' type="checkbox" name="packersOff" value="1" id="{{task.pk}}" />
-          <label class='task-text'>
-            {{task.task|capfirst}} {{task.due_date}} Assigned to:
-            {{task.assignee}}</label>
-          <div class='task-link-container'><a class="small-button " href="{% url 'edit_task' pk=task.pk %}">Edit
-              Task</a>
-            <a href="{% url 'delete_task' pk=task.pk %} ">Delete Task</a>
-          </div>
-          <a href="{% url 'complete_task' pk=task.pk %} ">Mark As Complete</a>
+<div>
+  {% comment %} <button id='update-button' class='update-button'>Update</button> {% endcomment %}
+  {% for task in tasks %}
+  {%   if task.is_complete == False and task.assignee == user %}
+  <div class="form-group">
+    <label for="inputName" class="col-md-1 control-label"></label>
+    <div class="col-md-5">
+      <div class="checkbox">
+        <input class='checkbox' type="checkbox" name="packersOff" value="1" id="{{task.pk}}" />
+        <label class='task-text project-tasks'>
+          {{task.task|capfirst}} {{task.due_date}} Assigned to:
+          {{task.assignee}}</label>
+        <div class='task-link-container'><a class="small-button " href="{% url 'edit_task' pk=task.pk %}">Edit
+            Task</a>
+          <a href="{% url 'delete_task' pk=task.pk %} ">Delete Task</a>
         </div>
+        <a href="{% url 'complete_task' pk=task.pk %} ">Mark As Complete</a>
       </div>
     </div>
   </div>
-  {% endif %}
-  {% endfor %}
+</div>
+{% endif %}
+{% endfor %}
 
-  {% comment %} {% for task in tasks %}
-  {% if task.assignee == user %}
-  <div class="task">
-    <p class="task-text">
-      {{task.task|capfirst}} {{task.due_date}} {{task.assignee}}</p>
-    <a class="small-button" href="{% url 'edit_task' pk=task.pk %}">Edit Task</a>
-    <a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
-  </div>
-  {% endif %}
-  {% endfor %} {% endcomment %}
+{% comment %} {% for task in tasks %}
+{% if task.assignee == user %}
+<div class="task">
+  <h2 class="task-text">
+    {{task.task|capfirst}} {{task.due_date}} {{task.assignee}}</h2>
+  <a class="small-button" href="{% url 'edit_task' pk=task.pk %}">Edit Task</a>
+  <a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
+</div>
+{% endif %}
+{% endfor %} {% endcomment %}
 </div>
 
-<h2>Categories</h2>
-<a href="{% url 'new_category' pk=project.pk %}">Create New Category</a>
+<hr>
+
+<h1 class="project-categories">Categories</h1>
+<!-- <a href="{% url 'new_category' pk=project.pk %}">Create New Category</a> -->
 <div class='category-container'>
   {% for category in categories %}
   <div>
-    <p class="category-text">{{category.category}}</p>
+    <h2 class="category-text">{{category.category}}</h2>
     <a class="small-button" href="{% url 'edit_category' pk=category.pk %}">Edit Category</a>
     <a href="{% url 'delete_category' pk=category.pk %}">Delete Category</a>
     {% for task in tasks %}
@@ -77,24 +79,5 @@
   {% endfor %}
 
 </div>
-
-<div class="team-container ">
-  <h2>Team</h2>
-  <div class="team-member ">
-    {% comment %} <a href="{% url 'new_team_member' pk=project.pk %} ">Add New Team Member</a> {% endcomment %}
-  </div>
-</div>
-
-<div>
-  <p>HELLO</p>
-  {% for user in users %}
-  <div class="user-container ">
-    <p class="user-text "> {{user.username|capfirst}}</p>
-    <a href="{% url 'edit_team_member' pk=user.pk %} ">Edit Team Member</a>
-    <a href="{% url 'delete_team_member' pk=user.pk %} ">Delete Team Member</a>
-  </div>
-  {% endfor %}
-</div>
-<script src="{% static 'JS/main.js' %}"></script>
 
 {% endblock content %}

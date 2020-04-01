@@ -2,7 +2,7 @@
 
 <p>Logged in as: {{request.user.username}}</p>
 
-<h2>Tasks</h2>
+<h1 class="project-tasks">My Tasks</h1>
 <div class="task-container">
     {% for task in tasks %}
     {% if task.assignee == user %}
@@ -16,11 +16,11 @@
     {% endfor %}
 </div>
 
-
-<a href="{% url 'new_project' %}">New Project</a>
-
-<h2>Projects</h2>
 <div class="project-container">
+    <a href="{% url 'new_project' %}">New Project</a>
+
+    <h1 class="project-tasks">Projects</h1>
+
     {% for project in projects %}
 
     <div class="project boxshadow">
