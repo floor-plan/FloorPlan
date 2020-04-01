@@ -9,10 +9,12 @@
     {% if task.is_complete != True %}
 
     <div class="task">
+
         <p class="task-test">Task Name: {{task.task|capfirst}}</p>
         <p class="task-text">Assignee: {{task.assignee}}</p>
         <a class="small-button task-text" href="{% url 'edit_task' pk=task.pk %}">Edit Task</a>
         <a class="task-text" href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
+
     </div>
     {% endif %}
     {% endif %}
@@ -20,7 +22,7 @@
 </div>
 
 <div class="project-container">
-    <a href="{% url 'new_project' %}">New Project</a>
+    <a class='small-button' href="{% url 'new_project' %}">New Project</a>
 
     <h1 class="project-tasks">Projects</h1>
 
