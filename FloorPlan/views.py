@@ -52,6 +52,15 @@ class MemberSignUpView(CreateView):
         login(self.request, user)
         return redirect('login')
 
+def logout_then_login(request, login_url=None, current_app=None, extra_context=None):
+    """
+    Logs out the user if they are logged in. Then redirects to the log-in page.
+    """
+    if not login_url:
+        login_url = settings.LOGIN_URL
+    login_url = resolve_url(login_url)
+    return logout(request, login_url, current_app=current_app, extra_context=extra_context)
+
 @login_required
 def dashboard(request):
     projects = Project.objects.all()
