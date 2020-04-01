@@ -124,10 +124,12 @@ def edit_task(request, pk):
         if form.is_valid():
             projectpk = form.cleaned_data['project'].pk
             form.save()
-            return redirect('project', projectpk)
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     else:
         form = TaskForm(instance=task)
     return render(request, 'core/edit_task.html', {'form': form, 'pk':pk, 'task': task})
+
+
   
 @login_required
 @csrf_exempt
