@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /> {% load static %}
     <link href="https://fonts.googleapis.com/css?family=Oswald|Saira+Condensed:700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'CSS/styles.css' %}" /> {% block title %}
+    <script src="{% static 'JS/main.js' %}" defer></script>
     <title>FloorPlan</title>{% endblock %}
 </head>
 
 
-<header>
+<header class='header'>
     <div class='log-container'>
         <a class="floor-plan-text" href="{% url 'dashboard' %}">FloorPlan</a>
 

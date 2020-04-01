@@ -30,7 +30,8 @@ body {
 
 a:link {
     text-decoration: none;
-    font-family: var(--default-fonts) color: none;
+    font-family: var(--default-fonts) ;
+    color: none;
 }
 
 a:visited {
@@ -48,27 +49,11 @@ a:active {
     color: red;
 }
 
-h1 {
+h1, h2, h3, h4, h5, h6 {
     font-family: var(--default-fonts);
-    padding: 25px;
+    padding: 10px;
 }
 
-h2 {
-    font-family: var(--default-fonts);
-    padding: 25px;
-}
-
-h3 {
-    font-family: var(--default-fonts)
-}
-
-h4 {
-    font-family: var(--default-fonts)
-}
-
-h5 {
-    font-family: var(--default-fonts)
-}
 
 
 /* font-family: 'Oswald', sans-serif; */
@@ -82,6 +67,7 @@ h5 {
 .task-text {
     font-family: var(--default-fonts);
     color: var(--dark-gray);
+    margin: 5px;
 }
 
 .project-text {
@@ -96,6 +82,8 @@ h5 {
     flex-flow: column;
     padding: 25px;
     /* border: solid green 2px; */
+    width: 40%;
+    float: left;
 }
 
 .heading-container {
@@ -106,24 +94,39 @@ h5 {
     align-content: center;
 }
 
+.header{
+    background: url('birch-wood-grain-background-header.jpg');
+    background-size: cover;
+    height: 100px;
+    width: 100%;
+}
+
+
 .log-container {
     display: flex;
     flex-flow: row;
     padding-left: 25px;
     /* border: solid green 2px; */
     align-content: center;
+    
 }
 
 .log-link {
     display: flex;
     padding: 5px;
     color: var(--dark-brown);
-    font-family: var(--default-fonts)
+    font-family: var(--default-fonts);
 }
 
 .task {
     align-content: flex-start;
     text-decoration: none;
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid var(--light-brown);
+    border-radius: 4px;
+    width: 90%;
+  
 }
 
 .task-text:checked+span {
@@ -136,10 +139,11 @@ h5 {
 }
 
 .project-container {
-    display: flex;
+    display: inline-block;
     flex-flow: column;
     /* border: red 6px solid; */
     padding: 25px;
+    width: 60%;
 }
 
 .project {
@@ -150,6 +154,18 @@ h5 {
     margin: 12px;
     border-radius: 12px;
     padding-left: 50px;
+}
+
+.project-name{
+    font-family: 'Saira Condensed', sans-serif;
+    font-size: 300%;
+    color: var(--dark-brown);
+    text-decoration: underline;
+}
+
+.project-tasks{
+    width: 40%;
+
 }
 
 .boxshadow {
@@ -171,4 +187,12 @@ h5 {
 
 .strikethrough{
     text-decoration: line-through;
+}
+
+.category-container{
+    width: 40%;
+}
+
+.project-categories, .project-tasks{
+    text-decoration: underline;
 }
