@@ -1,17 +1,13 @@
-{% extends 'base.html' %}
-
-{% block content %}
-{% if messages %}
-    <ul class="messages">
+{% extends 'base.html' %} {% block content %} {% if messages %}
+<ul class="messages">
     {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
 </ul>
 {% endif %}
 
-<form action="{% url 'new_team_member' pk=project.pk %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+<form class="form" action="{% url 'new_team_member' pk=project.pk %}" method="post">
+    {% csrf_token %} {{ form.as_p }}
     <input type="submit" class="submit-button" value='Submit'>
 </form>
 

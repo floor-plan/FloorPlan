@@ -4,7 +4,7 @@
     margin: 0;
 }
 
-input[type=checkbox]:checked+label.strikethrough {
+input[type="checkbox"]:checked+label.strikethrough {
     text-decoration: line-through;
 }
 
@@ -19,7 +19,7 @@ input[type=checkbox]:checked+label.strikethrough {
     --electrical: #ff3300;
     --project-manager: #cc0033;
     --homeowner: #ffd803;
-    --default-fonts: 'Saira Condensed', sans-serif
+    --default-fonts: "Saira Condensed", sans-serif;
 }
 
 body {
@@ -30,38 +30,42 @@ body {
 
 a:link {
     text-decoration: none;
-    font-family: var(--default-fonts) ;
-    color: none;
+    font-family: var(--default-fonts);
+    color: var(--light-gray);
 }
 
 a:visited {
     text-decoration: none;
-    color: none;
+    color: var(--light-gray);
 }
 
 a:hover {
     text-decoration: none;
-    color: red;
+    color: white;
 }
 
 a:active {
     text-decoration: none;
-    color: red;
+    color: var(--light-gray);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--default-fonts);
     padding: 10px;
 }
 
 
-
 /* font-family: 'Oswald', sans-serif; */
 
 .floor-plan-text {
-    font-family: 'Saira Condensed', sans-serif;
+    font-family: "Saira Condensed", sans-serif;
     font-size: 300%;
-    color: var(--dark-brown)
+    color: var(--dark-brown);
 }
 
 .task-text {
@@ -94,13 +98,12 @@ h1, h2, h3, h4, h5, h6 {
     align-content: center;
 }
 
-.header{
-    background: url('birch-wood-grain-background-header.jpg');
+.header {
+    background: url("birch-wood-grain-background-header.jpg");
     background-size: cover;
     height: 100px;
     width: 100%;
 }
-
 
 .log-container {
     display: flex;
@@ -108,7 +111,6 @@ h1, h2, h3, h4, h5, h6 {
     padding-left: 25px;
     /* border: solid green 2px; */
     align-content: center;
-    
 }
 
 .log-link {
@@ -116,6 +118,10 @@ h1, h2, h3, h4, h5, h6 {
     padding: 5px;
     color: var(--dark-brown);
     font-family: var(--default-fonts);
+}
+
+.form {
+    padding: 25px;
 }
 
 .task {
@@ -126,11 +132,10 @@ h1, h2, h3, h4, h5, h6 {
     border: 2px solid var(--light-brown);
     border-radius: 4px;
     width: 90%;
-  
 }
 
 .task-text:checked+span {
-    text-decoration: line-through
+    text-decoration: line-through;
 }
 
 .completed-task {
@@ -156,21 +161,20 @@ h1, h2, h3, h4, h5, h6 {
     padding-left: 50px;
 }
 
-.project-name{
-    font-family: 'Saira Condensed', sans-serif;
+.project-name {
+    font-family: "Saira Condensed", sans-serif;
     font-size: 300%;
     color: var(--dark-brown);
-    text-decoration: underline;
+    /* text-decoration: underline; */
 }
 
-.project-tasks{
+.project-tasks {
     width: 40%;
-
 }
 
 .boxshadow {
     position: relative;
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
     padding: 10px;
 }
 
@@ -185,14 +189,15 @@ h1, h2, h3, h4, h5, h6 {
     color: white;
 }
 
-.strikethrough{
+.strikethrough {
     text-decoration: line-through;
 }
 
-.category-container{
+.category-container {
     width: 40%;
 }
 
-.project-categories, .project-tasks{
-    text-decoration: underline;
+.project-categories,
+.project-tasks {
+    /* text-decoration: underline; */
 }
