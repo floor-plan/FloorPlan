@@ -4,8 +4,8 @@
 <h1 class="project-name">Name: {{project.name}}</h1>
 <h2>Address: {{project.address}}</h2>
 <h3>Lot: {{project.lot_number}}</h3>
-<a class="small-button" href="{% url 'edit_project' pk=project.pk %}">Edit Project</a>
-<a class="small-button" href="{% url 'delete_project' pk=project.pk %}">Delete Project</a>
+<a class="small-button task-text" href="{% url 'edit_project' pk=project.pk %}">Edit Project</a>
+<a class="small-button task-text" href="{% url 'delete_project' pk=project.pk %}">Delete Project</a>
 
 <hr>
 
@@ -22,16 +22,15 @@
   <div class="form-group">
     <label for="inputName" class="col-md-1 control-label"></label>
     <div class="col-md-5">
-      <div class="checkbox">
+      <div class="checkbox task-text">
         <input class='checkbox' type="checkbox" name="packersOff" value="1" id="{{task.pk}}" />
         <label class='task-text project-tasks'>
           {{task.task|capfirst}} {{task.due_date}} Assigned to:
           {{task.assignee}}</label>
-        <div class='task-link-container'><a class="small-button " href="{% url 'edit_task' pk=task.pk %}">Edit
+        <div class='task-link-container task-text'><a class="small-button " href="{% url 'edit_task' pk=task.pk %}">Edit
             Task</a>
-          <a href="{% url 'delete_task' pk=task.pk %} ">Delete Task</a>
+          <a class="task-text" href="{% url 'delete_task' pk=task.pk %} ">Delete Task</a>
         </div>
-        <a href="{% url 'complete_task' pk=task.pk %} ">Mark As Complete</a>
       </div>
     </div>
   </div>
@@ -57,7 +56,7 @@
 <!-- <a href="{% url 'new_category' pk=project.pk %}">Create New Category</a> -->
 <div class='category-container'>
   {% for category in categories %}
-  <div>
+  <div class="task-text">
     <h2 class="category-text">{{category.category}}</h2>
     <a class="small-button" href="{% url 'edit_category' pk=category.pk %}">Edit Category</a>
     <a href="{% url 'delete_category' pk=category.pk %}">Delete Category</a>
@@ -65,7 +64,7 @@
     {% if task.category == category %}
     {% if task.is_complete == True %}
     <div class="task strikethrough">
-      <p class="task-test">{{task.task|capfirst}}</p>
+      <p class="task-text">{{task.task|capfirst}}</p>
     </div>
     {% else %}
     <div class="task">
