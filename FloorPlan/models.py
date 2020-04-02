@@ -44,6 +44,9 @@ class Task(models.Model):
 		Member, on_delete=models.CASCADE, related_name='tasks', default='')
 	project = models.ForeignKey(
 		Project, on_delete=models.CASCADE, related_name="tasks")
+	due_date = models.DateTimeField()
+	created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 	is_complete = models.BooleanField(default=False)
 
 	def __str__(self):
