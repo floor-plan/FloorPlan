@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
@@ -11,6 +12,11 @@ from .forms import ProjectForm, TaskForm, NewTeamMemberForm, ProjectManagerSignU
 from users.models import Member
 from .models import Project, Category, Task
 from django.views.decorators.csrf import csrf_exempt
+from .decorators import project_manager_required
+
+
+
+
 
 
 class SignUpView(TemplateView):
@@ -28,36 +34,55 @@ class SignUpView(TemplateView):
 class ProjectManagerSignUpView(CreateView):
     model = Member
     form_class = ProjectManagerSignUpForm
-    template_name = 'registration/signup_form.html'
+    template_name = 'registration/signup_as_pm.html'
 
     def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'project_manager'
+        kwargs['group'] = 'project_manager'
         return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
         user = form.save()
+        group = Group.objects.get(name='project_manager') 
+        group.user_set.add(user)
+        user.is_project_manager = True
+        user.save()
         login(self.request, user)
-        return redirect('login')
+        return redirect('dashboard')
 
 class MemberSignUpView(CreateView):
     model = Member
     form_class = MemberSignUpForm
-    template_name = 'registration/signup_form.html'
+    template_name = 'registration/signup_as_member.html'
 
     def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'member'
+        kwargs['group'] = 'member'
         return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
         user = form.save()
+        group = Group.objects.get(name='member') 
+        group.user_set.add(user)
         login(self.request, user)
         return redirect('login')
+
+# def logout_then_login(request, login_url=None, current_app=None, extra_context=None):
+#     """
+#     Logs out the user if they are logged in. Then redirects to the log-in page.
+#     """
+#     if not login_url:
+#         login_url = settings.LOGIN_URL
+#     login_url = resolve_url(login_url)
+#     return logout(request, "registration/logout.html", current_app=current_app, extra_context=extra_context)
 
 @login_required
 def dashboard(request):
     projects = Project.objects.all()
     user = request.user
     tasks = Task.objects.filter(assignee=user)
+    # group = Group.objects.all()
+    # if user.groups.filter(name = 'project_manager').exists():
+    #     user.is_project_manager = True
+    
     return render(request, "core/dashboard.html", {'projects': projects, 'tasks': tasks})
 
 @login_required
@@ -103,6 +128,7 @@ def delete_project(request, pk):
 
 
 @login_required
+@project_manager_required
 def new_task(request, pk):  
     project = get_object_or_404(Project, pk=pk)
     form = TaskForm(request.POST) 

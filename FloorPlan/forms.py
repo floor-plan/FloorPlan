@@ -4,33 +4,36 @@ from users.models import Member
 from .models import Project, Category, Task
 from django.db import transaction
 
-class ProjectManagerSignUpForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):
-        model = Member
 
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.is_member = True
-        if commit:
-            user.save()
-        return user
+class ProjectManagerSignUpForm(UserCreationForm):
+	class Meta(UserCreationForm.Meta):
+		model = Member
+		fields = ('first_name', 'last_name', 'username', 'email')
+
+	def save(self, commit=True):
+		user = super().save(commit=False)
+		user.is_member = True
+		if commit:
+			user.save()
+		return user
 
 class MemberSignUpForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):
-        model = Member
+	class Meta(UserCreationForm.Meta):
+		model = Member
+		fields = ('first_name', 'last_name', 'username', 'email', 'role', 'category')
 
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.is_member = True
-        if commit:
-            user.save()
-        return user
+	def save(self, commit=True):
+		user = super().save(commit=False)
+		user.is_member = True
+		if commit:
+			user.save()
+		return user
 
 
 class ProjectForm(forms.ModelForm):
-  class Meta:
-    model = Project
-    fields = ['address', 'lot_number', 'name']
+	class Meta:
+		model = Project
+		fields = ['address', 'lot_number', 'name']
 
 
 
@@ -48,13 +51,13 @@ class CategoryForm(forms.ModelForm):
 
 
 class NewTeamMemberForm(forms.ModelForm):
-  class Meta:
-    model = Member
-    fields = ['role', 'category', 'is_project_manager']
+	class Meta:
+		model = Member
+		fields = ['role', 'category', 'is_project_manager']
 
 
 
 class CompleteTaskForm(forms.ModelForm):
-  class Meta:
-    model = Task
-    fields = ['is_complete', 'project']
+	class Meta:
+		model = Task
+		fields = ['is_complete', 'project']
