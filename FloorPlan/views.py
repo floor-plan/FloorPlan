@@ -2,11 +2,11 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
 from .import forms
 # from django.core.exceptions import DoesNotExist
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+
 from django.views.generic import CreateView, TemplateView
 from .forms import ProjectForm, TaskForm, NewTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm, CategoryForm, CompleteTaskForm
 from users.models import Member
@@ -18,25 +18,17 @@ from .decorators import project_manager_required
 
 
 
-# class LoginView(TemplateView):
-#     template_name = 'registration/signup.html'
 
-#     def home(request):
-#         if request.user.is_authenticated:
-#             if request.user.is_project_manager:
-#                 return redirect('dashboard')
-#             else:
-#                 return redirect('dashboard')
-#         return render(request, 'dashboard.html')
+class SignUpView(TemplateView):
+    template_name = 'registration/signup.html'
 
-# class LogoutView(TemplateView):
-#     template_name = 'registration/login.html'
-
-#     def home(request):
-#         if not login_url:
-#             login_url = settings.LOGIN_URL
-#         login_url = resolve_url(login_url)
-#         return render(request, "registration/login.html")
+    def home(request):
+        if request.user.is_authenticated:
+            if request.user.is_teacher:
+                return redirect('dashboard')
+            else:
+                return redirect('dashboard')
+        return render(request, 'dashboard.html')
 
 
 class ProjectManagerSignUpView(CreateView):
@@ -65,7 +57,7 @@ class MemberSignUpView(CreateView):
     def get_context_data(self, **kwargs):
         kwargs['group'] = 'member'
         return super().get_context_data(**kwargs)
- 
+
     def form_valid(self, form):
         user = form.save()
         group = Group.objects.get(name='member') 
@@ -97,7 +89,7 @@ def dashboard(request):
 def project(request, pk):
     project = Project.objects.get(pk=pk)
     tasks = Task.objects.filter(project=project)
-    categories = Category.objects.filter(project=project)
+    categories = Category.objects.all()
     users=Member.objects.all()  
     return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'categories':categories, 'users':users, 'pk': pk})
     
@@ -158,11 +150,17 @@ def edit_task(request, pk):
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             projectpk = form.cleaned_data['project'].pk
+            # next = request.POST.get('next', '/')
             form.save()
-            return redirect('project', projectpk)
+        return redirect('project', projectpk)
     else:
         form = TaskForm(instance=task)
     return render(request, 'core/edit_task.html', {'form': form, 'pk':pk, 'task': task})
+
+
+
+    # return HttpResponsePermanentRedirect(request.META.get('HTTP_REFERER', '/'))
+   
   
 @login_required
 @csrf_exempt

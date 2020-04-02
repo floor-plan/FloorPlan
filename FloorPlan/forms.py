@@ -38,15 +38,15 @@ class ProjectForm(forms.ModelForm):
 
 
 class TaskForm(forms.ModelForm):
-	class Meta:
-		model = Task
-		fields = ['project', 'task', 'category', 'assignee']
-
+  class Meta:
+    model = Task
+    fields = ['project', 'task', 'category', 'assignee', 'due_date']
+    
 
 class CategoryForm(forms.ModelForm):
-	class Meta:
-		model = Category
-		fields = ['category', 'project']
+  class Meta:
+    model = Category
+    fields = ['category']
 
 
 
