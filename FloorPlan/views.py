@@ -81,7 +81,7 @@ def dashboard(request):
 def project(request, pk):
     project = Project.objects.get(pk=pk)
     tasks = Task.objects.filter(project=project)
-    categories = Category.objects.filter(project=project)
+    categories = Category.objects.all()
     users=Member.objects.all()  
     return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'categories':categories, 'users':users, 'pk': pk})
     
