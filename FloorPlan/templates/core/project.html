@@ -13,7 +13,9 @@
 
 <div class="project-tasks"></div>
 <h1 class="project-tasks">My Tasks</h1>
+{% if user.is_project_manager %}
 <a class='small-button' href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
+{% endif %}
 {% comment %} <a href="{% url 'new_task' pk=project.pk %}">Completed Tasks</a> {% endcomment %}
 
 

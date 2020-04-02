@@ -20,7 +20,7 @@ class ProjectManagerSignUpForm(UserCreationForm):
 class MemberSignUpForm(UserCreationForm):
 	class Meta(UserCreationForm.Meta):
 		model = Member
-		fields = ('first_name', 'last_name', 'username', 'email')
+		fields = ('first_name', 'last_name', 'username', 'email', 'role', 'category')
 
 	def save(self, commit=True):
 		user = super().save(commit=False)

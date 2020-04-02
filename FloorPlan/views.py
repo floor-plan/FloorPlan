@@ -12,6 +12,7 @@ from .forms import ProjectForm, TaskForm, NewTeamMemberForm, ProjectManagerSignU
 from users.models import Member
 from .models import Project, Category, Task
 from django.views.decorators.csrf import csrf_exempt
+from .decorators import project_manager_required
 
 
 
@@ -51,8 +52,10 @@ class ProjectManagerSignUpView(CreateView):
         user = form.save()
         group = Group.objects.get(name='project_manager') 
         group.user_set.add(user)
+        user.is_project_manager = True
+        user.save()
         login(self.request, user)
-        return redirect('login')
+        return redirect('dashboard')
 
 class MemberSignUpView(CreateView):
     model = Member
@@ -84,6 +87,10 @@ def dashboard(request):
     projects = Project.objects.all()
     user = request.user
     tasks = Task.objects.filter(assignee=user)
+    # group = Group.objects.all()
+    # if user.groups.filter(name = 'project_manager').exists():
+    #     user.is_project_manager = True
+    
     return render(request, "core/dashboard.html", {'projects': projects, 'tasks': tasks})
 
 @login_required
@@ -129,6 +136,7 @@ def delete_project(request, pk):
 
 
 @login_required
+@project_manager_required
 def new_task(request, pk):  
     project = get_object_or_404(Project, pk=pk)
     form = TaskForm(request.POST) 
