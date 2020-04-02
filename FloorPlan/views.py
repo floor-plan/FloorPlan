@@ -1,36 +1,28 @@
-# from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
 from .import forms
 # from django.core.exceptions import DoesNotExist
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+
 from django.views.generic import CreateView, TemplateView
 from .forms import ProjectForm, TaskForm, NewTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm, CategoryForm, CompleteTaskForm
 from users.models import Member
 from .models import Project, Category, Task
 from django.views.decorators.csrf import csrf_exempt
 
-# class LoginView(TemplateView):
-#     template_name = 'registration/signup.html'
 
-#     def home(request):
-#         if request.user.is_authenticated:
-#             if request.user.is_project_manager:
-#                 return redirect('dashboard')
-#             else:
-#                 return redirect('dashboard')
-#         return render(request, 'dashboard.html')
+class SignUpView(TemplateView):
+    template_name = 'registration/signup.html'
 
-# class LogoutView(TemplateView):
-#     template_name = 'registration/login.html'
-
-#     def home(request):
-#         if not login_url:
-#             login_url = settings.LOGIN_URL
-#         login_url = resolve_url(login_url)
-#         return render(request, "registration/login.html")
+    def home(request):
+        if request.user.is_authenticated:
+            if request.user.is_teacher:
+                return redirect('dashboard')
+            else:
+                return redirect('dashboard')
+        return render(request, 'dashboard.html')
 
 
 class ProjectManagerSignUpView(CreateView):
@@ -55,20 +47,11 @@ class MemberSignUpView(CreateView):
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'member'
         return super().get_context_data(**kwargs)
- 
+
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
         return redirect('login')
-
-def logout_then_login(request, login_url=None, current_app=None, extra_context=None):
-    """
-    Logs out the user if they are logged in. Then redirects to the log-in page.
-    """
-    if not login_url:
-        login_url = settings.LOGIN_URL
-    login_url = resolve_url(login_url)
-    return logout(request, "registration/logout.html", current_app=current_app, extra_context=extra_context)
 
 @login_required
 def dashboard(request):
@@ -141,11 +124,17 @@ def edit_task(request, pk):
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             projectpk = form.cleaned_data['project'].pk
+            # next = request.POST.get('next', '/')
             form.save()
-            return redirect('project', projectpk)
+        return redirect('project', projectpk)
     else:
         form = TaskForm(instance=task)
     return render(request, 'core/edit_task.html', {'form': form, 'pk':pk, 'task': task})
+
+
+
+    # return HttpResponsePermanentRedirect(request.META.get('HTTP_REFERER', '/'))
+   
   
 @login_required
 @csrf_exempt
