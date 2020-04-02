@@ -1,16 +1,17 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
 from .import forms
 # from django.core.exceptions import DoesNotExist
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+
 from django.views.generic import CreateView, TemplateView
 from .forms import ProjectForm, TaskForm, NewTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm, CategoryForm, CompleteTaskForm
 from users.models import Member
 from .models import Project, Category, Task
 from django.views.decorators.csrf import csrf_exempt
+
 
 class SignUpView(TemplateView):
     template_name = 'registration/signup.html'
@@ -123,11 +124,17 @@ def edit_task(request, pk):
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             projectpk = form.cleaned_data['project'].pk
+            # next = request.POST.get('next', '/')
             form.save()
-            return redirect('project', projectpk)
+        return redirect('project', projectpk)
     else:
         form = TaskForm(instance=task)
     return render(request, 'core/edit_task.html', {'form': form, 'pk':pk, 'task': task})
+
+
+
+    # return HttpResponsePermanentRedirect(request.META.get('HTTP_REFERER', '/'))
+   
   
 @login_required
 @csrf_exempt
