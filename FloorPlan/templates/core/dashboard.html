@@ -28,17 +28,19 @@
 
     {% for project in projects %}
 
-    <div class="project boxshadow">
+    <a href="{% url 'project' pk=project.pk %}" class="project-link-container">
+
         <p class="project-text">
             Project Name: {{project.name | capfirst}}</p>
-        <div class="project-link-container">
-            <a class="project-link" href="{% url 'project' pk=project.pk %}">Details</a>
-            {% comment %}
-            <a class="project-link" href="{% url 'google.com' pk=project.pk %}">Manage Team</a>
-            {% endcomment %}
-        </div>
-    </div>
-    {% endfor %}
+
+        <h3>Details</h3>
+        {% comment %}
+        <a class="project-link" href="{% url 'google.com' pk=project.pk %}">Manage Team</a>
+        {% endcomment %}
+    </a>
+
+</div>
+{% endfor %}
 </div>
 
 {% endblock %}
