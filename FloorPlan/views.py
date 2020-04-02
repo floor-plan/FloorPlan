@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+# from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
@@ -12,16 +12,25 @@ from users.models import Member
 from .models import Project, Category, Task
 from django.views.decorators.csrf import csrf_exempt
 
-class SignUpView(TemplateView):
-    template_name = 'registration/signup.html'
+# class LoginView(TemplateView):
+#     template_name = 'registration/signup.html'
 
-    def home(request):
-        if request.user.is_authenticated:
-            if request.user.is_teacher:
-                return redirect('dashboard')
-            else:
-                return redirect('dashboard')
-        return render(request, 'dashboard.html')
+#     def home(request):
+#         if request.user.is_authenticated:
+#             if request.user.is_project_manager:
+#                 return redirect('dashboard')
+#             else:
+#                 return redirect('dashboard')
+#         return render(request, 'dashboard.html')
+
+# class LogoutView(TemplateView):
+#     template_name = 'registration/login.html'
+
+#     def home(request):
+#         if not login_url:
+#             login_url = settings.LOGIN_URL
+#         login_url = resolve_url(login_url)
+#         return render(request, "registration/login.html")
 
 
 class ProjectManagerSignUpView(CreateView):
@@ -46,11 +55,20 @@ class MemberSignUpView(CreateView):
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'member'
         return super().get_context_data(**kwargs)
-
+ 
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
         return redirect('login')
+
+def logout_then_login(request, login_url=None, current_app=None, extra_context=None):
+    """
+    Logs out the user if they are logged in. Then redirects to the log-in page.
+    """
+    if not login_url:
+        login_url = settings.LOGIN_URL
+    login_url = resolve_url(login_url)
+    return logout(request, "registration/logout.html", current_app=current_app, extra_context=extra_context)
 
 @login_required
 def dashboard(request):

@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<a href="{% url 'project_manager_signup' %}" role="button">Sign-up as a project manager</a>
+<a href="{% url 'project_manager_signup' %}" role="button">Sign-up as a Project Manager</a>
 <br>
 <a href="{% url 'member_signup' %}" role="button">Sign-up as a Sub-Contractor, Supplier, or Homeowner</a>
 
@@ -37,6 +37,6 @@
   <input type="hidden" name="next" value="{{ next }}">
 </form>
 
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p> 
+<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 
 {% endblock %}
