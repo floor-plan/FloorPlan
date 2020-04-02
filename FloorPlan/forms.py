@@ -8,7 +8,7 @@ from django.db import transaction
 class ProjectManagerSignUpForm(UserCreationForm):
 	class Meta(UserCreationForm.Meta):
 		model = Member
-		fields = ('first_name', 'last_name', 'email')
+		fields = ('first_name', 'last_name', 'username', 'email')
 
 	def save(self, commit=True):
 		user = super().save(commit=False)
@@ -20,7 +20,7 @@ class ProjectManagerSignUpForm(UserCreationForm):
 class MemberSignUpForm(UserCreationForm):
 	class Meta(UserCreationForm.Meta):
 		model = Member
-		fields = ('first_name', 'last_name', 'email')
+		fields = ('first_name', 'last_name', 'username', 'email')
 
 	def save(self, commit=True):
 		user = super().save(commit=False)

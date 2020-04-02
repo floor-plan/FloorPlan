@@ -1,6 +1,6 @@
 {% extends 'base.html'%}{% load static %} {% block content %}
 
-<p>Logged in as: {{request.user.username}}</p>
+<p>Logged in as: {{request.user.first_name}} {{request.user.last_name}}</p>
 
 <h1 class="project-tasks">My Tasks</h1>
 <div class="task-container">

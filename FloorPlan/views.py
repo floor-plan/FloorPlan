@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
@@ -11,6 +12,10 @@ from .forms import ProjectForm, TaskForm, NewTeamMemberForm, ProjectManagerSignU
 from users.models import Member
 from .models import Project, Category, Task
 from django.views.decorators.csrf import csrf_exempt
+
+
+
+
 
 # class LoginView(TemplateView):
 #     template_name = 'registration/signup.html'
@@ -39,11 +44,13 @@ class ProjectManagerSignUpView(CreateView):
     template_name = 'registration/signup_as_pm.html'
 
     def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'project_manager'
+        kwargs['group'] = 'project_manager'
         return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
         user = form.save()
+        group = Group.objects.get(name='project_manager') 
+        group.user_set.add(user)
         login(self.request, user)
         return redirect('login')
 
@@ -53,11 +60,13 @@ class MemberSignUpView(CreateView):
     template_name = 'registration/signup_as_member.html'
 
     def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'member'
+        kwargs['group'] = 'member'
         return super().get_context_data(**kwargs)
  
     def form_valid(self, form):
         user = form.save()
+        group = Group.objects.get(name='member') 
+        group.user_set.add(user)
         login(self.request, user)
         return redirect('login')
 
