@@ -9,36 +9,37 @@
     {% if task.is_complete != True %}
 
     <div class="task">
-
         <p class="task-test">Task Name: {{task.task|capfirst}}</p>
         <p class="task-text">Assignee: {{task.assignee}}</p>
-        <a class="small-button task-text" href="{% url 'edit_task' pk=task.pk %}">Edit Task</a>
-        <a class="task-text" href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
-
-    </div>
-    {% endif %}
-    {% endif %}
-    {% endfor %}
+        <a class="small-button task-text" href="{% url 'edit_task' pk=task.pk %}">Edit Task</a
+    >
+    <a class="task-text" href="{% url 'delete_task' pk=task.pk %}"
+      >Delete Task</a
+    >
+  </div>
+  {% endif %} {% endif %} {% endfor %}
 </div>
 
 <div class="project-container">
-    <a class='small-button' href="{% url 'new_project' %}">New Project</a>
+  <a class="small-button" href="{% url 'new_project' %}">New Project</a>
 
-    <h1 class="project-tasks">Projects</h1>
+        <h1 class="project-tasks">Projects</h1>
 
-    {% for project in projects %}
+        {% for project in projects %}
 
-    <div class="project boxshadow">
-        <p class="project-text">
-            Project Name: {{project.name | capfirst}}</p>
-        <div class="project-link-container">
-            <a class="project-link" href="{% url 'project' pk=project.pk %}">Details</a>
-            {% comment %}
-            <a class="project-link" href="{% url 'google.com' pk=project.pk %}">Manage Team</a>
-            {% endcomment %}
-        </div>
+        <div class="project boxshadow">
+            <p class="project-text"> Project Name: {{project.name | capfirst}}</p>
+            <div class="project-link-container">
+                <a class="project-link" href="{% url 'project' pk=project.pk %}">Details</a
+      >
+      {% comment %}
+      <a class="project-link" href="{% url 'google.com' pk=project.pk %}"
+        >Manage Team</a
+      >
+      {% endcomment %}
     </div>
-    {% endfor %}
+  </div>
+  {% endfor %}
 </div>
 
 {% endblock %}
