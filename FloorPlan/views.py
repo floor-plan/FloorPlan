@@ -17,7 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 #     def home(request):
 #         if request.user.is_authenticated:
-#             if request.user.is_teacher:
+#             if request.user.is_project_manager:
 #                 return redirect('dashboard')
 #             else:
 #                 return redirect('dashboard')
