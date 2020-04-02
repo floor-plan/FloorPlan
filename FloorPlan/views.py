@@ -1,4 +1,4 @@
-# from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
@@ -36,7 +36,7 @@ from django.views.decorators.csrf import csrf_exempt
 class ProjectManagerSignUpView(CreateView):
     model = Member
     form_class = ProjectManagerSignUpForm
-    template_name = 'registration/signup_form.html'
+    template_name = 'registration/signup_as_pm.html'
 
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'project_manager'
@@ -50,7 +50,7 @@ class ProjectManagerSignUpView(CreateView):
 class MemberSignUpView(CreateView):
     model = Member
     form_class = MemberSignUpForm
-    template_name = 'registration/signup_form.html'
+    template_name = 'registration/signup_as_member.html'
 
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'member'
@@ -61,14 +61,14 @@ class MemberSignUpView(CreateView):
         login(self.request, user)
         return redirect('login')
 
-def logout_then_login(request, login_url=None, current_app=None, extra_context=None):
-    """
-    Logs out the user if they are logged in. Then redirects to the log-in page.
-    """
-    if not login_url:
-        login_url = settings.LOGIN_URL
-    login_url = resolve_url(login_url)
-    return logout(request, "registration/logout.html", current_app=current_app, extra_context=extra_context)
+# def logout_then_login(request, login_url=None, current_app=None, extra_context=None):
+#     """
+#     Logs out the user if they are logged in. Then redirects to the log-in page.
+#     """
+#     if not login_url:
+#         login_url = settings.LOGIN_URL
+#     login_url = resolve_url(login_url)
+#     return logout(request, "registration/logout.html", current_app=current_app, extra_context=extra_context)
 
 @login_required
 def dashboard(request):

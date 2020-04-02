@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
 {% block content %}
 
-<form action="{% url 'project_manager_signup' %}" method="post"></form>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" class="submit-button" value='Submit'>
+<h2>Sign up as a project manager</h2>
+<form method="post" novalidate>
+  {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-success">Sign up</button>
 </form>
-
 
 {% endblock %}

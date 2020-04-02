@@ -4,6 +4,9 @@ from django.db import models
 
     
 class Member(AbstractUser):
+    is_active = models.BooleanField(_("active"), default=True)
+    first_name = models.CharField(max_length=20, blank=False)
+    last_name = models.CharField(max_length=20, blank=False)
     is_project_manager = models.BooleanField('project_manager status', default=False)
     is_member = models.BooleanField('member status', default=False)
     email = models.EmailField(max_length=254, unique=True)
@@ -12,7 +15,8 @@ class Member(AbstractUser):
     UserCategory = models.TextChoices('UserCategory', 'PROJECT-MANAGER PLUMBING ELECTRICAL MASONRY FRAMING ROOFING HOMEOWNER')
     category = models.CharField(blank=False, choices=UserCategory.choices, max_length=30, default='misc')
 	
-
+    USERNAME_FIELD = "email"
+    
 
 # Consider creating a custom user model from scratch as detailed at
 # https://docs.djangoproject.com/en/3.0/topics/auth/customizing/#specifying-a-custom-user-model
