@@ -46,6 +46,21 @@ body {
     white-space: nowrap;
 }
 
+.framing {
+    color: var(--framing);
+    white-space: nowrap;
+}
+
+.roofing {
+    color: var(--roofing);
+    white-space: nowrap;
+}
+
+.masonry {
+    color: var(--masonry);
+    white-space: nowrap;
+}
+
 .logged-in-text {
     padding: 10px;
 }
