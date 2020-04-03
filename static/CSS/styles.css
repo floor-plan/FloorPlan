@@ -116,7 +116,7 @@ h6 {
 }
 
 .header {
-    background: url("birch-wood-grain-background-header.jpg");
+    /* background: url("birch-wood-grain-background-header.jpg"); */
     background-size: cover;
     height: 100px;
     width: 100%;
