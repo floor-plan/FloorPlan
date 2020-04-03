@@ -51,6 +51,9 @@ class CategoryForm(forms.ModelForm):
 
 
 class AddTeamMemberForm(forms.ModelForm):
+	queryset=Member.objects.all(),  #WE SHOULD LOOK AT THIS LATER!
+	widget = forms.CheckboxSelectMultiple
+	
 	class Meta:
 		model = Project
 		fields = ['project_team']

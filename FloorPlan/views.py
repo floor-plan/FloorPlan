@@ -1,12 +1,12 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import Group
+from django.db.models.functions import Cast
+from django.db.models import IntegerField, CharField
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
 from .import forms
-# from django.core.exceptions import DoesNotExist
 from django.contrib import messages
-
 from django.views.generic import CreateView, TemplateView
 from .forms import ProjectForm, TaskForm, AddTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm, CategoryForm, CompleteTaskForm
 from users.models import Member
@@ -185,19 +185,32 @@ def delete_task(request, pk):
 @project_manager_required
 def add_team_member(request, pk):  
     project = get_object_or_404(Project, pk=pk)
-    form = AddTeamMemberForm(request.POST) 
+    form = AddTeamMemberForm(request.POST)
+    members = Member.objects.all()
     # user = None
     if request.method == "POST":  
         if form.is_valid():
-            # projectpk = form.cleaned_data['project'].pk
-            # user = form.save()
-            project = form.save()
-            # project.save()
+            form.save()
+            project_team = form.cleaned_data.get("project_team")
+            users = Member.objects.filter(username__in=project_team)
+            project_team_members = users.annotate(
+                username_as_str=Cast('username', output_field=CharField()),
+            ).get()
+            for project_team_member in project_team_members:
+                project.project_team.add(project_team_member)
             return redirect('project', pk) 
     else:
             form = AddTeamMemberForm()
     return render(request, 'core/add_team_member.html', {'form': form, 'project': project, 'pk': pk})
 
+
+# >>> from django.db.models import FloatField
+# >>> from django.db.models.functions import Cast
+# >>> Author.objects.create(age=25, name='Margaret Smith')
+# >>> author = Author.objects.annotate(
+# ...    age_as_float=Cast('age', output_field=FloatField()),
+# ... ).get()
+# >>> print(author.age_as_float)
 
 @login_required
 def delete_team_member(request, pk):
