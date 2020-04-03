@@ -9,6 +9,9 @@
 <a class="small-button" href="{% url 'delete_project' pk=project.pk %}">Delete Project</a>
 
 <hr>
+<div>
+  <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member To This Project</a>
+</div>
 
 <div class="project-tasks"></div>
 <h1 class="project-tasks">My Tasks</h1>
@@ -17,7 +20,6 @@
 <a class='small-button' href="{% url 'project' pk=project.pk %}">Update Tasks</a>
 {% comment %} {% endif %} {% endcomment %}
 {% comment %} <a href="{% url 'new_task' pk=project.pk %}">Completed Tasks</a> {% endcomment %}
-
 
 <div>
   {% comment %} <button id='update-button' class='update-button'>Update</button> {% endcomment %}

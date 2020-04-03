@@ -28,16 +28,16 @@
 
     {% for project in projects %}
 
+
     <a href="{% url 'project' pk=project.pk %}" class="project-link-container">
 
         <p class="project-text">
             Project Name: {{project.name | capfirst}}</p>
 
         <h3>Details</h3>
-        {% comment %}
-        <a class="project-link" href="{% url 'google.com' pk=project.pk %}">Manage Team</a>
-        {% endcomment %}
+
     </a>
+
     {% endfor %}
 </div>
 
