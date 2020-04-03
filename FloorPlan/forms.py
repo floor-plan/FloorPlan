@@ -53,7 +53,7 @@ class CategoryForm(forms.ModelForm):
 class AddTeamMemberForm(forms.ModelForm):
 	class Meta:
 		model = Project
-		fields = ['address', 'project_team']
+		fields = ['project_team']
 
 
 

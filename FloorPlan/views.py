@@ -186,17 +186,17 @@ def delete_task(request, pk):
 def add_team_member(request, pk):  
     project = get_object_or_404(Project, pk=pk)
     form = AddTeamMemberForm(request.POST) 
-    user = None
+    # user = None
     if request.method == "POST":  
         if form.is_valid():
             # projectpk = form.cleaned_data['project'].pk
-            user = form.save()
-            project.project_team = user
-            project.save()
+            # user = form.save()
+            project = form.save()
+            # project.save()
             return redirect('project', pk) 
     else:
-            form = AddTeamMemberForm(instance=user)
-    return render(request, 'core/add_team_member.html', {'form': form, 'user':user, 'project': project, 'pk': pk})
+            form = AddTeamMemberForm()
+    return render(request, 'core/add_team_member.html', {'form': form, 'project': project, 'pk': pk})
 
 
 @login_required
