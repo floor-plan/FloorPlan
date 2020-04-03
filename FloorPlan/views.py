@@ -15,10 +15,6 @@ from django.views.decorators.csrf import csrf_exempt
 from .decorators import project_manager_required
 
 
-
-
-
-
 class SignUpView(TemplateView):
     template_name = 'registration/signup.html'
 
@@ -42,8 +38,6 @@ class ProjectManagerSignUpView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        # group = Group.objects.get(name='project_manager') 
-        # group.user_set.add(user)
         user.is_project_manager = True
         user.save()
         login(self.request, user)
@@ -60,28 +54,15 @@ class MemberSignUpView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        # group = Group.objects.get(name='member') 
-        # group.user_set.add(user)
         login(self.request, user)
         return redirect('login')
 
-# def logout_then_login(request, login_url=None, current_app=None, extra_context=None):
-#     """
-#     Logs out the user if they are logged in. Then redirects to the log-in page.
-#     """
-#     if not login_url:
-#         login_url = settings.LOGIN_URL
-#     login_url = resolve_url(login_url)
-#     return logout(request, "registration/logout.html", current_app=current_app, extra_context=extra_context)
 
 @login_required
 def dashboard(request):
     projects = Project.objects.all()
     user = request.user
     tasks = Task.objects.filter(assignee=user)
-    # group = Group.objects.all()
-    # if user.groups.filter(name = 'project_manager').exists():
-    #     user.is_project_manager = True
     
     return render(request, "core/dashboard.html", {'projects': projects, 'tasks': tasks})
 
@@ -171,15 +152,6 @@ def complete_task(request, pk):
         task.save()
     return JsonResponse({"status": "ok", "data": None})
 
-# post = request.POST.copy() # to make it mutable
-# post['field'] = value
-# # or set several values from dict
-# post.update({'postvar': 'some_value', 'var': 'value'})
-# # or set list
-# post.setlist('list_var', ['some_value', 'other_value']))
-
-# # and update original POST in the end
-# request.POST = post
 
 @login_required
 def delete_task(request, pk):
