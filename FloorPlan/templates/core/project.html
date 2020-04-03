@@ -12,25 +12,26 @@
 
 <div class="project-tasks"></div>
 <h1 class="project-tasks">My Tasks</h1>
-{% if user.is_project_manager %}
+{% comment %} {% if user.is_project_manager %} {% endcomment %}
 <a class='small-button' href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
 <a class='small-button' href="{% url 'project' pk=project.pk %}">Update Tasks</a>
-{% endif %}
+{% comment %} {% endif %} {% endcomment %}
 {% comment %} <a href="{% url 'new_task' pk=project.pk %}">Completed Tasks</a> {% endcomment %}
 
 
 <div>
   {% comment %} <button id='update-button' class='update-button'>Update</button> {% endcomment %}
   {% for task in tasks %}
-  {%   if task.is_complete == False and task.assignee == user %}
+  {%   if task.is_complete == False  %}
+  {% comment %} and task.assignee == user {% endcomment %}
   <div class="form-group">
     <label for="inputName" class="col-md-1 control-label"></label>
     <div class="col-md-5">
       <div class="checkbox task-text">
-        <input class='checkbox' type="checkbox" name="packersOff" value="1" id="{{task.pk}}" />
+        <div class='{{task.category|lower }}'><input class='checkbox' type="checkbox" name="packersOff" value="1" id="{{task.pk}}" />
         <label class='task-text project-tasks'>
           Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to:
-          {{task.assignee}}</label>
+          {{task.assignee}} Category: {{task.category|lower }}</div></label>
       </div>
       <div class='task-link-container task-text'><a class="small-button " href="{% url 'edit_task' pk=task.pk %}">Edit
           Task</a>

@@ -28,6 +28,10 @@ body {
     font-family: var(--default-fonts);
 }
 
+.plumbing {
+    color: var(--plumbing);
+}
+
 .logged-in-text {
     padding: 10px;
 }
