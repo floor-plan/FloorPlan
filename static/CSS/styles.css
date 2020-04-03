@@ -18,7 +18,10 @@ input[type="checkbox"]:checked+label.strikethrough {
     --plumbing: #3399ff;
     --electrical: #ff3300;
     --project-manager: #cc0033;
-    --homeowner: #ffd803;
+    --homeowner: #498c00;
+    --masonry: #8246ff;
+    --framing: #ff890c;
+    --roofing: #2649ff;
     --default-fonts: "Saira Condensed", sans-serif;
 }
 
@@ -30,6 +33,17 @@ body {
 
 .plumbing {
     color: var(--plumbing);
+    white-space: nowrap;
+}
+
+.electrical {
+    color: var(--electrical);
+    white-space: nowrap;
+}
+
+.homeowner {
+    color: var(--homeowner);
+    white-space: nowrap;
 }
 
 .logged-in-text {

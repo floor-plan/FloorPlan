@@ -28,10 +28,10 @@
     <label for="inputName" class="col-md-1 control-label"></label>
     <div class="col-md-5">
       <div class="checkbox task-text">
-        <div class='{{task.category|lower }}'><input class='checkbox' type="checkbox" name="packersOff" value="1" id="{{task.pk}}" />
+        <input class='checkbox' type="checkbox" name="packersOff" value="1" id="{{task.pk}}" />
         <label class='task-text project-tasks'>
-          Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to:
-          {{task.assignee}} Category: {{task.category|lower }}</div></label>
+          Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to: <span class='{{task.category|lower }}'>
+          {{task.assignee}} Category: {{task.category|lower }}</span></label>
       </div>
       <div class='task-link-container task-text'><a class="small-button " href="{% url 'edit_task' pk=task.pk %}">Edit
           Task</a>
@@ -63,7 +63,7 @@
 <div class='category-container'>
   {% for category in categories %}
   <div class="task-text">
-    <h2 class="category-text">{{category.category}}</h2>
+    <h2 class="category-text {{category.category|lower}} ">{{category.category}}</h2>
     <a class="small-button" href="{% url 'edit_category' pk=category.pk %}">Edit Category</a>
     <a href="{% url 'delete_category' pk=category.pk %}">Delete Category</a>
     {% for task in tasks %}
