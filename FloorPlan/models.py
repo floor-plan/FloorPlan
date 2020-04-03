@@ -26,6 +26,7 @@ class Project(models.Model):
 	address = models.CharField(max_length=400, blank=False)
 	lot_number = models.CharField(max_length=100, blank=True) 
 	categories = models.ManyToManyField(Category)
+	project_team = models.ManyToManyField(Member)
 
 	def __str__(self):
 		return f'Address and/or Lot number:{self.address}, {self.lot_number}'

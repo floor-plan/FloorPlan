@@ -27,6 +27,7 @@
     <h1 class="project-tasks">Projects</h1>
 
     {% for project in projects %}
+    {% if project.project_team == user %}:
 
     <a href="{% url 'project' pk=project.pk %}" class="project-link-container">
 
@@ -34,10 +35,9 @@
             Project Name: {{project.name | capfirst}}</p>
 
         <h3>Details</h3>
-        {% comment %}
-        <a class="project-link" href="{% url 'google.com' pk=project.pk %}">Manage Team</a>
-        {% endcomment %}
+       
     </a>
+    {% endif %}
     {% endfor %}
 </div>
 

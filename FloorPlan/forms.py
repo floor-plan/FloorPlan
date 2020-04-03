@@ -50,10 +50,10 @@ class CategoryForm(forms.ModelForm):
 
 
 
-class NewTeamMemberForm(forms.ModelForm):
+class AddTeamMemberForm(forms.ModelForm):
 	class Meta:
-		model = Member
-		fields = ['role', 'category', 'is_project_manager']
+		model = Project
+		fields = ['address', 'project_team']
 
 
 

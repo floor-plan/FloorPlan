@@ -8,7 +8,7 @@ from .import forms
 from django.contrib import messages
 
 from django.views.generic import CreateView, TemplateView
-from .forms import ProjectForm, TaskForm, NewTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm, CategoryForm, CompleteTaskForm
+from .forms import ProjectForm, TaskForm, AddTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm, CategoryForm, CompleteTaskForm
 from users.models import Member
 from .models import Project, Category, Task
 from django.views.decorators.csrf import csrf_exempt
@@ -160,45 +160,43 @@ def delete_task(request, pk):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
+# @login_required
+# def add_team_member(request, pk):
+#     project = get_object_or_404(Project, pk=pk)
+#     user = request.user
+#     assignee = Member.objects.all()
+#     if request.method == "POST":
+#         form = AddTeamMemberForm(request.POST) 
+#         if form.is_valid():
+#             add_team_member = form.save(commit=False)
+#             if:
+#                 assignee = project_team.member.get(project.pk)
+#             else:
+#                 print('user exists')
+#                 messages.warning(request, "This user is already assigned to this project!")
+#                 form = AddTeamMemberForm()
+#                 return render(request, 'core/add_team_member.html', {'form':form, 'project': project})
+#     else:
+#         form = AddTeamMemberForm()
+#         return render(request, 'core/add_team_member.html', {'form':form, 'project': project})
+
+
 @login_required
-def new_team_member(request, pk):
+@project_manager_required
+def add_team_member(request, pk):  
     project = get_object_or_404(Project, pk=pk)
-    user = request.user.username
-    team_member = Member(project.pk)
-    if request.method == "POST":
-        form = NewTeamMemberForm(request.POST) 
+    form = AddTeamMemberForm(request.POST) 
+    user = None
+    if request.method == "POST":  
         if form.is_valid():
-            new_team_member = form.save(commit=False)
-            try:
-                team_member = user
-
-            except Member.DoesNotExist:
-                new_team_member.project = project
-                new_team_member.team_member = user
-                form.save()
-                return redirect('project', pk=project.pk)
-            else:
-                print('user exists')
-                messages.warning(request, "This user already exists")
-                form = NewTeamMemberForm()
-                return render(request, 'core/new_team_member.html', {'form':form, 'project': project})
+            # projectpk = form.cleaned_data['project'].pk
+            user = form.save()
+            project.project_team = user
+            project.save()
+            return redirect('project', pk) 
     else:
-        form = NewTeamMemberForm()
-        return render(request, 'core/new_team_member.html', {'form':form, 'project': project})
-
-
-@login_required
-def edit_team_member(request, pk):
-    team_member = get_object_or_404(Member, pk=pk)
-    if request.method == "POST":
-        form = NewTeamMemberForm(request.POST, instance=team_member)
-        if form.is_valid():
-            projectpk = form.cleaned_data['project'].pk
-            form.save()
-            return redirect('project', projectpk)
-    else:
-        form = NewTeamMemberForm(instance=team_member)
-    return render(request, 'core/edit_team_member.html', {'form': form, 'pk': pk, 'team_member': team_member})
+            form = AddTeamMemberForm(instance=user)
+    return render(request, 'core/add_team_member.html', {'form': form, 'user':user, 'project': project, 'pk': pk})
 
 
 @login_required
