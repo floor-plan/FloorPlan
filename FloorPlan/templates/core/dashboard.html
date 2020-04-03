@@ -27,7 +27,7 @@
     <h1 class="project-tasks">Projects</h1>
 
     {% for project in projects %}
-    {% if user in project_team %}:
+
 
     <a href="{% url 'project' pk=project.pk %}" class="project-link-container">
 
@@ -37,7 +37,7 @@
         <h3>Details</h3>
 
     </a>
-    {% endif %}
+
     {% endfor %}
 </div>
 

@@ -60,7 +60,7 @@ class MemberSignUpView(CreateView):
 
 @login_required
 def dashboard(request):
-    projects = Project.objects.all()
+    projects = request.user.project_set.all()
     user = request.user
     tasks = Task.objects.filter(assignee=user)
     
@@ -77,10 +77,12 @@ def project(request, pk):
 
 @login_required
 def new_project(request):
+    user = request.user
     if request.method == "POST":
         form =  ProjectForm(request.POST)
-        if form.is_valid():
+        if form.is_valid():            
             project = form.save()
+            project.project_team.add(user)
             return redirect('project', project.pk)
     else:
         form = ProjectForm()
@@ -160,57 +162,22 @@ def delete_task(request, pk):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
-# @login_required
-# def add_team_member(request, pk):
-#     project = get_object_or_404(Project, pk=pk)
-#     user = request.user
-#     assignee = Member.objects.all()
-#     if request.method == "POST":
-#         form = AddTeamMemberForm(request.POST) 
-#         if form.is_valid():
-#             add_team_member = form.save(commit=False)
-#             if:
-#                 assignee = project_team.member.get(project.pk)
-#             else:
-#                 print('user exists')
-#                 messages.warning(request, "This user is already assigned to this project!")
-#                 form = AddTeamMemberForm()
-#                 return render(request, 'core/add_team_member.html', {'form':form, 'project': project})
-#     else:
-#         form = AddTeamMemberForm()
-#         return render(request, 'core/add_team_member.html', {'form':form, 'project': project})
-
-
 @login_required
 @project_manager_required
 def add_team_member(request, pk):  
     project = get_object_or_404(Project, pk=pk)
     form = AddTeamMemberForm(request.POST)
     members = Member.objects.all()
-    # user = None
     if request.method == "POST":  
         if form.is_valid():
-            form.save()
-            project_team = form.cleaned_data.get("project_team")
-            users = Member.objects.filter(username__in=project_team)
-            project_team_members = users.annotate(
-                username_as_str=Cast('username', output_field=CharField()),
-            ).get()
-            for project_team_member in project_team_members:
-                project.project_team.add(project_team_member)
+            project_team_data = form.cleaned_data.get("project_team")
+            for member in project_team_data:
+                project.project_team.add(member)
             return redirect('project', pk) 
     else:
             form = AddTeamMemberForm()
     return render(request, 'core/add_team_member.html', {'form': form, 'project': project, 'pk': pk})
 
-
-# >>> from django.db.models import FloatField
-# >>> from django.db.models.functions import Cast
-# >>> Author.objects.create(age=25, name='Margaret Smith')
-# >>> author = Author.objects.annotate(
-# ...    age_as_float=Cast('age', output_field=FloatField()),
-# ... ).get()
-# >>> print(author.age_as_float)
 
 @login_required
 def delete_team_member(request, pk):
