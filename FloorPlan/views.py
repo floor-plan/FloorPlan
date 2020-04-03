@@ -42,8 +42,8 @@ class ProjectManagerSignUpView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        group = Group.objects.get(name='project_manager') 
-        group.user_set.add(user)
+        # group = Group.objects.get(name='project_manager') 
+        # group.user_set.add(user)
         user.is_project_manager = True
         user.save()
         login(self.request, user)
@@ -60,8 +60,8 @@ class MemberSignUpView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        group = Group.objects.get(name='member') 
-        group.user_set.add(user)
+        # group = Group.objects.get(name='member') 
+        # group.user_set.add(user)
         login(self.request, user)
         return redirect('login')
 
