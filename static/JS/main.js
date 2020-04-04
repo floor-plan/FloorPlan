@@ -1,6 +1,10 @@
 console.log("helloworld");
 
-updateButton = document.getElementById("update-button");
+function showUpdateButton() {
+    updateButton = document.getElementById("update-button");
+    updateButton.classList.remove("hidden");
+    updateButton.classList.add("visible");
+}
 
 checkboxes = document.querySelectorAll(".checkbox");
 
@@ -17,30 +21,16 @@ function editThisTask(id) {
 }
 
 for (let checkbox of checkboxes) {
-    // updatebutton = querySelector("#update-button");
     checkbox.addEventListener("change", function(event) {
         event.preventDefault();
-        console.log("How many times does this happen?");
         editThisTask(checkbox.id);
-        checkbox.classList.add("strikethrough");
+        // checkbox.classList.add("strikethrough");
+        showUpdateButton();
     });
 }
 
-// `/complete_task/${id}`
-
-// .then(json => {
-//     if (json.status === 'ok') {
-//         document.getElementById(id).classList.add(".strikethrough")
-//     }
+// function revealTaskMenu() {
+//     document.getElementById(taskid);
 // }
 
-// $("#my_checkbox1").change(function() {
-//     if (this.checked) {
-//         $.post("{% url 'myapp:movieDataUpdate' pk=movie.pk %}", {},
-//             function(data, status) {
-//                 console.log("Data: " + data + "\nStatus: " + status);
-//             });
-//     }
-//     // If you want, make an
-//     // else
-// });
+// const taskid = "{{task.pk}}";

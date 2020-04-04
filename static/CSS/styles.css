@@ -4,6 +4,20 @@
     margin: 0;
 }
 
+
+/* .hoverWrapper:hover #hoverShow1 {
+    display: block;
+}
+
+.hoverWrapper #hoverShow1 {
+    display: none;
+    background-color: #ff0000;
+    width: 250px;
+    height: 250px;
+    left: 200px;
+    top: 100px;
+} */
+
 input[type="checkbox"]:checked+label.strikethrough {
     text-decoration: line-through;
 }
@@ -16,16 +30,72 @@ input[type="checkbox"]:checked+label.strikethrough {
     --green-gray: #808f85;
     /* categories for users */
     --plumbing: #3399ff;
-    --electrical: #ff3300;
+    --electrical: #ff4c84;
     --project-manager: #cc0033;
-    --homeowner: #ffd803;
+    --homeowner: #498c00;
+    --masonry: #0049bf;
+    --framing: #8c72ff;
+    --roofing: #823d7b;
     --default-fonts: "Saira Condensed", sans-serif;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+.task-update-button {
+    border: solid 3px var(--dark-gray);
+    background-color: white;
+    margin: 10px;
+    width: 100px;
+    padding: 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
+.task-update-button:hover {
+    background-color: var(--dark-gray);
 }
 
 body {
     background-color: var(--background-color);
     color: var(--dark-gray);
     font-family: var(--default-fonts);
+    padding: 10px;
+}
+
+.plumbing {
+    color: var(--plumbing);
+    white-space: nowrap;
+}
+
+.electrical {
+    color: var(--electrical);
+    white-space: nowrap;
+}
+
+.homeowner {
+    color: var(--homeowner);
+    white-space: nowrap;
+}
+
+.framing {
+    color: var(--framing);
+    white-space: nowrap;
+}
+
+.roofing {
+    color: var(--roofing);
+    white-space: nowrap;
+}
+
+.masonry {
+    color: var(--masonry);
+    white-space: nowrap;
 }
 
 .logged-in-text {
@@ -223,6 +293,10 @@ h6 {
     margin: 5px;
 }
 
+.task-link-container {
+    padding-left: 25px;
+}
+
 .project-link {
     align-content: flex-start;
     color: white;
@@ -233,13 +307,25 @@ h6 {
 }
 
 .category-container {
-    width: 40%;
+    display: flexbox;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: inherit;
 }
 
-.project-categories,
+.category {
+    font-family: var(--default-fonts);
+    color: var(--dark-gray);
+    margin: 5px;
+    padding: 5px;
+    flex-grow: 1;
+    width: 300px;
+}
+
+
+/* .project-categories,
 .project-tasks {
     /* text-decoration: underline; */
-}
 
 .small-button {
     padding-left: 10px;
