@@ -16,12 +16,12 @@ input[type="checkbox"]:checked+label.strikethrough {
     --green-gray: #808f85;
     /* categories for users */
     --plumbing: #3399ff;
-    --electrical: #ff3300;
+    --electrical: #ff4c84;
     --project-manager: #cc0033;
     --homeowner: #498c00;
-    --masonry: #8246ff;
-    --framing: #ff890c;
-    --roofing: #2649ff;
+    --masonry: #0049bf;
+    --framing: #8c72ff;
+    --roofing: #823d7b;
     --default-fonts: "Saira Condensed", sans-serif;
 }
 
