@@ -292,6 +292,10 @@ h6 {
     margin: 5px;
 }
 
+.task-link-container {
+    padding-left: 35px;
+}
+
 .project-link {
     align-content: flex-start;
     color: white;
@@ -303,18 +307,18 @@ h6 {
 
 .category-container {
     display: flexbox;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: inherit;
 }
 
-.category-container {
-    display: flex;
+.category {
     font-family: var(--default-fonts);
     color: var(--dark-gray);
     margin: 5px;
     padding: 5px;
     flex-grow: 1;
+    width: 300px;
 }
 
 
@@ -322,8 +326,6 @@ h6 {
 .project-tasks {
     /* text-decoration: underline; */
 
-
-}
-*/ .small-button {
+.small-button {
     padding-left: 10px;
 }
