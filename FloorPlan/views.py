@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.views.generic import CreateView, TemplateView
 from .forms import ProjectForm, TaskForm, AddTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm, CategoryForm, CompleteTaskForm
 from users.models import Member
-from .models import Project, Category, Task
+from .models import Project, Category, Task, ProjectCategory
 from django.views.decorators.csrf import csrf_exempt
 from .decorators import project_manager_required
 
@@ -71,8 +71,9 @@ def project(request, pk):
     project = Project.objects.get(pk=pk)
     tasks = Task.objects.filter(project=project)
     categories = Category.objects.all()
+    projectcategories = ProjectCategory.objects.all()
     users=Member.objects.all()  
-    return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'categories':categories, 'users':users, 'pk': pk})
+    return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'categories':categories, 'projectscategories': projectcategories, 'users':users, 'pk': pk})
     
 
 @login_required
@@ -187,18 +188,19 @@ def delete_team_member(request, pk):
 
 
 @login_required
+@project_manager_required
 def new_category(request, pk):  
     project = get_object_or_404(Project, pk=pk)
     form = CategoryForm(request.POST) 
-    category = None
     if request.method == "POST":  
         if form.is_valid():
-            projectpk = form.cleaned_data['project'].pk
-            form.save()
-            return redirect('project', projectpk) 
+            project_category_data = form.cleaned_data.get("category")
+            for member in project_category_data:
+                project.project_categories.add(member)
+            return redirect('project', pk)  
     else:
-            form = CategoryForm(instance=category)
-    return render(request, 'core/new_category.html', {'form': form, 'category': category, 'project': project})
+            form = CategoryForm()
+    return render(request, 'core/new_category.html', {'form': form, 'project': project, 'pk':pk})
     
 
 @login_required
