@@ -31,8 +31,8 @@
     <div class="col-md-5">
       <div class="checkbox task-text">
         <input class='checkbox' type="checkbox" name="packersOff" value="1" id="{{task.pk}}" />
-        <label class='task-text project-tasks'>
-          Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to: <span class='{{task.category|lower }}'>
+        <label class='task-text project-tasks'><span class='{{task.category|lower }}'>
+          Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to:
           {{task.assignee}} Category: {{task.category|lower }}</span></label>
       </div>
       <div class='task-link-container task-text'><a class="small-button " href="{% url 'edit_task' pk=task.pk %}">Edit
