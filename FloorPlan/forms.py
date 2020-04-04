@@ -47,10 +47,10 @@ def __init__(self, *args, **kwargs):
 	self.fields['category'].queryset = ProjectCategories.objects.all()
     
 
-class CategoryForm(forms.ModelForm):
+class NewCategoryForm(forms.ModelForm):
   class Meta:
     model = ProjectCategory
-    fields = ['category']
+    fields = ['category', 'project']
 
 
 

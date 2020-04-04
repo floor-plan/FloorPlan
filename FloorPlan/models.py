@@ -20,13 +20,6 @@ class Category(models.Model):
 		verbose_name_plural = ('categories')
 
 
-class ProjectCategory(models.Model):
-	category = models.TextField(max_length=255)
-
-	def __str__(self):
-		return f'{self.category}'
-
-
 class Project(models.Model):
 	name = models.CharField(max_length=100, blank=True) 
 	created_at = models.DateTimeField(auto_now_add=True)
@@ -34,13 +27,21 @@ class Project(models.Model):
 	lot_number = models.CharField(max_length=100, blank=True) 
 	categories = models.ManyToManyField(Category)
 	project_team = models.ManyToManyField(Member)
-	project_categories = models.ManyToManyField(ProjectCategory)
+	
 
 	def __str__(self):
 		return f'Address and/or Lot number:{self.address}, {self.lot_number}'
 
 		class Meta:
 			unique_together = ('name', 'categories',)
+
+
+class ProjectCategory(models.Model):
+	category = models.TextField(max_length=255)
+	project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="projectcategories", default='')
+
+	def __str__(self):
+		return f'{self.category}'
 
 class Task(models.Model):
 	task = models.TextField(max_length=300)
