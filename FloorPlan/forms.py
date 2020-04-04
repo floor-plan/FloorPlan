@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from users.models import Member
-from .models import Project, Category, Task, ProjectCategory
+from .models import Project, Category, Task, ProjectCategory, ProjectCategoryTask
 from django.db import transaction
 
 
@@ -42,9 +42,11 @@ class TaskForm(forms.ModelForm):
     model = Task
     fields = ['project', 'task', 'category', 'assignee', 'due_date']
 
-def __init__(self, *args, **kwargs):
-	super().__init__(*args, **kwargs)
-	self.fields['category'].queryset = ProjectCategories.objects.all()
+
+class CustomCategoryTaskForm(forms.ModelForm):
+  class Meta:
+    model = Task
+    fields = ['project', 'task', 'custom_category', 'assignee', 'due_date']
     
 
 class NewCategoryForm(forms.ModelForm):

@@ -26,15 +26,13 @@ class Project(models.Model):
 	address = models.CharField(max_length=400, blank=False)
 	lot_number = models.CharField(max_length=100, blank=True) 
 	categories = models.ManyToManyField(Category)
-	project_team = models.ManyToManyField(Member)
-	
+	project_team = models.ManyToManyField(Member)	
 
 	def __str__(self):
 		return f'Address and/or Lot number:{self.address}, {self.lot_number}'
 
 		class Meta:
 			unique_together = ('name', 'categories',)
-
 
 class ProjectCategory(models.Model):
 	category = models.TextField(max_length=255)
@@ -43,10 +41,26 @@ class ProjectCategory(models.Model):
 	def __str__(self):
 		return f'{self.category}'
 
+
+class ProjectCategoryTask(models.Model):
+	category = models.ForeignKey(ProjectCategory, on_delete=models.CASCADE, related_name="projectcategorytasks")
+	project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="projectcategoriestasks", default='')
+	task = models.TextField(max_length=255)
+	assignee = models.ForeignKey(
+		Member, on_delete=models.CASCADE, related_name='projectcategorytasks', default='')
+	due_date = models.DateTimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+	is_complete = models.BooleanField(default=False)
+
+	def __str__(self):
+		return f'{self.category}'
+
 class Task(models.Model):
 	task = models.TextField(max_length=300)
 	category = models.ForeignKey(
-		Category, on_delete=models.CASCADE, related_name='tasks')
+		Category, on_delete=models.CASCADE, related_name='tasks', default='', null=True, blank=True)
+	custom_category = models.ForeignKey(ProjectCategory, on_delete=models.CASCADE, related_name="customtasks", default='', null=True, blank=True)
 	assignee = models.ForeignKey(
 		Member, on_delete=models.CASCADE, related_name='tasks', default='')
 	project = models.ForeignKey(

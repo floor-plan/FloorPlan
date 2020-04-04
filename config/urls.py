@@ -36,6 +36,13 @@ urlpatterns = [
     path('project/<int:pk>/new-category/', views.new_category, name='new_category'),
     path('project/edit-category/<int:pk>/', views.edit_category, name='edit_category'),
     path('delete-category/<int:pk>/', views.delete_category, name='delete_category'),
+
+    path('project/edit-category-customcategory/<int:pk>/', views.edit_category_customcategory, name='edit_category_customcategory'),
+    path('delete-category-customcategory/<int:pk>/', views.delete_category_customcategory, name='delete_category_customcategory'),
+
+    path('project/<int:pk>/new-task-customcategory/', views.new_task_customcategory, name='new_task_customcategory'),
+    path('project/edit-task-customcategory/<int:pk>/', views.edit_task_customcategory, name='edit_task_customcategory'),
+    
     
 ]
 
