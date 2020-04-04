@@ -17,12 +17,11 @@
 <h1 class="project-tasks">My Tasks</h1>
 {% comment %} {% if user.is_project_manager %} {% endcomment %}
 <a class='small-button' href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
-<a class='small-button' href="{% url 'project' pk=project.pk %}">Update Tasks</a>
+<a id='update-button' class='small-button hidden' href="{% url 'project' pk=project.pk %}">Update Tasks</a>
 {% comment %} {% endif %} {% endcomment %}
-{% comment %} <a href="{% url 'new_task' pk=project.pk %}">Completed Tasks</a> {% endcomment %}
 
 <div>
-  {% comment %} <button id='update-button' class='update-button'>Update</button> {% endcomment %}
+
   {% for task in tasks %}
   {%   if task.is_complete == False  %}
   {% comment %} and task.assignee == user {% endcomment %}
