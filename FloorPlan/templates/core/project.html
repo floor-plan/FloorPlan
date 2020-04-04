@@ -69,8 +69,10 @@
   {% for category in categories %}
   <div class="task-text">
     <h2 class="category-text">{{category.category}}</h2>
+    {% if user.is_project_manager %}
     <a class="small-button" href="{% url 'edit_category' pk=category.pk %}">Edit Category</a>
     <a href="{% url 'delete_category' pk=category.pk %}">Delete Category</a>
+    {% endif %}
     {% for task in tasks %}
     {% if task.category == category %}
     {% if task.is_complete == True %}
