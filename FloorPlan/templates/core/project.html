@@ -10,51 +10,42 @@
 
 <hr>
 <div>
-  <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member To This Project</a>
+    <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member To This Project</a>
 </div>
 
 <div class="project-tasks"></div>
 <h1 class="project-tasks">My Tasks</h1>
 {% comment %} {% if user.is_project_manager %} {% endcomment %}
 <a class='small-button' href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
-<a id='update-button' class='task-update-button hidden' href="{% url 'project' pk=project.pk %}">Update Tasks</a>
-{% comment %} {% endif %} {% endcomment %}
+<a id='update-button' class='task-update-button hidden' href="{% url 'project' pk=project.pk %}">Update Tasks</a> {% comment %} {% endif %} {% endcomment %}
 
 <div>
 
-  {% for task in tasks %}
-  {%   if task.is_complete == False  %}
-  {% comment %} and task.assignee == user {% endcomment %}
-  <div class="form-group">
-    <label for="inputName" class="col-md-1 control-label"></label>
-    <div class="col-md-5">
-      <div class="checkbox task-text">
-        <input class='checkbox' type="checkbox" name="packersOff" value="1" id="{{task.pk}}" />
-        <label class='task-text project-tasks'><span class='{{task.category|lower }}'>
+    {% for task in tasks %} {% if task.is_complete == False %} {% comment %} and task.assignee == user {% endcomment %}
+    <div class="form-group">
+        <label for="inputName" class="col-md-1 control-label"></label>
+        <div class="col-md-5">
+            <div class="checkbox task-text">
+                <input class='checkbox' type="checkbox" name="packersOff" value="1" id="{{task.pk}}" />
+                <label class='task-text project-tasks'><span class='{{task.category|lower }}'>
           Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to:
-          {{task.assignee}} Category: {{task.category|lower }}</span></label>
-      </div>
-      <div class='task-link-container task-text'><a class="small-button " href="{% url 'edit_task' pk=task.pk %}">Edit
+          {{task.assignee}} | Category: {{task.category|lower }}</span></label>
+            </div>
+            <div class='task-link-container task-text'><a class="small-button " href="{% url 'edit_task' pk=task.pk %}">Edit
           Task</a>
-        <a class="task-text" href="{% url 'delete_task' pk=task.pk %} ">Delete Task</a>
-      </div>
+                <a class="task-text" href="{% url 'delete_task' pk=task.pk %} ">Delete Task</a>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-{% endif %}
-{% endfor %}
-
-{% comment %} {% for task in tasks %}
-{% if task.assignee == user %}
+{% endif %} {% endfor %} {% comment %} {% for task in tasks %} {% if task.assignee == user %}
 <div class="task">
-  <h2 class="task-text">
-    {{task.task|capfirst}} {{task.due_date}} {{task.assignee}}</h2>
+    <h2 class="task-text">
+        {{task.task|capfirst}} {{task.due_date}} {{task.assignee}}</h2>
 
 </div>
 <a class="small-button" href="{% url 'edit_task' pk=task.pk %}">Edit Task</a>
-<a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
-{% endif %}
-{% endfor %} {% endcomment %}
+<a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a> {% endif %} {% endfor %} {% endcomment %}
 </div>
 
 <hr>
@@ -62,28 +53,24 @@
 <h1 class="project-categories">Categories</h1>
 <!-- <a href="{% url 'new_category' pk=project.pk %}">Create New Category</a> -->
 <div class='category-container'>
-  {% for category in categories %}
-  <div class="task-text">
-    <h2 class="category-text {{category.category|lower}} ">{{category.category}}</h2>
-    <a class="small-button" href="{% url 'edit_category' pk=category.pk %}">Edit Category</a>
-    <a href="{% url 'delete_category' pk=category.pk %}">Delete Category</a>
-    {% for task in tasks %}
-    {% if task.category == category %}
-    {% if task.is_complete == True %}
-    <div class="task strikethrough">
-      <p class="task-text">{{task.task|capfirst}}</p>
+    {% for category in categories %}
+    <div class="category">
+        <h2 class="category-text {{category.category|lower}} ">{{category.category}}</h2>
+        <a class="small-button" href="{% url 'edit_category' pk=category.pk %}">Edit Category</a>
+        <a href="{% url 'delete_category' pk=category.pk %}">Delete Category</a> {% for task in tasks %} {% if task.category == category %} {% if task.is_complete == True %}
+        <div class="task strikethrough">
+            <p class="task-text">{{task.task|capfirst}}</p>
+        </div>
+        {% else %}
+        <div class="task">
+            <p class="task-test">Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to: {{task.assignee}}
+                </label>
+            </p>
+        </div>
+        {% endif %} {% endif %} {% endfor %}
     </div>
-    {% else %}
-    <div class="task">
-      <p class="task-test">Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to:
-        {{task.assignee}}</label></p>
-    </div>
-    {% endif %}
-    {% endif %}
-    {% endfor %}
-  </div>
 
-  {% endfor %}
+    {% endfor %}
 
 </div>
 

@@ -4,6 +4,19 @@
     margin: 0;
 }
 
+.hoverWrapper:hover #hoverShow1 {
+    display: block;
+}
+
+.hoverWrapper #hoverShow1 {
+    display: none;
+    background-color: #ff0000;
+    width: 250px;
+    height: 250px;
+    left: 200px;
+    top: 100px;
+}
+
 input[type="checkbox"]:checked+label.strikethrough {
     text-decoration: line-through;
 }
@@ -51,6 +64,7 @@ body {
     background-color: var(--background-color);
     color: var(--dark-gray);
     font-family: var(--default-fonts);
+    padding: 10px;
 }
 
 .plumbing {
@@ -288,14 +302,28 @@ h6 {
 }
 
 .category-container {
-    width: 40%;
+    display: flexbox;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: inherit;
 }
 
-.project-categories,
+.category-container {
+    display: flex;
+    font-family: var(--default-fonts);
+    color: var(--dark-gray);
+    margin: 5px;
+    padding: 5px;
+    flex-grow: 1;
+}
+
+
+/* .project-categories,
 .project-tasks {
     /* text-decoration: underline; */
-}
 
-.small-button {
+
+}
+*/ .small-button {
     padding-left: 10px;
 }

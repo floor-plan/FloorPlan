@@ -28,3 +28,9 @@ for (let checkbox of checkboxes) {
         showUpdateButton();
     });
 }
+
+// function revealTaskMenu() {
+//     document.getElementById(taskid);
+// }
+
+// const taskid = "{{task.pk}}";
