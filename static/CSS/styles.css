@@ -4,7 +4,8 @@
     margin: 0;
 }
 
-.hoverWrapper:hover #hoverShow1 {
+
+/* .hoverWrapper:hover #hoverShow1 {
     display: block;
 }
 
@@ -15,7 +16,7 @@
     height: 250px;
     left: 200px;
     top: 100px;
-}
+} */
 
 input[type="checkbox"]:checked+label.strikethrough {
     text-decoration: line-through;
@@ -293,7 +294,7 @@ h6 {
 }
 
 .task-link-container {
-    padding-left: 35px;
+    padding-left: 25px;
 }
 
 .project-link {
