@@ -8,12 +8,14 @@ from django.http import JsonResponse, HttpResponseRedirect, HttpResponsePermanen
 from .import forms
 from django.contrib import messages
 from django.views.generic import CreateView, TemplateView
-from .forms import ProjectForm, TaskForm, AddTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm, NewCategoryForm, CompleteTaskForm
+from .forms import ProjectForm, TaskForm, AddTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm, NewCategoryForm, CompleteTaskForm, CustomCategoryTaskForm
 from users.models import Member
 from .models import Project, Category, Task, ProjectCategory
 from django.views.decorators.csrf import csrf_exempt
 from .decorators import project_manager_required
 
+
+#=====================================SIGNUP VIEWS==========================================================================
 
 class SignUpView(TemplateView):
     template_name = 'registration/signup.html'
@@ -58,6 +60,7 @@ class MemberSignUpView(CreateView):
         return redirect('login')
 
 
+#=======================================DASHBOARD AND PROJECTS ==========================================================================
 @login_required
 def dashboard(request):
     projects = request.user.project_set.all()
@@ -111,10 +114,13 @@ def delete_project(request, pk):
     return redirect('dashboard')
 
 
+
+#=====================================TASKS==========================================================================
 @login_required
 @project_manager_required
 def new_task(request, pk):  
     project = get_object_or_404(Project, pk=pk)
+    usersprojects = Project.objects.filter(project_team=request.user)
     form = TaskForm(request.POST) 
     task = None
     if request.method == "POST":  
@@ -124,7 +130,7 @@ def new_task(request, pk):
             return redirect('project', projectpk) 
     else:
             form = TaskForm(instance=task)
-    return render(request, 'core/newtask.html', {'form': form,'task': task, 'project':project})  
+    return render(request, 'core/newtask.html', {'form': form,'task': task, 'project':project, 'usersprojects': usersprojects})  
 
 
 @login_required
@@ -163,6 +169,8 @@ def delete_task(request, pk):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
+#=====================================ASSIGNING TEAM MEMBERS TO PROJECTS==========================================================================
+
 @login_required
 @project_manager_required
 def add_team_member(request, pk):  
@@ -187,36 +195,7 @@ def delete_team_member(request, pk):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
-# @login_required
-# @project_manager_required
-# def new_category(request, pk):  
-#     project = get_object_or_404(Project, pk=pk)
-#     form = CategoryForm(request.POST) 
-#     if request.method == "POST":  
-#         if form.is_valid():
-#             project_category_data = form.cleaned_data.get("category")
-#             for member in project_category_data:
-#                 project.project_categories.add(member)
-#             return redirect('project', pk)  
-#     else:
-#             form = CategoryForm()
-#     return render(request, 'core/new_category.html', {'form': form, 'project': project, 'pk':pk})
-
-@login_required
-@project_manager_required
-def new_category(request, pk):
-    project = get_object_or_404(Project, pk=pk)
-    form = NewCategoryForm(request.POST) 
-    category = None
-    if request.method == "POST":  
-        if form.is_valid():
-            projectpk = form.cleaned_data['project'].pk
-            category=form.save()
-            return redirect('project', projectpk) 
-    else:
-            form = NewCategoryForm(instance=category)
-    return render(request, 'core/new_category.html', {'form': form, 'category': category, 'project': project})
-    
+#=====================================STANDARD CATEGORIES==========================================================================  
 
 @login_required
 def edit_category(request, pk):
@@ -237,5 +216,76 @@ def delete_category(request, pk):
     category = get_object_or_404(Category, pk=pk)
     category.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+
+#===========================================CUSTOM CATEGORIES & TASKS===============================================================================
+@login_required
+@project_manager_required
+def new_category(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    form = NewCategoryForm(request.POST) 
+    category = None
+    if request.method == "POST":  
+        if form.is_valid():
+            projectpk = form.cleaned_data['project'].pk
+            category=form.save()
+            return redirect('project', projectpk) 
+    else:
+            form = NewCategoryForm(instance=category)
+    return render(request, 'core/new_category.html', {'form': form, 'category': category, 'project': project})
+
+
+@login_required
+def edit_category_customcategory(request, pk):
+    category = get_object_or_404(ProjectCategory, pk=pk)
+    if request.method == "POST":
+        form = NewCategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            projectpk = form.cleaned_data['project'].pk
+            form.save()
+            return redirect('project', projectpk)
+    else:
+        form = NewCategoryForm(instance=category)
+    return render(request, 'core/edit_category_customcategory.html', {'form': form, 'pk':pk, 'category': category})
+  
+
+@login_required
+def delete_category_customcategory(request, pk):
+    category = get_object_or_404(ProjectCategory, pk=pk)
+    category.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+@login_required
+@project_manager_required
+def new_task_customcategory(request, pk):  
+    project = get_object_or_404(Project, pk=pk)
+    form = CustomCategoryTaskForm(request.POST) 
+    task = None
+    if request.method == "POST":  
+        if form.is_valid():
+            projectpk = form.cleaned_data['project'].pk
+            task = form.save()
+            return redirect('project', projectpk) 
+    else:
+            form = CustomCategoryTaskForm(instance=task)
+    return render(request, 'core/new_task_customcategory.html', {'form': form, 'task': task, 'project': project})
+
+
+@login_required
+def edit_task_customcategory(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    if request.method == "POST":
+        form = CustomCategoryTaskForm(request.POST, instance=task)
+        if form.is_valid():
+            projectpk = form.cleaned_data['project'].pk
+            form.save()
+        return redirect('project', projectpk)
+    else:
+        form = CustomCategoryTaskForm(instance=task)
+    return render(request, 'core/edit_task_customcategory.html', {'form': form, 'pk': pk, 'task': task})
+    
+#CAN USE COMPLETE TASK AND DELETE TASK FOR THESE AS WELL^^^^
     
     
