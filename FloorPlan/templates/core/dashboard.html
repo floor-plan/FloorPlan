@@ -4,24 +4,29 @@
 
 <h1 class="project-tasks">My Tasks</h1>
 <div class="task-container">
-    {% for task in tasks%} {% if task.assignee == user %}
-    <!-- |slice:":5"  -->
-    {% if task.is_complete != True %}
 
-    <div class="task">
+    <a id='update-button' class='hidden task-update-button' href="{% url 'dashboard' %}">Update Tasks</a> {% for task in tasks %} {% if task.is_complete == False and task.assignee == user %}
 
-        <p class="task-test">Task Name: {{task.task|capfirst}}</p>
-        <p class="task-text">Assignee: {{task.assignee}}</p>
-        <a class="small-button task-text" href="{% url 'edit_task' pk=task.pk %}">Edit Task</a>
-        <a class="task-text" href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
+    <div class="form-group">
+        <div class="checkbox task-text">
+            <input class='checkbox' type="checkbox" name="packersOff" value="1" id="{{task.pk}}" />
+            <label class='task-text project-tasks'><span class='{{task.category|lower }}'>
+          Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to:
+          {{task.assignee}} | Category: {{task.category|lower }}</span></label>
+        </div>
+        <div class='task-link-container task-text'>
+            <a class="task-text" href="{% url 'delete_task' pk=task.pk %} ">Delete Task</a>
+        </div>
 
     </div>
+
 
 
 
     {% endif %}
     {% endif %}
     {% endfor %}
+
 </div>
 
 <div class="project-container">
