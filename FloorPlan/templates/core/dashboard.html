@@ -47,6 +47,12 @@
 
         <h3>Details</h3>
     </a>
+    {% empty %}
+    {% if user.is_project_manager %}
+    <div class='new-project'> <p class='project-text>You have no projects currently. 
+    <a class='small-button' href="{% url 'new_project' %}">Create a New Project</a></p></div>
+
+    {% endif %}
     {% endfor %}
 </div>
 

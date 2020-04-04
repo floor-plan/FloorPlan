@@ -45,7 +45,7 @@
 {% endif %}
 {% endfor %}
 
-{% for task in tasks %}
+{% comment %} {% for task in tasks %}
 {% if task.assignee == user %}
 <div class="task">
   <h2 class="task-text">
@@ -55,7 +55,7 @@
 <a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
 </div>
 {% endif %}
-{% endfor %}
+{% endfor %} {% endcomment %}
 
 <hr>
 

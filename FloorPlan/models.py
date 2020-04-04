@@ -59,4 +59,7 @@ class Task(models.Model):
 	def __str__(self):
 		return f'{self.task} => {self.project}, {self.assignee}'
 
+	class Meta: 
+		ordering = ['due_date']
+
 

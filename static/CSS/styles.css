@@ -36,6 +36,7 @@ input[type="checkbox"]:checked+label.strikethrough {
     --masonry: #0049bf;
     --framing: #8c72ff;
     --roofing: #823d7b;
+    --tiling: #743434;
     --default-fonts: "Saira Condensed", sans-serif;
 }
 
@@ -70,32 +71,30 @@ body {
 
 .plumbing {
     color: var(--plumbing);
-    white-space: nowrap;
 }
 
 .electrical {
     color: var(--electrical);
-    white-space: nowrap;
 }
 
 .homeowner {
     color: var(--homeowner);
-    white-space: nowrap;
 }
 
 .framing {
     color: var(--framing);
-    white-space: nowrap;
 }
 
 .roofing {
     color: var(--roofing);
-    white-space: nowrap;
 }
 
 .masonry {
     color: var(--masonry);
-    white-space: nowrap;
+}
+
+.tiling {
+    color: var(--tiling);
 }
 
 .logged-in-text {
@@ -109,12 +108,12 @@ p {
 a:link {
     text-decoration: none;
     font-family: var(--default-fonts);
-    color: var(--light-gray);
+    color: var(--green-gray);
 }
 
 a:visited {
     text-decoration: none;
-    color: var(--light-gray);
+    color: var(--green-gray);
 }
 
 a:hover {
@@ -124,7 +123,7 @@ a:hover {
 
 a:active {
     text-decoration: none;
-    color: var(--light-gray);
+    color: var(--green-gray);
 }
 
 h1,
@@ -256,6 +255,24 @@ h6 {
     margin: 12px;
     border-radius: 12px;
     padding-left: 50px;
+}
+
+.new-project {
+    align-content: flex-start;
+    color: white;
+    background-color: white;
+    border: var(--dark-brown);
+    background-color: var(--dark-gray);
+    /* padding: 12px; */
+    margin: 12px;
+    border-radius: 12px;
+    padding-left: 50px;
+    min-height: 100px;
+    cursor: pointer;
+}
+
+.new-project:hover {
+    background-color: var(--dark-gray);
 }
 
 .project-name {
