@@ -25,6 +25,14 @@ input[type="checkbox"]:checked+label.strikethrough {
     --default-fonts: "Saira Condensed", sans-serif;
 }
 
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
 body {
     background-color: var(--background-color);
     color: var(--dark-gray);

@@ -2,45 +2,34 @@ console.log("helloworld");
 
 updateButton = document.getElementById("update-button");
 
-checkboxes = document.querySelectorAll(".checkbox");
+function showUpdateButton() {
+    if (updatButton.classList.contains('hidden')) {
+        updateButton.classList.remove('hidden');
+        updateButton.classList.add('visible')
 
-function editThisTask(id) {
-    console.log("Where does this show up?");
-    console.log(id);
-    return fetch(`/complete_task/${id}/`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-        }
-    }).then(response => response.json());
-}
+        update
+        updateButton
+    }
 
-for (let checkbox of checkboxes) {
-    // updatebutton = querySelector("#update-button");
-    checkbox.addEventListener("change", function(event) {
-        event.preventDefault();
-        console.log("How many times does this happen?");
-        editThisTask(checkbox.id);
-        checkbox.classList.add("strikethrough");
-    });
-}
+    checkboxes = document.querySelectorAll(".checkbox");
 
-// `/complete_task/${id}`
+    function editThisTask(id) {
+        console.log("Where does this show up?");
+        console.log(id);
+        return fetch(`/complete_task/${id}/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            }
+        }).then(response => response.json());
+    }
 
-// .then(json => {
-//     if (json.status === 'ok') {
-//         document.getElementById(id).classList.add(".strikethrough")
-//     }
-// }
-
-// $("#my_checkbox1").change(function() {
-//     if (this.checked) {
-//         $.post("{% url 'myapp:movieDataUpdate' pk=movie.pk %}", {},
-//             function(data, status) {
-//                 console.log("Data: " + data + "\nStatus: " + status);
-//             });
-//     }
-//     // If you want, make an
-//     // else
-// });
+    for (let checkbox of checkboxes) {
+        checkbox.addEventListener("change", function(event) {
+            event.preventDefault();
+            console.log("How many times does this happen?");
+            editThisTask(checkbox.id);
+            checkbox.classList.add("strikethrough");
+        });
+    }
