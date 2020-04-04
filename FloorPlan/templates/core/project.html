@@ -5,19 +5,23 @@
 <h2>Address: {{project.address}}</h2>
 
 <h2>Lot: {{project.lot_number}}</h2>
-<a class="small-button" href="{% url 'edit_project' pk=project.pk %}">Edit Project</a>
-<a class="small-button" href="{% url 'delete_project' pk=project.pk %}">Delete Project</a>
+
 
 <hr>
+
+
+<div class="project-tasks"></div>
+<h1 class="project-tasks">My Tasks</h1>
+
+{% if user.is_project_manager %}
+<a class='small-button' href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
+<a class='small-button' href="{% url 'project' pk=project.pk %}">Update Tasks</a>
+<a class="small-button" href="{% url 'edit_project' pk=project.pk %}">Edit Project</a>
+<a class="small-button" href="{% url 'delete_project' pk=project.pk %}">Delete Project</a>
 <div>
   <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member To This Project</a>
 </div>
 
-<div class="project-tasks"></div>
-<h1 class="project-tasks">My Tasks</h1>
-{% if user.is_project_manager %}
-<a class='small-button' href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
-<a class='small-button' href="{% url 'project' pk=project.pk %}">Update Tasks</a>
 {% endif %}
 {% comment %} <a href="{% url 'new_task' pk=project.pk %}">Completed Tasks</a> {% endcomment %}
 
