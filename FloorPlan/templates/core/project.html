@@ -56,12 +56,15 @@
 <h1 class="project-categories">Categories</h1>
 <!-- <a href="{% url 'new_category' pk=project.pk %}">Create New Category</a> -->
 <div class='category-container'>
+
     {% for category in categories %}
     <div class="category">
         <h2 class="category-text {{category.category|lower}} ">{{category.category}}</h2>
+    {% if user.is_project_manager %}
         <a class="small-button" href="{% url 'edit_category' pk=category.pk %}">Edit Category</a>
         <a href="{% url 'delete_category' pk=category.pk %}">Delete Category</a> {% for task in tasks %} {% if task.category == category %} {% if task.is_complete == True %}
-        <div class="task strikethrough">
+  {% endif %}      
+  <div class="task strikethrough">
             <p class="task-text">{{task.task|capfirst}}</p>
         </div>
         {% else %}
@@ -71,6 +74,7 @@
             </p>
         </div>
         {% endif %} {% endif %} {% endfor %}
+
     </div>
 
     {% endfor %}
