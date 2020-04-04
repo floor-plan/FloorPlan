@@ -24,7 +24,7 @@ for (let checkbox of checkboxes) {
     checkbox.addEventListener("change", function(event) {
         event.preventDefault();
         editThisTask(checkbox.id);
-        checkbox.classList.add("strikethrough");
+        // checkbox.classList.add("strikethrough");
         showUpdateButton();
     });
 }

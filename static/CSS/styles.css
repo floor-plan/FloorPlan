@@ -33,6 +33,20 @@ input[type="checkbox"]:checked+label.strikethrough {
     display: block;
 }
 
+.task-update-button {
+    border: solid 3px var(--dark-gray);
+    background-color: white;
+    margin: 10px;
+    width: 100px;
+    padding: 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
+.task-update-button:hover {
+    background-color: var(--dark-gray);
+}
+
 body {
     background-color: var(--background-color);
     color: var(--dark-gray);
