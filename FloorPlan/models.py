@@ -9,7 +9,7 @@ from phone_field import PhoneField
 
 
 class Category(models.Model):
-	ProjectCategory = models.TextChoices('ProjectCategory', 'PLUMBING ELECTRICAL MASONRY FRAMING ROOFING HOMEOWNER')
+	ProjectCategory = models.TextChoices('ProjectCategory', 'PLUMBING ELECTRICAL MASONRY FRAMING ROOFING TILING HOMEOWNER MISC')
 	category = models.CharField(choices=ProjectCategory.choices, max_length=30, default='HOMEOWNER')
 	
 	def __str__(self):
@@ -27,12 +27,21 @@ class Project(models.Model):
 	lot_number = models.CharField(max_length=100, blank=True) 
 	categories = models.ManyToManyField(Category)
 	project_team = models.ManyToManyField(Member)
+	
 
 	def __str__(self):
 		return f'Address and/or Lot number:{self.address}, {self.lot_number}'
 
 		class Meta:
 			unique_together = ('name', 'categories',)
+
+
+class ProjectCategory(models.Model):
+	category = models.TextField(max_length=255)
+	project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="projectcategories", default='')
+
+	def __str__(self):
+		return f'{self.category}'
 
 class Task(models.Model):
 	task = models.TextField(max_length=300)
@@ -49,3 +58,5 @@ class Task(models.Model):
 
 	def __str__(self):
 		return f'{self.task} => {self.project}, {self.assignee}'
+
+

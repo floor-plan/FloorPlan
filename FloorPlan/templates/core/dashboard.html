@@ -5,14 +5,16 @@
 <h1 class="project-tasks">My Tasks</h1>
 <div class="task-container">
 
-    <a id='update-button' class='hidden task-update-button' href="{% url 'dashboard' %}">Update Tasks</a> {% for task in tasks %} {% if task.is_complete == False and task.assignee == user %}
+    <a id='update-button' class='hidden task-update-button' href="{% url 'dashboard' %}">Update Tasks</a>
+    {% for task in tasks %}
+    {% if task.is_complete == False and task.assignee == user %}
 
     <div class="form-group">
         <div class="checkbox task-text">
             <input class='checkbox' type="checkbox" name="packersOff" value="1" id="{{task.pk}}" />
             <label class='task-text project-tasks'><span class='{{task.category|lower }}'>
-          Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to:
-          {{task.assignee}} | Category: {{task.category|lower }}</span></label>
+                    Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to:
+                    {{task.assignee}} | Category: {{task.category|lower }}</span></label>
         </div>
         <div class='task-link-container task-text'>
             <a class="task-text" href="{% url 'delete_task' pk=task.pk %} ">Delete Task</a>
@@ -20,10 +22,6 @@
 
     </div>
 
-
-
-
-    {% endif %}
     {% endif %}
     {% endfor %}
 
@@ -39,7 +37,6 @@
 
     {% for project in projects %}
 
-
     <a href="{% url 'project' pk=project.pk %}" class="project-link-container">
 
         <p class="project-text">
@@ -48,11 +45,8 @@
             Lot: {{project.lot_number}}
         </p>
 
-
         <h3>Details</h3>
-
     </a>
-
     {% endfor %}
 </div>
 
