@@ -27,6 +27,17 @@
     </div>
 
     {% endif %}
+
+    {% empty %}
+
+<div><p>You are not associated with any tasks currently.</p></div>
+
+{% if user.is_project_manager %}
+
+<div><p>Go to a specific project to create tasks.</p></div>
+
+{% endif %}
+
     {% endfor %}
 
 </div>
