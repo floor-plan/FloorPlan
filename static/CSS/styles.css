@@ -99,7 +99,7 @@ body {
     background-color: var(--background-color);
     color: var(--dark-gray);
     font-family: var(--default-fonts);
-    padding: 10px;
+    padding: 25px;
 }
 
 .plumbing {
@@ -276,7 +276,7 @@ h6 {
     display: inline-block;
     flex-flow: column;
     /* border: red 6px solid; */
-    padding: 25px;
+    padding: 0px;
     width: 100%;
 }
 

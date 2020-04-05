@@ -1,6 +1,8 @@
 {% extends 'base.html' %} {% load static %} {% block meta %}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 {% endblock meta %} {% block content %}
+
+{% comment %} Project Overview {% endcomment %}
 <h1>Project Overview</h1>
 <h2 class="project-name">Name: {{project.name}}</h1>
 <h2>Address: {{project.address}}</h2>
@@ -10,9 +12,11 @@
 {% if user.is_project_manager %}
 <a class="edit-project-button" href="{% url 'edit_project' pk=project.pk %}">Edit Project</a>
 <a class="delete-project-button" href="{% url 'delete_project' pk=project.pk %}">Delete Project</a>
-
-
 {% endif %}
+
+{% comment %} End Project Overview {% endcomment %}
+
+{% comment %} Task Overview {% endcomment %}
 
 <div class="project-tasks">
   <h1 class="project-tasks">My Tasks</h1>
@@ -23,7 +27,7 @@
     <label for="inputName" class="col-md-1 control-label"></label>
     <div class="col-md-5">
       <div class="checkbox task-text">
-        <input class='checkbox' type="checkbox" name="packersOff" value="1" id="{{task.pk}}" />
+        <input class='checkbox' type="checkbox" value="1" id="{{task.pk}}" />
         <label class='task-text project-tasks'><span class='{{task.category|lower }}'>
             Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to:
             {{task.assignee}} | Category: {{task.category|lower }}</span></label>
@@ -38,8 +42,10 @@
 
 {% endif %}
 {% endfor %}
+{% comment %} End Task Overview {% endcomment %}
 
-<hr>
+
+{% comment %} Tasks by Category {% endcomment %}
 
 <h1 class="project-categories">Categories</h1>
 
@@ -76,6 +82,10 @@
 
 </div>
 
+{% comment %} End Tasks by Category {% endcomment %}
+
+{% comment %} Custom Category {% endcomment %}
+
 <div class="category-container">
   {% for projectcategory in projectcategories %}
   <div class="task-text">
@@ -85,7 +95,7 @@
     {% endif %}
 
     {% for task in tasks %}
-    {% if task.category == category %} {% if task.is_complete == True %}
+    {% if task.category == category and task.is_complete == True %}
 
     <div class="task strikethrough">
       <p class="task-text">{{task.task|capfirst}}</p>
@@ -96,7 +106,7 @@
         </label>
       </p>
     </div>
-    {% endif %}
+   
     {% endif %}
     {% endfor %}
   </div>
@@ -106,6 +116,10 @@
 <div class="category-container">
   <a class='small-button' href="{% url 'new_category' pk=project.pk %}">Create Custom Category</a>
 </div>
+
+{% comment %} End Custom Category {% endcomment %}
+
+{% comment %} TEAM {% endcomment %}
 <h2>Team</h2>
 <div>
   <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member(s) To This Project</a>
@@ -127,14 +141,11 @@
   <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member(s) To This Project</a>
 </div>
 
-
-
   {% endif %}
   </div>
 {% endfor %}
 </div>
 
-{% fa5_icon 'user' color='red' %}
-
+{% comment %} End Team {% endcomment %}
 
 {% endblock content %}
