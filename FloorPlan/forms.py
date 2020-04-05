@@ -55,6 +55,7 @@ class TaskForm(forms.ModelForm):
 class CustomCategoryTaskForm(forms.ModelForm):
 	class Meta:
 		model = Task
+		widgets = {'due_date' : DateInput}
 		fields = ['project', 'task', 'custom_category', 'assignee', 'due_date']
     
 
