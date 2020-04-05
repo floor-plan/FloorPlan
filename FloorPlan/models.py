@@ -7,6 +7,9 @@ from django.contrib.auth.models import AbstractUser
 import datetime
 from phone_field import PhoneField
 
+def user_unicode_patch(self):
+	return self.get_full_name()
+Member.__str__ = lambda user: user.get_full_name() 
 
 class Category(models.Model):
 	ProjectCategory = models.TextChoices('ProjectCategory', 'PLUMBING ELECTRICAL MASONRY FRAMING ROOFING TILING HOMEOWNER MISC')
