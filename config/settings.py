@@ -45,11 +45,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'FloorPlan',
+    
 
     # Third-party
     'debug_toolbar',
     'django_extensions',
     'crispy_forms',
+    'fontawesome_5',
 
     # Project-specific
     'users',

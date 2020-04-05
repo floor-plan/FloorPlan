@@ -5,6 +5,7 @@
 <h1 class="project-tasks">My Tasks</h1>
 <div class="task-container">
 
+
     <a id='update-button' class='hidden task-update-button' href="{% url 'dashboard' %}">Update Tasks</a>
     {% for task in tasks %}
     {% if task.is_complete == False and task.assignee == user %}
@@ -47,6 +48,14 @@
 
         <h3>Details</h3>
     </a>
+    {% empty %}
+    {% if user.is_project_manager %}
+     <a class='small-button' href="{% url 'new_project' %}"><div class='new-project'> <p class='project-text'>You have no projects currently.</p><p class='project-text'>Click here to create one</p></div></a>
+
+     {% else %}
+     <div class='new-project'> <p class='project-text'>You are not associated with any projects currently.</p></div>
+
+    {% endif %}
     {% endfor %}
 </div>
 

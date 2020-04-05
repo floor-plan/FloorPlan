@@ -1,21 +1,22 @@
 {% extends 'base.html' %} {% load static %} {% block meta %}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 {% endblock meta %} {% block content %}
-<h1 class="project-name">Name: {{project.name}}</h1>
+
+{% comment %} Project Overview {% endcomment %}
+<h1>Project Overview</h1>
+<h2 class="project-name">Name: {{project.name}}</h1>
 <h2>Address: {{project.address}}</h2>
 
 <h2>Lot: {{project.lot_number}}</h2>
 <br>
 {% if user.is_project_manager %}
-<a class="small-button" href="{% url 'edit_project' pk=project.pk %}">Edit Project</a>
-<a class="small-button" href="{% url 'delete_project' pk=project.pk %}">Delete Project</a>
-<div>
-  <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member To This Project</a>
-</div>
-
+<a class="edit-project-button" href="{% url 'edit_project' pk=project.pk %}">Edit Project</a>
+<a class="delete-project-button" href="{% url 'delete_project' pk=project.pk %}">Delete Project</a>
 {% endif %}
 
-<hr>
+{% comment %} End Project Overview {% endcomment %}
+
+{% comment %} Task Overview {% endcomment %}
 
 <div class="project-tasks">
   <h1 class="project-tasks">My Tasks</h1>
@@ -26,7 +27,7 @@
     <label for="inputName" class="col-md-1 control-label"></label>
     <div class="col-md-5">
       <div class="checkbox task-text">
-        <input class='checkbox' type="checkbox" name="packersOff" value="1" id="{{task.pk}}" />
+        <input class='checkbox' type="checkbox" value="1" id="{{task.pk}}" />
         <label class='task-text project-tasks'><span class='{{task.category|lower }}'>
             Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to:
             {{task.assignee}} | Category: {{task.category|lower }}</span></label>
@@ -41,23 +42,13 @@
 
 {% endif %}
 {% endfor %}
+{% comment %} End Task Overview {% endcomment %}
 
-<!-- {% for task in tasks %}
-{% if task.assignee == user %}
-<div class="task">
-  <h2 class="task-text">
-    {{task.task|capfirst}} {{task.due_date}} {{task.assignee}}</h2>
-</div>
-<a class="small-button" href="{% url 'edit_task' pk=task.pk %}">Edit Task</a>
-<a href="{% url 'delete_task' pk=task.pk %}">Delete Task</a>
-</div>
-{% endif %}
-{% endfor %} -->
 
-<hr>
+{% comment %} Tasks by Category {% endcomment %}
 
 <h1 class="project-categories">Categories</h1>
-<!-- <a href="{% url 'new_category' pk=project.pk %}">Create New Category</a> -->
+
 <div class='category-container'>
 
   {% for category in categories %}
@@ -91,6 +82,10 @@
 
 </div>
 
+{% comment %} End Tasks by Category {% endcomment %}
+
+{% comment %} Custom Category {% endcomment %}
+
 <div class="category-container">
   {% for projectcategory in projectcategories %}
   <div class="task-text">
@@ -100,7 +95,7 @@
     {% endif %}
 
     {% for task in tasks %}
-    {% if task.category == category %} {% if task.is_complete == True %}
+    {% if task.category == category and task.is_complete == True %}
 
     <div class="task strikethrough">
       <p class="task-text">{{task.task|capfirst}}</p>
@@ -111,7 +106,7 @@
         </label>
       </p>
     </div>
-    {% endif %}
+   
     {% endif %}
     {% endfor %}
   </div>
@@ -122,6 +117,35 @@
   <a class='small-button' href="{% url 'new_category' pk=project.pk %}">Create Custom Category</a>
 </div>
 
+{% comment %} End Custom Category {% endcomment %}
 
+{% comment %} TEAM {% endcomment %}
+<h2>Team</h2>
+<div>
+  <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member(s) To This Project</a>
+</div>
+
+<div class='teammember-container'>
+
+{% for teammember in teammembers %}
+
+  <div class='teammember'>
+
+  <p>Name: {{teammember.first_name}} {{teammember.last_name}} | username: {{teammember.username}}</p>
+
+  {% empty %}
+  <p> There are no team members associated with this project </p>
+
+  {% if user.is_project_manager %}
+  <div>
+  <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member(s) To This Project</a>
+</div>
+
+  {% endif %}
+  </div>
+{% endfor %}
+</div>
+
+{% comment %} End Team {% endcomment %}
 
 {% endblock content %}

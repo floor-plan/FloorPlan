@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load fontawesome_5 %}
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+    {% load static %} 
     <link href="https://fonts.googleapis.com/css?family=Oswald|Saira+Condensed:700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'CSS/styles.css' %}" /> {% block title %}
     <script src="{% static 'JS/main.js' %}" defer></script>
-    <title>FloorPlan</title>{% endblock %}
+    <title>FloorPlan</title>
+    {% endblock %}
 </head>
 
-
-<header class='header'>
-    <div class='img-container'>
-        <div class='log-container'>
+<header class="header">
+    <div class="img-container">
+        <div class="log-container">
             <a class="floor-plan-text" href="{% url 'dashboard' %}">FloorPlan</a>
 
-            <div class='log-link-container'>
-
-
+            <div class="log-link-container">
                 <div class="log-link">
                     <a class="logout" href="/accounts/login/">Login </a>
                 </div>
@@ -37,11 +37,10 @@
 {% block content %}
 
 <body>
-
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     {% if user.is_authenticated and user.is_project_manager %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/project_manager.css' %}"> {% else %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/members.css' %}"> {% endif %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/project_manager.css' %}" /> {% else %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/members.css' %}" /> {% endif %}
 </body>
 
 {% endblock %}

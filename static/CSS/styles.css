@@ -36,6 +36,7 @@ input[type="checkbox"]:checked+label.strikethrough {
     --masonry: #0049bf;
     --framing: #8c72ff;
     --roofing: #823d7b;
+    --tiling: #743434;
     --default-fonts: "Saira Condensed", sans-serif;
 }
 
@@ -61,41 +62,72 @@ input[type="checkbox"]:checked+label.strikethrough {
     background-color: var(--dark-gray);
 }
 
+.edit-project-button {
+    border: solid 3px var(--dark-gray);
+    background-color: var(--dark-gray);
+    margin: 10px;
+    width: 100px;
+    padding: 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+    padding: 12px;
+    margin: 12px;
+}
+
+.edit-project-button: hover {
+    background-color: var(--green-gray);
+    color: white;
+}
+
+.delete-project-button {
+    border: solid 3px var(--dark-gray);
+    background-color: var(--dark-gray);
+    margin: 10px;
+    width: 100px;
+    padding: 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+    padding: 12px;
+    margin: 12px;
+}
+
+.delete-project-button:hover {
+    background-color: darkred;
+}
+
 body {
     background-color: var(--background-color);
     color: var(--dark-gray);
     font-family: var(--default-fonts);
-    padding: 10px;
+    padding: 25px;
 }
 
 .plumbing {
     color: var(--plumbing);
-    white-space: nowrap;
 }
 
 .electrical {
     color: var(--electrical);
-    white-space: nowrap;
 }
 
 .homeowner {
     color: var(--homeowner);
-    white-space: nowrap;
 }
 
 .framing {
     color: var(--framing);
-    white-space: nowrap;
 }
 
 .roofing {
     color: var(--roofing);
-    white-space: nowrap;
 }
 
 .masonry {
     color: var(--masonry);
-    white-space: nowrap;
+}
+
+.tiling {
+    color: var(--tiling);
 }
 
 .logged-in-text {
@@ -109,12 +141,12 @@ p {
 a:link {
     text-decoration: none;
     font-family: var(--default-fonts);
-    color: var(--light-gray);
+    color: var(--green-gray);
 }
 
 a:visited {
     text-decoration: none;
-    color: var(--light-gray);
+    color: var(--green-gray);
 }
 
 a:hover {
@@ -124,7 +156,7 @@ a:hover {
 
 a:active {
     text-decoration: none;
-    color: var(--light-gray);
+    color: var(--green-gray);
 }
 
 h1,
@@ -173,7 +205,7 @@ h6 {
     flex-flow: column;
     padding: 10px;
     /* border: solid green 2px; */
-    width: 40%;
+    width: 100%;
     float: left;
 }
 
@@ -228,7 +260,7 @@ h6 {
     border: 2px solid var(--light-brown);
     box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
-    width: 90%;
+    width: 100%;
 }
 
 .task-text:checked+span {
@@ -244,8 +276,8 @@ h6 {
     display: inline-block;
     flex-flow: column;
     /* border: red 6px solid; */
-    padding: 25px;
-    width: 60%;
+    padding: 0px;
+    width: 100%;
 }
 
 .project {
@@ -258,6 +290,24 @@ h6 {
     padding-left: 50px;
 }
 
+.new-project {
+    align-content: flex-start;
+    color: white;
+    background-color: var(--green-gray);
+    border: var(--dark-brown);
+    /* padding: 12px; */
+    margin: 12px;
+    border-radius: 12px;
+    padding-left: 50px;
+    min-height: 100px;
+    cursor: pointer;
+}
+
+.new-project:hover {
+    background-color: var(--dark-gray);
+    color: white;
+}
+
 .project-name {
     font-family: "Saira Condensed", sans-serif;
     font-size: 200%;
@@ -267,17 +317,9 @@ h6 {
 
 .project-tasks {
     padding-left: 10px;
-    width: 40%;
+    width: 50%;
+    padding-top: 12px;
 }
-
-
-/* .boxshadow {
-    position: relative;
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    display:block;
-    text-decoration:none;
-} */
 
 .project-link-container {
     /* display: flex; */
@@ -329,4 +371,22 @@ h6 {
 
 .small-button {
     padding-left: 10px;
+}
+
+.teammember-container {
+    display: inline-block;
+    background-color: var(--dark-gray);
+    flex-flow: row;
+    /* border: red 6px solid; */
+    padding: 25px;
+    width: 100%;
+    border-radius: 12px;
+}
+
+.teammember {
+    align-content: flex-start;
+    color: white;
+    /* padding: 12px; */
+    margin: 12px;
+    padding-left: 50px;
 }

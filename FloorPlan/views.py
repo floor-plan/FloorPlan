@@ -76,7 +76,9 @@ def project(request, pk):
     categories = Category.objects.all()
     projectcategories = ProjectCategory.objects.filter(project=project)
     users=Member.objects.all()  
-    return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'categories':categories, 'projectcategories': projectcategories, 'users':users, 'pk': pk})
+    teammembers=Member.objects.filter(project=project) 
+
+    return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'categories':categories, 'projectcategories': projectcategories, 'users':users, 'teammembers':teammembers, 'pk': pk})
     
 
 @login_required
