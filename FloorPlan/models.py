@@ -60,7 +60,8 @@ class Task(models.Model):
 	task = models.TextField(max_length=300)
 	category = models.ForeignKey(
 		Category, on_delete=models.CASCADE, related_name='tasks', default='', null=True, blank=True)
-	custom_category = models.ForeignKey(ProjectCategory, on_delete=models.CASCADE, related_name="customtasks", default='', null=True, blank=True)
+	custom_category = models.ForeignKey(
+		ProjectCategory, on_delete=models.CASCADE, related_name="customtasks", default=None, null=True, blank=True)
 	assignee = models.ForeignKey(
 		Member, on_delete=models.CASCADE, related_name='tasks', default='')
 	project = models.ForeignKey(
