@@ -14,11 +14,14 @@
         <div class="checkbox task-text">
             <input class='checkbox' type="checkbox" name="packersOff" value="1" id="{{task.pk}}" />
             <label class='task-text project-tasks'><span class='{{task.category|lower }}'>
-                    Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to:
+                    Task: {{task.task|capfirst}} | Project: {{task.project.name}} | Due: {{task.due_date}} | Assigned
+                    to:
                     {{task.assignee}} | Category: {{task.category|lower }}</span></label>
         </div>
         <div class='task-link-container task-text'>
+            {% if user.is_project_manager %}
             <a class="task-text" href="{% url 'delete_task' pk=task.pk %} ">Delete Task</a>
+            {% endif %}
         </div>
 
     </div>
@@ -61,10 +64,17 @@
     </a>
     {% empty %}
     {% if user.is_project_manager %}
-     <a class='small-button' href="{% url 'new_project' %}"><div class='new-project'> <p class='project-text'>You have no projects currently.</p><p class='project-text'>Click here to create one</p></div></a>
+    <a class='small-button' href="{% url 'new_project' %}">
+        <div class='new-project'>
+            <p class='project-text'>You have no projects currently.</p>
+            <p class='project-text'>Click here to create one</p>
+        </div>
+    </a>
 
-     {% else %}
-     <div class='new-project'> <p class='project-text'>You are not associated with any projects currently.</p></div>
+    {% else %}
+    <div class='new-project'>
+        <p class='project-text'>You are not associated with any projects currently.</p>
+    </div>
 
     {% endif %}
     {% endfor %}

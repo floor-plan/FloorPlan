@@ -376,3 +376,7 @@ h6 {
     margin: 12px;
     padding-left: 50px;
 }
+
+.custom-category{
+    text-transform: uppercase;
+}
