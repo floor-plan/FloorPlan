@@ -97,7 +97,9 @@
       </div>
       {% else %}
       <div class="task">
-        <p class="task-test">Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to: {{task.assignee}}
+        <p class="task-test">Task: {{task.task|capfirst}} | Due:
+          {{task.due_date.date}} | Assigned
+          to: {{task.assignee}}
           </label>
         </p>
 
