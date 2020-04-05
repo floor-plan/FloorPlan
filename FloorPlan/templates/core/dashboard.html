@@ -30,7 +30,7 @@
 
     {% empty %}
 
-<div><p>You are not associated with any tasks currently.</p></div>
+<div><p>You are not associated with any incomplete tasks currently.</p></div>
 
 {% if user.is_project_manager %}
 
@@ -63,20 +63,26 @@
         <h3>Details</h3>
     </a>
     {% empty %}
+
+    {% if user.is_project_manager == False %}
+    
+    
+
+    <div class='new-project-no-link'>
+        <p class='project-text'>You are not associated with any projects currently. Contact project manager for details.</p>
+    </div>
+
     {% if user.is_project_manager %}
-    <a class='small-button' href="{% url 'new_project' %}">
+<a class='small-button' href="{% url 'new_project' %}">
         <div class='new-project'>
             <p class='project-text'>You have no projects currently.</p>
             <p class='project-text'>Click here to create one</p>
         </div>
     </a>
-
-    {% else %}
-    <div class='new-project'>
-        <p class='project-text'>You are not associated with any projects currently.</p>
-    </div>
-
+    
     {% endif %}
+    {% endif %}
+
     {% endfor %}
 </div>
 

@@ -276,6 +276,18 @@ h6 {
     padding-left: 50px;
 }
 
+.new-project-no-link {
+    align-content: flex-start;
+    color: white;
+    background-color: var(--green-gray);
+    border: var(--dark-brown);
+    /* padding: 12px; */
+    margin: 12px;
+    border-radius: 12px;
+    padding-left: 50px;
+    min-height: 100px;
+}
+
 .new-project {
     align-content: flex-start;
     color: white;
@@ -377,6 +389,6 @@ h6 {
     padding-left: 50px;
 }
 
-.custom-category{
+.custom-category {
     text-transform: uppercase;
 }
