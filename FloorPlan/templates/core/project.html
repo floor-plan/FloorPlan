@@ -32,9 +32,13 @@
               Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to:
               {{task.assignee}} | Category: {{task.category|lower }}</span></label>
         </div>
+
+        {% if user.is_project_manager %}
         <div class='task-link-container task-text'><a class="small-button " href="{% url 'edit_task' pk=task.pk %}">Edit
             Task</a>
           <a class="task-text" href="{% url 'delete_task' pk=task.pk %} ">Delete Task</a>
+          {% endif %}
+
         </div>
       </div>
     </div>
@@ -56,11 +60,13 @@
       <h2 class="category-text {{category.category|lower}} ">{{category.category}}</h2>
       {% if user.is_project_manager %}
       <a class='small-button' href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
+
       {% endif %}
 
       {% for task in tasks %}
       {% if task.category == category %}
       {% if task.is_complete == True %}
+
 
       <div class="task strikethrough">
         <p class="task-text">{{task.task|capfirst}}</p>
@@ -70,7 +76,9 @@
         <p class="task-test">Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to: {{task.assignee}}
           </label>
         </p>
+
         <a class='small-button' href="{% url 'edit_task' pk=task.pk %}">Edit Task</a>
+
       </div>
       {% endif %}
       {% endif %}
@@ -81,6 +89,7 @@
     {% endfor %}
 
   </div>
+
 
   {% comment %}===================== End Tasks by Category ====================={% endcomment %}
 
@@ -109,28 +118,34 @@
         <p class="task-test">Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to: {{task.assignee}}
           </label>
         </p>
+
         <a class='small-button' href="{% url 'edit_task_customcategory' pk=task.pk %}">Edit Task</a>
       </div>
 
       {% endif %}
       {% endif %}
+
       {% endfor %}
     </div>
     {% endfor %}
   </div>
 
+  {% if user.is_project_manager %}
   <div class="category-container">
     <a class='small-button' href="{% url 'new_category' pk=project.pk %}">Create Custom Category</a>
   </div>
+  {% endif %}
 
   {% comment %} ======================= End Custom Category============================ {% endcomment %}
 
   {% comment %} ============================ TEAM ============================={% endcomment %}
-
+  
   <h2>Team</h2>
+  {% if user.is_project_manager %}
   <div>
     <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member(s) To This Project</a>
   </div>
+  {% endif %}
 
   <div class='teammember-container'>
 
