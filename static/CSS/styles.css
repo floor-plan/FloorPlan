@@ -4,20 +4,6 @@
     margin: 0;
 }
 
-
-/* .hoverWrapper:hover #hoverShow1 {
-    display: block;
-}
-
-.hoverWrapper #hoverShow1 {
-    display: none;
-    background-color: #ff0000;
-    width: 250px;
-    height: 250px;
-    left: 200px;
-    top: 100px;
-} */
-
 input[type="checkbox"]:checked+label.strikethrough {
     text-decoration: line-through;
 }
@@ -317,7 +303,7 @@ h6 {
 
 .project-tasks {
     padding-left: 10px;
-    width: 50%;
+    width: 100%;
     padding-top: 12px;
 }
 
@@ -361,7 +347,7 @@ h6 {
     margin: 5px;
     padding: 5px;
     flex-grow: 1;
-    width: 300px;
+    width: 100%;
 }
 
 
