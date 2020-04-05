@@ -14,7 +14,8 @@
         <div class="checkbox task-text">
             <input class='checkbox' type="checkbox" name="packersOff" value="1" id="{{task.pk}}" />
             <label class='task-text project-tasks'><span class='{{task.category|lower }}'>
-                    Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to:
+                    Task: {{task.task|capfirst}} | Project: {{task.project.name}} | Due: {{task.due_date}} | Assigned
+                    to:
                     {{task.assignee}} | Category: {{task.category|lower }}</span></label>
         </div>
         <div class='task-link-container task-text'>

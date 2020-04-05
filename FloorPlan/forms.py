@@ -35,24 +35,33 @@ class ProjectForm(forms.ModelForm):
 		model = Project
 		fields = ['address', 'lot_number', 'name']
 
+class DateInput(forms.DateInput):
+	input_type = 'date'
 
+	# def clean_date(self):
+	# 	date = self.cleaned_data['date']
+    #     if date < datetime.date.today():
+	# 		raise forms.ValidationError("The date cannot be in the past!")
+    # 	return date
+	
 
-class TaskForm(forms.ModelForm):
-  class Meta:
-    model = Task
-    fields = ['project', 'task', 'category', 'assignee', 'due_date']
+class TaskForm(forms.ModelForm): 
+	class Meta:
+		model = Task
+		widgets = {'due_date' : DateInput}
+		fields = ['project', 'task', 'category', 'assignee', 'due_date']
 
 
 class CustomCategoryTaskForm(forms.ModelForm):
-  class Meta:
-    model = Task
-    fields = ['project', 'task', 'custom_category', 'assignee', 'due_date']
+	class Meta:
+		model = Task
+		fields = ['project', 'task', 'custom_category', 'assignee', 'due_date']
     
 
 class NewCategoryForm(forms.ModelForm):
-  class Meta:
-    model = ProjectCategory
-    fields = ['category', 'project']
+	class Meta:
+		model = ProjectCategory
+		fields = ['category', 'project']
 
 
 
