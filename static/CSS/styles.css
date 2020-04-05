@@ -205,7 +205,7 @@ h6 {
     flex-flow: column;
     padding: 10px;
     /* border: solid green 2px; */
-    width: 40%;
+    width: 100%;
     float: left;
 }
 
@@ -260,7 +260,7 @@ h6 {
     border: 2px solid var(--light-brown);
     box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
-    width: 90%;
+    width: 100%;
 }
 
 .task-text:checked+span {
@@ -277,7 +277,7 @@ h6 {
     flex-flow: column;
     /* border: red 6px solid; */
     padding: 25px;
-    width: 60%;
+    width: 100%;
 }
 
 .project {

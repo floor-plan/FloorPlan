@@ -1,5 +1,10 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from fontawesome.fields import IconField
+
+
+
+    
 
 
     
@@ -15,6 +20,7 @@ class Member(AbstractUser):
     role = models.CharField(blank=False, choices=UserRole.choices, max_length=30, default='misc')
     UserCategory = models.TextChoices('UserCategory', 'PROJECT-MANAGER PLUMBING ELECTRICAL MASONRY FRAMING ROOFING HOMEOWNER')
     category = models.CharField(blank=False, choices=UserCategory.choices, max_length=30, default='misc')
+    icon = IconField()
 	
     USERNAME_FIELD = "username"
 
