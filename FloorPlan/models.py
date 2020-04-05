@@ -4,8 +4,9 @@ from django.db import models
 from model_utils import Choices
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
-import datetime
+from datetime import datetime, date, time
 from phone_field import PhoneField
+
 
 
 class Category(models.Model):

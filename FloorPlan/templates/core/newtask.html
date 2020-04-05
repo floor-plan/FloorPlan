@@ -2,6 +2,11 @@
 
 <form class="form" action="{% url 'new_task' pk=project.pk %}" method="post">
     {% csrf_token %} {{ form.as_p }}
+    <label>
+        Due Date:
+        <input type="date" name="due_date" data-date="{{task.due_date|date:'Y-m-d'}}">
+      </label>
+    </br>
     <input type="submit" class="submit-button" value="Submit" />
 </form>
 

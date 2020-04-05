@@ -5,7 +5,9 @@
 <h1 class="project-tasks">My Tasks</h1>
 <div class="task-container">
 
-    <a id='update-button' class='hidden task-update-button' href="{% url 'dashboard' %}">Update Tasks</a> {% for task in tasks %} {% if task.is_complete == False and task.assignee == user %}
+    <a id='update-button' class='hidden task-update-button' href="{% url 'dashboard' %}">Update Tasks</a> 
+    {% for task in tasks %} 
+    {% if task.is_complete == False and task.assignee == user %}
 
     <div class="form-group">
         <div class="checkbox task-text">
@@ -23,7 +25,6 @@
 
 
 
-    {% endif %}
     {% endif %}
     {% endfor %}
 

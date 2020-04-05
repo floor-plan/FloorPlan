@@ -3,6 +3,9 @@ from django.contrib.auth.forms import UserCreationForm
 from users.models import Member
 from .models import Project, Category, Task
 from django.db import transaction
+from datetime import datetime, date, time
+
+
 
 
 class ProjectManagerSignUpForm(UserCreationForm):
@@ -36,17 +39,27 @@ class ProjectForm(forms.ModelForm):
 		fields = ['address', 'lot_number', 'name']
 
 
+# class DateInput(forms.DateInput):
+# 	input_type = 'date'
 
 class TaskForm(forms.ModelForm):
-  class Meta:
-    model = Task
-    fields = ['project', 'task', 'category', 'assignee', 'due_date']
+	class Meta:
+		model = Task
+		fields = ['project', 'task', 'category', 'assignee', 'due_date']
+		due_date = forms.DateField(
+        widget=forms.DateInput(format='%m/%d/%y'),
+        input_formats=('%m/%d/%y', )
+        )
+		
+
+	
+		
     
 
 class CategoryForm(forms.ModelForm):
-  class Meta:
-    model = Category
-    fields = ['category']
+	class Meta:
+		model = Category
+		fields = ['category']
 
 
 
