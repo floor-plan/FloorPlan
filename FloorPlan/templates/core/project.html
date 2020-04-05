@@ -1,7 +1,8 @@
 {% extends 'base.html' %} {% load static %} {% block meta %}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 {% endblock meta %} {% block content %}
-<h1 class="project-name">Name: {{project.name}}</h1>
+<h1>Project Overview</h1>
+<h2 class="project-name">Name: {{project.name}}</h1>
 <h2>Address: {{project.address}}</h2>
 
 <h2>Lot: {{project.lot_number}}</h2>
@@ -9,13 +10,9 @@
 {% if user.is_project_manager %}
 <a class="edit-project-button" href="{% url 'edit_project' pk=project.pk %}">Edit Project</a>
 <a class="delete-project-button" href="{% url 'delete_project' pk=project.pk %}">Delete Project</a>
-<div>
-  <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member To This Project</a>
-</div>
+
 
 {% endif %}
-
-<hr>
 
 <div class="project-tasks">
   <h1 class="project-tasks">My Tasks</h1>
@@ -109,7 +106,26 @@
 <div class="category-container">
   <a class='small-button' href="{% url 'new_category' pk=project.pk %}">Create Custom Category</a>
 </div>
+<h2>Team</h2>
+<div>
+  <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member To This Project</a>
+</div>
+
+<div class='teammember-container'>
 
 
+
+
+{% for teammember in teammembers %}
+
+<div class='teammember'>
+
+<p>Name: {{teammember.first_name}} {{teammember.last_name}} | username: {{teammember.username}}</p>
+
+</div>
+
+</div>
+
+{% endfor %}
 
 {% endblock content %}
