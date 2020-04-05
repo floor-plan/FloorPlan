@@ -44,26 +44,26 @@
     </div>
   </div>
 
-<<<<<<< HEAD
-{% endif %}
 
-{% empty %}
-
-<div><p>You are not associated with any tasks currently.</p></div>
-
-{% if user.is_project_manager %}
-
-<div><p>Create tasks by category below.</p></div>
-
-{% endif %}
-
-{% endfor %}
-{% comment %} End Task Overview {% endcomment %}
-=======
   {% endif %}
+
+  {% empty %}
+
+  <div>
+    <p>You are not associated with any tasks currently.</p>
+  </div>
+
+  {% if user.is_project_manager %}
+
+  <div>
+    <p>Create tasks by category below.</p>
+  </div>
+
+  {% endif %}
+
   {% endfor %}
   {% comment %} End Task Overview {% endcomment %}
->>>>>>> master
+
 
 
   {% comment %} Tasks by Category {% endcomment %}
@@ -156,7 +156,7 @@
   {% comment %} ======================= End Custom Category============================ {% endcomment %}
 
   {% comment %} ============================ TEAM ============================={% endcomment %}
-  
+
   <h2>Team</h2>
   {% if user.is_project_manager %}
   <div>

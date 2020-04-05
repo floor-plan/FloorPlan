@@ -51,11 +51,11 @@ class TaskForm(forms.ModelForm):
 		widgets = {'due_date' : DateInput}
 		fields = ['project', 'task', 'category', 'assignee', 'due_date']
 
-    def clean_date(self):
-        date = self.cleaned_data['date']
-        if due_date < datetime.date.today():
-            raise forms.ValidationError("The date cannot be in the past!")
-        return date
+	def clean_date(self):
+		date = self.cleaned_data['date']
+		if due_date < datetime.date.today():
+			raise forms.ValidationError("The date cannot be in the past!")
+		return date
 
 
 class CustomCategoryTaskForm(forms.ModelForm):
