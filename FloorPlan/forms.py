@@ -50,11 +50,7 @@ class TaskForm(forms.ModelForm):
         widget=forms.DateInput(format='%m/%d/%y'),
         input_formats=('%m/%d/%y', )
         )
-		
-
-	
-		
-    
+		  
 
 class CategoryForm(forms.ModelForm):
 	class Meta:
