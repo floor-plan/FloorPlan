@@ -13,7 +13,7 @@
       </br>
       Name: {{project.name}}
     </h2>
-  </div>
+  </div> 
   {% if user.is_project_manager %}
   <div class="project-buttons">
     <a class="edit-project-button" href="{% url 'edit_project' pk=project.pk %}">Edit Project</a>
@@ -26,9 +26,8 @@
 {% comment %} End Project Overview {% endcomment %}
 
 {% comment %} Task Overview {% endcomment %}
-
 <div class="project-tasks">
-  <h1 class="project-tasks">My Tasks</h1>
+  <h1 class="project-tasks my-tasks">My Tasks</h1>
   <a id='update-button' class='hidden task-update-button' href="{% url 'project' pk=project.pk %}">Update Tasks</a>
   {% for task in tasks %}
   {% if task.is_complete == False and task.assignee == user %}
