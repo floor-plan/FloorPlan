@@ -6,7 +6,7 @@
 <h2>Sign up as a sub-contractor, supplier, or homeowner</h2>
 <form method="post" novalidate>
   {% csrf_token %}
-    <input type="hidden" name="next" value="{{ next }}">
+  <input type="hidden" name="next" value="{{ next }}">
   {{ form.as_p }}
   <button type="submit" class="btn btn-success">Sign up</button>
 </form>
