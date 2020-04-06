@@ -137,11 +137,13 @@ a:link {
     text-decoration: none;
     font-family: var(--default-fonts);
     color: var(--green-gray);
+    /* color: white; */
 }
 
 a:visited {
     text-decoration: none;
     color: var(--green-gray);
+    /* color: white */
 }
 
 a:hover {
@@ -415,7 +417,8 @@ h6 {
     margin: 5px;
     padding: 5px;
     flex-grow: 1;
-    width: 100%;
+    width: 80%;
+    border-bottom: 2px solid var(--dark-gray);
 }
 
 
@@ -424,7 +427,17 @@ h6 {
     /* text-decoration: underline; */
 
 .small-button {
-    padding-left: 10px;
+    font-size: .8rem;
+    padding: 4px;
+    color: white;
+    background-color: var(--dark-gray);
+    border: 1px solid var(--dark-gray);
+    border-radius: 12px;
+}
+
+.small-button:hover {
+    color: white;
+    background-color: var(--green-gray);
 }
 
 
@@ -457,3 +470,22 @@ h6 {
     color: var(--dark-gray);
     font-family: "Saira Condensed", sans-serif;
 } */
+
+.cat-header {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    align-items: flex-start;
+}
+
+/* .task-button-align {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    align-items: flex-start;
+} */
+
+.task-button-align {
+    color: var(--dark-gray);
+}
