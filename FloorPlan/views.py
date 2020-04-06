@@ -125,14 +125,18 @@ def new_task(request, pk):
     usersprojects = Project.objects.filter(project_team=request.user)
     form = TaskForm(request.POST) 
     task = None
+    assignees = Member.objects.all()
     if request.method == "POST":  
         if form.is_valid():
             projectpk = form.cleaned_data['project'].pk
+            project_team_data = form.cleaned_data.get("project_team")
+            project_assignee_data = form.cleaned_data.get('assignee')
             task = form.save()
+            project.project_team.add(task.assignee)
             return redirect('project', projectpk) 
     else:
             form = TaskForm(instance=task)
-    return render(request, 'core/newtask.html', {'form': form,'task': task, 'project':project, 'usersprojects': usersprojects})  
+    return render(request, 'core/newtask.html', {'form': form, 'task': task, 'project': project, 'usersprojects': usersprojects, 'pk':pk})
 
 
 @login_required
