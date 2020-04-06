@@ -59,6 +59,7 @@ class TaskForm(forms.ModelForm):
 		return date
 
 
+
 class CustomCategoryTaskForm(forms.ModelForm):
 	class Meta:
 		model = Task
