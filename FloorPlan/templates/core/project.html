@@ -15,11 +15,11 @@
     </h2>
   </div>
   {% if user.is_project_manager %}
-  <div class="project-buttons">
-    <a class="edit-project-button" href="{% url 'edit_project' pk=project.pk %}">Edit Project</a>
-    <a class="delete-project-button" href="{% url 'delete_project' pk=project.pk %}"
-      onclick="return confirm('Are you sure you want to delete this project?  Deleting a project cannot be undone.')">Delete
-      Project</a>
+  <div> 
+    <span style= "font-size :4rem;"><a href="{% url 'edit_project' pk=project.pk %}"><i class="fas fa-edit"></i></a></span>
+
+    <span style= "font-size: 4rem; color: Tomato;"><a href='{% url 'delete_project' pk=project.pk %}''
+      onclick="return confirm('Are you sure you want to delete this project?  Deleting a project cannot be undone.')"><i class="far fa-times-circle"></i></a></span>
   </div>
   {% endif %}
 </div>
@@ -126,7 +126,6 @@
         <a class="task-text" href="{% url 'delete_task' pk=task.pk %}"
                 onclick="return confirm('Are you sure you want to delete this task?  Deleting a task cannot be undone.')"><i class="fas fa-minus-circle"></i></a>
 
-        
         </div>
       </div>
       {% endif %}
