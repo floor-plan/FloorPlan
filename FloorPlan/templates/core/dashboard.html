@@ -22,9 +22,8 @@
         </div>
         <div class='task-link-container task-text'>
             {% if user.is_project_manager %}
-            <a class="task-text" href="{% url 'delete_task' pk=task.pk %}"
-                onclick="return confirm('Are you sure you want to delete this task?  Deleting a task cannot be undone.')">Delete
-                Task</a>
+            <a href="{% url 'delete_task' pk=task.pk %}"
+                onclick="return confirm('Are you sure you want to delete this task?  Deleting a task cannot be undone.')"><i class="fas fa-minus-circle"></i></a>
             {% endif %}
         </div>
 
@@ -70,6 +69,7 @@
         </p>
 
         <h3>Details</h3>
+        
     </a>
 
     {% empty %}
