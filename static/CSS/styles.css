@@ -274,6 +274,11 @@ h6 {
     padding: 25px;
 }
 
+.form-group {
+    border-bottom: 2px solid var(--dark-gray);
+    width: 80%;
+}
+
 .task {
     align-content: flex-start;
     text-decoration: none;
@@ -452,11 +457,13 @@ h6 {
 }
 
 .teammember {
+    display: flex;
     font-size: 1.3rem;
+    flex-direction: column;
     align-content: flex-start;
     color: white;
     /* padding: 12px; */
-    margin: .5rem;
+    /* margin: .5rem; */
     /* padding-left: 50px; */
 }
 

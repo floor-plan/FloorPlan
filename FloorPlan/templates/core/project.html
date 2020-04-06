@@ -94,14 +94,15 @@
 
   {% for category in categories %}
   <div class="category">
-    <div class="cat-header">
+    <div>
     <h2 class="category-text {{category.category|lower}} ">{{category.category}}</h2>
     {% if user.is_project_manager %}
+    <div class="cat-header">
     <a class='small-button' href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
     </div>
 
     {% endif %}
-
+    </div>
     {% for task in tasks %}
     {% if task.category == category %}
     {% if task.is_complete == True %}
