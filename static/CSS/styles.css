@@ -48,15 +48,26 @@ input[type="checkbox"]:checked+label.strikethrough {
     background-color: var(--dark-gray);
 }
 
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem;
+}
+
+.project-details {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+}
+
+
 .edit-project-button {
     border: solid 3px var(--dark-gray);
     background-color: var(--dark-gray);
-    margin: 10px;
     width: 100px;
-    padding: 10px;
+    padding: 8px;
     border-radius: 10px;
     white-space: nowrap;
-    padding: 12px;
     margin: 12px;
 }
 
@@ -68,12 +79,10 @@ input[type="checkbox"]:checked+label.strikethrough {
 .delete-project-button {
     border: solid 3px var(--dark-gray);
     background-color: var(--dark-gray);
-    margin: 10px;
     width: 100px;
-    padding: 10px;
+    padding: 8px;
     border-radius: 10px;
     white-space: nowrap;
-    padding: 12px;
     margin: 12px;
 }
 
@@ -159,13 +168,21 @@ h6 {
 /* font-family: 'Oswald', sans-serif; */
 
 .floor-plan-text {
+    color: black;
     font-family: "Saira Condensed", sans-serif;
-    font-size: 300%;
-    color: var(--dark-brown);
+    font-size: 6rem;
     padding-left: 10px;
+}
+.header a {
+    color: black;
+}
+
+.header a:visited{
+    color: black;
 }
 
 .task-text {
+    font-size: 1.2rem;
     font-family: var(--default-fonts);
     color: var(--dark-gray);
     margin: 5px;
@@ -173,10 +190,15 @@ h6 {
 }
 
 .task {
+    font-size: 1.2rem;
     font-family: var(--default-fonts);
     color: var(--dark-gray);
     margin: 5px;
     padding: 5px;
+}
+
+.task a:hover {
+    color: black;
 }
 
 .project-text {
@@ -203,20 +225,33 @@ h6 {
     align-content: center;
 }
 
-.header {
+/* .header {
     background-size: cover;
     height: 100px;
     width: 100%;
     padding-left: 0px;
+} */
+
+.header {
+    overflow: hidden;
+    background-image: url(https://images.pexels.com/photos/834892/pexels-photo-834892.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
+    height: 250px;
+    width: 100%;
+    display: flex;
+    background-size: cover;
+    justify-content: start; 
+    align-items: center;
+    position: relative;   
 }
 
+
 .log-container {
+    font-size: 1.5rem;
     display: flex;
-    flex-flow: row;
+    flex-flow: column;
     padding-left: 10px;
     /* border: solid green 2px; */
     align-content: center;
-    color: var(--dark-brown);
 }
 
 .log-link-container {
@@ -240,13 +275,13 @@ h6 {
 .task {
     align-content: flex-start;
     text-decoration: none;
-    margin: 5px;
+    margin: .5rem;
     padding-left: 5px;
     background-color: white;
     border: 2px solid var(--light-brown);
     box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
-    width: 100%;
+    width: 80%;
 }
 
 .task-text:checked+span {
@@ -264,6 +299,7 @@ h6 {
     /* border: red 6px solid; */
     padding: 0px;
     width: 100%;
+    margin: 1rem;
 }
 
 .project {
@@ -307,6 +343,27 @@ h6 {
     padding-top: 12px;
 }
 
+.project-title {
+    display: flex;
+    align-items: center;
+    font-size: 3rem;
+    margin: 2rem;
+}
+
+
+.project-button {
+    font-size: 1rem;
+    margin-left: 2rem;
+    padding: 8px;
+    background-color: var(--dark-gray);
+    border: solid 1px var(--background-color);
+    border-radius: 25px;
+}
+
+.project-button:visited {
+    color: white;
+}
+
 .project-link-container {
     /* display: flex; */
     flex-flow: row nowrap;
@@ -315,10 +372,9 @@ h6 {
     position: relative;
     background-color: var(--dark-gray);
     box-shadow: 1px 2px 4px rgba(0, 0, 0, 5);
-    /* padding: 10px; */
     display: block;
     text-decoration: none;
-    margin: 5px;
+    margin: 1rem;
 }
 
 .task-link-container {
@@ -359,24 +415,33 @@ h6 {
     padding-left: 10px;
 }
 
+
 .teammember-container {
     display: inline-block;
     background-color: var(--dark-gray);
     flex-flow: row;
     /* border: red 6px solid; */
-    padding: 25px;
-    width: 100%;
+    padding: 1rem;
+    width: 80%;
     border-radius: 12px;
 }
 
 .teammember {
+    font-size: 1.3rem;
     align-content: flex-start;
     color: white;
     /* padding: 12px; */
-    margin: 12px;
-    padding-left: 50px;
+    margin: .5rem;
+    /* padding-left: 50px; */
 }
 
 .custom-category{
     text-transform: uppercase;
 }
+
+/* .submit-button{
+    padding: 8px;
+    background-color: white;
+    color: var(--dark-gray);
+    font-family: "Saira Condensed", sans-serif;
+} */

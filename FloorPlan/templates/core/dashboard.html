@@ -44,13 +44,15 @@
 
 <div class="project-container">
 
-    {% if user.is_project_manager %}
-    <a class='small-button' href="{% url 'new_project' %}">New Project</a>
-    {% endif %}
 
-    <h1 class="project-tasks">Projects</h1>
+    <h1 class="project-tasks project-title"> Projects
+        {% if user.is_project_manager %}
+        <a class='project-button' href="{% url 'new_project' %}">New Project</a>
+        {% endif %}
+    </h1>
 
     {% for project in projects %}
+    
 
     <a href="{% url 'project' pk=project.pk %}" class="project-link-container">
 

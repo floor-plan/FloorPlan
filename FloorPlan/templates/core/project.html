@@ -3,17 +3,24 @@
 {% endblock meta %} {% block content %}
 
 {% comment %} Project Overview {% endcomment %}
+<div class="project-header">
+<div class="project-details">
 <h1>Project Overview</h1>
-<h2 class="project-name">Name: {{project.name}}</h1>
-  <h2>Address: {{project.address}}</h2>
-
-  <h2>Lot: {{project.lot_number}}</h2>
-  <br>
+<!-- <h2 class="project-name">Name: {{project.name}}</h2> -->
+  <h2>Address: {{project.address}} 
+  </br>
+    Lot #: {{project.lot_number}}
+  </br> 
+    Name: {{project.name}}
+  </h2>
+</div>
   {% if user.is_project_manager %}
+  <div class="project-buttons">
   <a class="edit-project-button" href="{% url 'edit_project' pk=project.pk %}">Edit Project</a>
   <a class="delete-project-button" href="{% url 'delete_project' pk=project.pk %}">Delete Project</a>
+</div>
   {% endif %}
-
+</div>
   {% comment %} End Project Overview {% endcomment %}
 
   {% comment %} Task Overview {% endcomment %}
