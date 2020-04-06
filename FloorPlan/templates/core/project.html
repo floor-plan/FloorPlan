@@ -26,21 +26,28 @@
 {% comment %} End Project Overview {% endcomment %}
 
 {% comment %} Task Overview {% endcomment %}
-<div class="project-tasks">
-  <h1 class="project-tasks my-tasks">My Tasks</h1>
+
+  <h1 class="project-tasks my-tasks body-margin">My Tasks</h1>
   <a id='update-button' class='hidden task-update-button' href="{% url 'project' pk=project.pk %}">Update Tasks</a>
   {% for task in tasks %}
   {% if task.is_complete == False and task.assignee == user %}
-  <div class="form-group">
+  <div class="form-group body-margin">
     <label for="inputName" class="col-md-1 control-label"></label>
     <div class="col-md-5">
       <div class="checkbox task-text">
         <input class='checkbox' type="checkbox" value="1" id="{{task.pk}}" />
         <label class='task-text project-tasks'><span class='{{task.category|lower }}'>
-            Task: {{task.task|capfirst}} | Due: {{task.due_date.date}} | Assigned to:
-            {{task.assignee}} | {% if task.category %}Category:
+            Task: {{task.task|capfirst}}
+            <p class="task-align">
+            Due: {{task.due_date.date}}
+            <br>
+            Assigned to:{{task.assignee}}
+            <br>
+            {% if task.category %}Category:
             {{task.category|upper }}{% endif %}{% if task.custom_category %}Category:
-            {{task.custom_category|upper }}{% endif %}</span></label>
+            {{task.custom_category|upper }}
+            </p>
+            {% endif %}</span></label>
       </div>
 
       {% if user.is_project_manager %}
@@ -85,25 +92,25 @@
   </div>
 
   {% endif %}
-
   {% endfor %}
+
   {% comment %} End Task Overview {% endcomment %}
 
 
 
   {% comment %} Tasks by Category {% endcomment %}
-
-  <h1 class="project-categories">Categories</h1>
+<div class="body-margin">
+  <h1 class="project-categories top-margin">Categories</h1>
 
   <div class='category-container'>
 
     {% for category in categories %}
     <div class="category">
-      <div>
+      <div class= "cat-header">
         <h2 class="category-text {{category.category|lower}} ">{{category.category}}</h2>
         {% if user.is_project_manager %}
-        <div class="cat-header">
-          <a class='small-button' href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
+        <div class="body-margin">
+          <a class='small-button topcorner' href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
         </div>
 
         {% endif %}
@@ -118,9 +125,11 @@
       </div>
       {% else %}
       <div class="task task-button-align">
-        <p class="task-test">Task: {{task.task|capfirst}} | Due:
-          {{task.due_date.date}} | Assigned
-          to: {{task.assignee}}
+        <p class="task-test">Task: {{task.task|capfirst}} 
+        <br>
+          Due: {{task.due_date.date}} 
+        <br>
+          Assigned To: {{task.assignee}}
           </label>
         </p>
 
@@ -136,7 +145,7 @@
     </div>
 
     {% endfor %}
-
+</div>
   </div>
 
 
