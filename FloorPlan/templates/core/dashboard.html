@@ -20,7 +20,7 @@
         </div>
         <div class='task-link-container task-text'>
             {% if user.is_project_manager %}
-            <a class="task-text" href="{% url 'delete_task' pk=task.pk %} ">Delete Task</a>
+            <a class="small-button" href="{% url 'delete_task' pk=task.pk %} ">Delete Task</a>
             {% endif %}
         </div>
 

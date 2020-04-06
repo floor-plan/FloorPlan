@@ -136,12 +136,14 @@ p {
 a:link {
     text-decoration: none;
     font-family: var(--default-fonts);
-    color: var(--green-gray);
+    /* color: var(--green-gray); */
+    color: white;
 }
 
 a:visited {
     text-decoration: none;
-    color: var(--green-gray);
+    /* color: var(--green-gray); */
+    color: white
 }
 
 a:hover {
@@ -424,7 +426,25 @@ h6 {
     /* text-decoration: underline; */
 
 .small-button {
-    padding-left: 10px;
+    font-size: .8rem;
+    padding: 4px;
+    color: white;
+    background-color: var(--dark-gray);
+    border: 1px solid var(--dark-gray);
+    border-radius: 12px;
+}
+
+.small-button:hover {
+    background-color: darkred;
+    color: white;
+}
+
+.small-button:visited {
+    color: white;
+}
+
+.edit-button:hover {
+    background-color: var(--green-gray);
 }
 
 
