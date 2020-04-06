@@ -48,6 +48,15 @@ input[type="checkbox"]:checked+label.strikethrough {
     background-color: var(--dark-gray);
 }
 
+@keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
 .project-header {
     display: flex;
     justify-content: space-between;
@@ -58,6 +67,7 @@ input[type="checkbox"]:checked+label.strikethrough {
     display: flex;
     flex-direction: column;
     align-content: flex-start;
+    animation: 1s ease-out 0s 1 slideInFromLeft;
 }
 
 
@@ -176,6 +186,7 @@ h6 {
     display: flex;
     flex-direction: row-reverse;
     align-items: flex-end;
+    animation: 1s ease-out 0s 1 slideInFromRight;
 }
 
 .floor-plan-text {
@@ -233,6 +244,16 @@ h6 {
     padding: 12px;
 }
 
+@keyframes slideInFromBottom {
+    0%{
+      transform: translateY(100%);
+    }
+    100%{
+      transform: translateY(0);
+    }
+  }
+
+
 .task-container {
     display: flex;
     flex-flow: column;
@@ -241,6 +262,7 @@ h6 {
     width: 100%;
     float: left;
     margin: 2rem;
+    animation: 1s ease-out 0s 1 slideInFromBottom;
 }
 
 .heading-container {
@@ -313,9 +335,11 @@ h6 {
     padding: 25px;
 }
 
+
 .form-group {
     border-bottom: 2px solid var(--dark-gray);
     width: 80%;
+    animation: 1s ease-out 0s 1 slideInFromBottom;
 }
 
 .task {
@@ -347,6 +371,7 @@ h6 {
     width: 100%;
     margin: 2rem;
     width: 80%;
+    animation: 1s ease-out 0s 1 slideInFromBottom;
 }
 
 .project {
@@ -403,7 +428,7 @@ h6 {
     padding-top: 12px;
 }
 
-.my-tasks {
+.my-tasks, .project-categories {
     margin-left: 4rem;
     font-size: 3rem;
     text-shadow: 
@@ -419,6 +444,7 @@ h6 {
     0 5px 10px rgba(0,0,0,.25), 
     0 10px 10px rgba(0,0,0,.2), 
     0 20px 20px rgba(0,0,0,.15);
+    animation: 1s ease-out 0s 1 slideInFromBottom;
 }
 
 .projects-header {
@@ -452,6 +478,19 @@ h6 {
     background-color: var(--dark-gray);
     border: solid 1px var(--background-color);
     border-radius: 25px;
+}
+
+@keyframes slideInFromRight {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+.project-buttons{
+    animation: 1s ease-out 0s 1 slideInFromRight;
 }
 
 .project-button:visited {
@@ -499,6 +538,7 @@ h6 {
     flex-grow: 1;
     width: 80%;
     border-bottom: 2px solid var(--dark-gray);
+    animation: 1s ease-out 0s 1 slideInFromBottom;
 }
 
 
