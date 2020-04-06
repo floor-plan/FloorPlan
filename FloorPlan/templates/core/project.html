@@ -56,13 +56,20 @@
 
   {% empty %}
 
+  {% if user.is_project_manager == False %}
+
   <div>
     <p>You are not associated with any tasks currently.</p>
   </div>
 
+  {% endif %}
+
   {% if user.is_project_manager %}
 
   <div>
+  <div>
+    <p>You are not associated with any tasks currently.</p>
+  </div>
     <p>Create tasks by category below.</p>
   </div>
 

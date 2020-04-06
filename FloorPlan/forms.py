@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from users.models import Member
 from .models import Project, Category, Task, ProjectCategory, ProjectCategoryTask
 from django.db import transaction
+import datetime
 
 
 class ProjectManagerSignUpForm(UserCreationForm):
@@ -52,10 +53,11 @@ class TaskForm(forms.ModelForm):
 		fields = ['project', 'task', 'category', 'assignee', 'due_date']
 
 	def clean_date(self):
-		date = self.cleaned_data['date']
-		if due_date < datetime.date.today():
+		date = self.cleaned_data['due_date']
+		if date < datetime.date.today():
 			raise forms.ValidationError("The date cannot be in the past!")
 		return date
+
 
 
 class CustomCategoryTaskForm(forms.ModelForm):
