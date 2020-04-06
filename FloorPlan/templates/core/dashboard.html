@@ -1,8 +1,7 @@
 {% extends 'base.html'%}{% load static %} {% block content %}
-
-<p>Logged in as: {{request.user.first_name}} {{request.user.last_name}}</p>
-
-<h1 class="project-tasks">My Tasks</h1>
+<div class="body-margin">
+<p class="user-loggedin">Logged in as: {{request.user.first_name}} {{request.user.last_name}}</p>
+<h1 class="project-tasks my-tasks">My Tasks</h1>
 <div class="task-container">
 
 
@@ -54,7 +53,8 @@
 <div class="project-container">
 
 
-    <h1 class="project-tasks project-title"> Projects
+    <h1 class="project-tasks project-title"> 
+        <div class="projects-header">Projects</div>
         {% if user.is_project_manager %}
         <a class='project-button' href="{% url 'new_project' %}">New Project</a>
         {% endif %}
@@ -96,5 +96,5 @@
 
     {% endfor %}
 </div>
-
+</div>
 {% endblock %}
