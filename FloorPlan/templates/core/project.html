@@ -4,204 +4,211 @@
 
 {% comment %} Project Overview {% endcomment %}
 <div class="project-header">
-<div class="project-details">
-<h1>Project Overview</h1>
-<!-- <h2 class="project-name">Name: {{project.name}}</h2> -->
-  <h2>Address: {{project.address}} 
-  </br>
-    Lot #: {{project.lot_number}}
-  </br> 
-    Name: {{project.name}}
-  </h2>
-</div>
+  <div class="project-details">
+    <h1>Project Overview</h1>
+    <!-- <h2 class="project-name">Name: {{project.name}}</h2> -->
+    <h2>Address: {{project.address}}
+      </br>
+      Lot #: {{project.lot_number}}
+      </br>
+      Name: {{project.name}}
+    </h2>
+  </div>
   {% if user.is_project_manager %}
   <div class="project-buttons">
-  <a class="edit-project-button" href="{% url 'edit_project' pk=project.pk %}">Edit Project</a>
-  <a class="delete-project-button" href="{% url 'delete_project' pk=project.pk %}">Delete Project</a>
-</div>
+    <a class="edit-project-button" href="{% url 'edit_project' pk=project.pk %}">Edit Project</a>
+    <a class="delete-project-button" href="{% url 'delete_project' pk=project.pk %}"
+      onclick="return confirm('Are you sure you want to delete this project?  Deleting a project cannot be undone.')">Delete
+      Project</a>
+  </div>
   {% endif %}
 </div>
-  {% comment %} End Project Overview {% endcomment %}
+{% comment %} End Project Overview {% endcomment %}
 
-  {% comment %} Task Overview {% endcomment %}
+{% comment %} Task Overview {% endcomment %}
 
-  <div class="project-tasks">
-    <h1 class="project-tasks">My Tasks</h1>
-    <a id='update-button' class='hidden task-update-button' href="{% url 'project' pk=project.pk %}">Update Tasks</a>
-    {% for task in tasks %}
-    {% if task.is_complete == False and task.assignee == user %}
-    <div class="form-group">
-      <label for="inputName" class="col-md-1 control-label"></label>
-      <div class="col-md-5">
-        <div class="checkbox task-text">
-          <input class='checkbox' type="checkbox" value="1" id="{{task.pk}}" />
-          <label class='task-text project-tasks'><span class='{{task.category|lower }}'>
-              Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to:
-              {{task.assignee}} | Category: {{task.category|lower }}</span></label>
-        </div>
+<div class="project-tasks">
+  <h1 class="project-tasks">My Tasks</h1>
+  <a id='update-button' class='hidden task-update-button' href="{% url 'project' pk=project.pk %}">Update Tasks</a>
+  {% for task in tasks %}
+  {% if task.is_complete == False and task.assignee == user %}
+  <div class="form-group">
+    <label for="inputName" class="col-md-1 control-label"></label>
+    <div class="col-md-5">
+      <div class="checkbox task-text">
+        <input class='checkbox' type="checkbox" value="1" id="{{task.pk}}" />
+        <label class='task-text project-tasks'><span class='{{task.category|lower }}'>
+            Task: {{task.task|capfirst}} | Due: {{task.due_date.date}} | Assigned to:
+            {{task.assignee}} | {% if task.category %}Category:
+            {{task.category|upper }}{% endif %}{% if task.custom_category %}Category:
+            {{task.custom_category|upper }}{% endif %}</span></label>
+      </div>
 
-        {% if user.is_project_manager %}
-        <div class='task-link-container task-text'><a class="small-button " href="{% url 'edit_task' pk=task.pk %}">Edit
-            Task</a>
-          <a class="task-text" href="{% url 'delete_task' pk=task.pk %} ">Delete Task</a>
-          {% endif %}
+      {% if user.is_project_manager %}
+      <div class='task-link-container task-text'><a class="small-button " href="{% url 'edit_task' pk=task.pk %}">Edit
+          Task</a>
+        <a class="task-text" href="{% url 'delete_task' pk=task.pk %}"
+          onclick="return confirm('Are you sure you want to delete this task?  Deleting a task cannot be undone.')">Delete
+          Task</a>
+        {% endif %}
 
-        </div>
       </div>
     </div>
   </div>
+</div>
 
 
-  {% endif %}
+{% endif %}
 
-  {% empty %}
+{% empty %}
 
-  {% if user.is_project_manager == False %}
+{% if user.is_project_manager == False %}
 
+<div>
+  <p>You are not associated with any tasks currently.</p>
+</div>
+
+{% endif %}
+
+{% if user.is_project_manager %}
+
+<div>
   <div>
     <p>You are not associated with any tasks currently.</p>
   </div>
+  <p>Create tasks by category below.</p>
+</div>
 
-  {% endif %}
+{% endif %}
 
-  {% if user.is_project_manager %}
+{% endfor %}
+{% comment %} End Task Overview {% endcomment %}
 
-  <div>
-  <div>
-    <p>You are not associated with any tasks currently.</p>
+
+
+{% comment %} Tasks by Category {% endcomment %}
+
+<h1 class="project-categories">Categories</h1>
+
+<div class='category-container'>
+
+  {% for category in categories %}
+  <div class="category">
+    <h2 class="category-text {{category.category|lower}} ">{{category.category}}</h2>
+    {% if user.is_project_manager %}
+    <a class='small-button' href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
+
+    {% endif %}
+
+    {% for task in tasks %}
+    {% if task.category == category %}
+    {% if task.is_complete == True %}
+
+
+    <div class="task strikethrough">
+      <p class="task-text">{{task.task|capfirst}}</p>
+    </div>
+    {% else %}
+    <div class="task">
+      <p class="task-test">Task: {{task.task|capfirst}} | Due:
+        {{task.due_date.date}} | Assigned
+        to: {{task.assignee}}
+        </label>
+      </p>
+
+      <a class='small-button' href="{% url 'edit_task' pk=task.pk %}">Edit Task</a>
+
+    </div>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+
   </div>
-    <p>Create tasks by category below.</p>
-  </div>
-
-  {% endif %}
 
   {% endfor %}
-  {% comment %} End Task Overview {% endcomment %}
+
+</div>
 
 
+{% comment %}===================== End Tasks by Category ====================={% endcomment %}
 
-  {% comment %} Tasks by Category {% endcomment %}
+{% comment %}===================== Custom Category ====================={% endcomment %}
 
-  <h1 class="project-categories">Categories</h1>
+<div class="category-container">
+  {% for projectcategory in projectcategories %}
+  <div class="category">
+    <h2 class="category-text custom-category {{projectcategory.category|lower}} ">{{projectcategory.category}}</h2>
+    {% if user.is_project_manager %}
+    <a class='small-button' href="{% url 'new_task_customcategory' pk=project.pk %}">Create New Task</a>
+    <a class="small-button" href="{% url 'edit_category_customcategory' pk=projectcategory.pk %}">Edit Category</a>
+    <a class="small-button" href="{% url 'delete_category_customcategory' pk=projectcategory.pk %}"
+      onclick="return confirm('Are you sure you want to delete this custom category?  Deleting a custom category cannot be undone.')">Delete
+      Category</a>
+    {% endif %}
 
-  <div class='category-container'>
+    {% for task in tasks %}
+    {% if task.custom_category == projectcategory %}
+    {% if task.is_complete == True %}
 
-    {% for category in categories %}
-    <div class="category">
-      <h2 class="category-text {{category.category|lower}} ">{{category.category}}</h2>
-      {% if user.is_project_manager %}
-      <a class='small-button' href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
+    <div class="task strikethrough">
+      <p class="task-text">{{task.task|capfirst}}</p>
+    </div>
+    {% else %}
+    <div class="task">
+      <p class="task-test">Task: {{task.task|capfirst}} | Due: {{task.due_date.date}} | Assigned to: {{task.assignee}}
+        </label>
+      </p>
 
-      {% endif %}
-
-      {% for task in tasks %}
-      {% if task.category == category %}
-      {% if task.is_complete == True %}
-
-
-      <div class="task strikethrough">
-        <p class="task-text">{{task.task|capfirst}}</p>
-      </div>
-      {% else %}
-      <div class="task">
-        <p class="task-test">Task: {{task.task|capfirst}} | Due:
-          {{task.due_date.date}} | Assigned
-          to: {{task.assignee}}
-          </label>
-        </p>
-
-        <a class='small-button' href="{% url 'edit_task' pk=task.pk %}">Edit Task</a>
-
-      </div>
-      {% endif %}
-      {% endif %}
-      {% endfor %}
-
+      <a class='small-button' href="{% url 'edit_task_customcategory' pk=task.pk %}">Edit Task</a>
     </div>
 
+    {% endif %}
+    {% endif %}
+
     {% endfor %}
-
   </div>
+  {% endfor %}
+</div>
 
+{% if user.is_project_manager %}
+<div class="category-container">
+  <a class='small-button' href="{% url 'new_category' pk=project.pk %}">Create Custom Category</a>
+</div>
+{% endif %}
 
-  {% comment %}===================== End Tasks by Category ====================={% endcomment %}
+{% comment %} ======================= End Custom Category============================ {% endcomment %}
 
-  {% comment %}===================== Custom Category ====================={% endcomment %}
+{% comment %} ============================ TEAM ============================={% endcomment %}
 
-  <div class="category-container">
-    {% for projectcategory in projectcategories %}
-    <div class="category">
-      <h2 class="category-text custom-category {{projectcategory.category|lower}} ">{{projectcategory.category}}</h2>
-      {% if user.is_project_manager %}
-      <a class='small-button' href="{% url 'new_task_customcategory' pk=project.pk %}">Create New Task</a>
-      <a class="small-button" href="{% url 'edit_category_customcategory' pk=projectcategory.pk %}">Edit Category</a>
-      <a class="small-button" href="{% url 'delete_category_customcategory' pk=projectcategory.pk %}">Delete
-        Category</a>
-      {% endif %}
+<h2>Team</h2>
+{% if user.is_project_manager %}
+<div>
+  <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member(s) To This Project</a>
+</div>
+{% endif %}
 
-      {% for task in tasks %}
-      {% if task.custom_category == projectcategory %}
-      {% if task.is_complete == True %}
+<div class='teammember-container'>
 
-      <div class="task strikethrough">
-        <p class="task-text">{{task.task|capfirst}}</p>
-      </div>
-      {% else %}
-      <div class="task">
-        <p class="task-test">Task: {{task.task|capfirst}} | Due: {{task.due_date}} | Assigned to: {{task.assignee}}
-          </label>
-        </p>
+  {% for teammember in teammembers %}
 
-        <a class='small-button' href="{% url 'edit_task_customcategory' pk=task.pk %}">Edit Task</a>
-      </div>
+  <div class='teammember'>
 
-      {% endif %}
-      {% endif %}
+    <p>Name: {{teammember.first_name}} {{teammember.last_name}} | username: {{teammember.username}}</p>
 
-      {% endfor %}
+    {% empty %}
+    <p> There are no team members associated with this project </p>
+
+    {% if user.is_project_manager %}
+    <div>
+      <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member(s) To This
+        Project</a>
     </div>
-    {% endfor %}
+
+    {% endif %}
   </div>
+  {% endfor %}
+</div>
 
-  {% if user.is_project_manager %}
-  <div class="category-container">
-    <a class='small-button' href="{% url 'new_category' pk=project.pk %}">Create Custom Category</a>
-  </div>
-  {% endif %}
+{% comment %} End Team {% endcomment %}
 
-  {% comment %} ======================= End Custom Category============================ {% endcomment %}
-
-  {% comment %} ============================ TEAM ============================={% endcomment %}
-
-  <h2>Team</h2>
-  {% if user.is_project_manager %}
-  <div>
-    <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member(s) To This Project</a>
-  </div>
-  {% endif %}
-
-  <div class='teammember-container'>
-
-    {% for teammember in teammembers %}
-
-    <div class='teammember'>
-
-      <p>Name: {{teammember.first_name}} {{teammember.last_name}} | username: {{teammember.username}}</p>
-
-      {% empty %}
-      <p> There are no team members associated with this project </p>
-
-      {% if user.is_project_manager %}
-      <div>
-        <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member(s) To This
-          Project</a>
-      </div>
-
-      {% endif %}
-    </div>
-    {% endfor %}
-  </div>
-
-  {% comment %} End Team {% endcomment %}
-
-  {% endblock content %}
+{% endblock content %}
