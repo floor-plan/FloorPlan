@@ -71,29 +71,23 @@ input[type="checkbox"]:checked+label.strikethrough {
 }
 
 
-.edit-project-button {
+.edit-project-button, .delete-project-button {
     border: solid 3px var(--dark-gray);
     background-color: var(--dark-gray);
     width: 100px;
+    height: 40px;
     padding: 8px;
     border-radius: 10px;
     white-space: nowrap;
     margin: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.edit-project-button: hover {
+.edit-project-button:hover {
     background-color: var(--green-gray);
     color: white;
-}
-
-.delete-project-button {
-    border: solid 3px var(--dark-gray);
-    background-color: var(--dark-gray);
-    width: 100px;
-    padding: 8px;
-    border-radius: 10px;
-    white-space: nowrap;
-    margin: 12px;
 }
 
 .delete-project-button:hover {
@@ -179,7 +173,7 @@ h6 {
 
 /* font-family: 'Oswald', sans-serif; */
 .body-margin {  
-    margin: 1rem;
+    margin: 2rem;
 }
 
 .user-loggedin {
@@ -221,8 +215,9 @@ h6 {
     font-size: 1.2rem;
     font-family: var(--default-fonts);
     color: var(--dark-gray);
-    margin: 5px;
-    padding: 5px;
+    margin-bottom: 1rem;
+    /* margin: 5px; */
+    /* padding: 5px; */
 }
 
 .task {
@@ -429,7 +424,7 @@ h6 {
 }
 
 .my-tasks, .project-categories {
-    margin-left: 4rem;
+    /* margin-left: 1rem; */
     font-size: 3rem;
     text-shadow: 
     0 1px 0 #ccc, 
@@ -490,6 +485,8 @@ h6 {
   }
 
 .project-buttons{
+    display: flex;
+    flex-wrap: wrap;
     animation: 1s ease-out 0s 1 slideInFromRight;
 }
 
@@ -540,11 +537,7 @@ h6 {
     border-bottom: 2px solid var(--dark-gray);
     animation: 1s ease-out 0s 1 slideInFromBottom;
 }
-
-
-/* .project-categories,
-.project-tasks {
-    /* text-decoration: underline; */
+   
 
 .small-button {
     font-size: .8rem;
@@ -599,7 +592,15 @@ h6 {
     justify-content: space-between;
     margin-top: 1rem;
     align-items: flex-start;
+    position: relative;
 }
+
+.topcorner{
+    position:absolute;
+    top:0;
+    right:0;
+    
+   }
 
 /* .task-button-align {
     display: flex;
@@ -624,4 +625,12 @@ input {
     
     font-size: 95%;
     color: var(--dark-gray);
+}
+
+.task-align {
+    margin-left: 1.1rem;
+}
+
+.top-margin {
+    padding-top: 3rem;
 }
