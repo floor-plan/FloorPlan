@@ -496,3 +496,17 @@ h6 {
 .task-button-align {
     color: var(--dark-gray);
 }
+
+.btn.btn-success {
+    border: 12px;
+    
+    font-size: 95%;
+    color: var(--dark-gray);
+}
+
+input {
+    border: 12px;
+    
+    font-size: 95%;
+    color: var(--dark-gray);
+}
