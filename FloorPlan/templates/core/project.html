@@ -43,7 +43,7 @@
           <p class="task-align">
             Due: {{task.due_date.date}}
             <br>
-            Assigned to:{{task.assignee}}
+            Assigned to: <i class="fas fa-user-circle"></i>  {{task.assignee}}
             <br>
             {% if task.category %}Category:
             {{task.category|upper }}{% endif %}{% if task.custom_category %}Category:
@@ -111,7 +111,7 @@
         <h2 class="category-text {{category.category|lower}} ">{{category.category}}</h2>
         {% if user.is_project_manager %}
         <div class="body-margin">
-          <a class='small-button topcorner' href="{% url 'new_task' pk=project.pk %}">Create New Task</a>
+          <a class='small-button topcorner' href="{% url 'new_task' pk=project.pk %}"> <i class="fas fa-plus-circle"></i> Create New Task</a>
         </div>
 
         {% endif %}
@@ -166,7 +166,7 @@
         <h2 class="category-text">{{projectcategory.category}}</h2>
         {% if user.is_project_manager %}
         <div class='body-margin'>
-          <a class='small-button' href="{% url 'new_task_customcategory' pk=project.pk %}">Create New Task</a>
+          <a class='small-button' href="{% url 'new_task_customcategory' pk=project.pk %}"> <i class="fas fa-plus-circle"> </i> Create New Task</a>
           <a class="small-button" href="{% url 'edit_category_customcategory' pk=projectcategory.pk %}">Edit
             Category</a>
           <a class="small-button" href="{% url 'delete_category_customcategory' pk=projectcategory.pk %}"
@@ -208,7 +208,7 @@
 
     {% if user.is_project_manager %}
     <div class="small-top-margin">
-      <a class='small-button' href="{% url 'new_category' pk=project.pk %}">Create Custom Category</a>
+      <a class='small-button' href="{% url 'new_category' pk=project.pk %}"> <i class="fas fa-plus-circle"></i> Create Custom Category</a>
     </div>
     {% endif %}
   </div>
@@ -233,7 +233,7 @@
 
     <div class='teammember'>
 
-      <p><span class='font-size:4em;'><i class="fas fa-user-circle"></i></span> Name: {{teammember.first_name}} {{teammember.last_name}} | username: {{teammember.username}}</p>
+      <p><span class='font-size:4em;'><i class="fas fa-user-circle"></i></span> Name: {{teammember.first_name}} {{teammember.last_name}} | username: {{teammember.username}} | Category: {{teammember.category}} </p>
 
       {% empty %}
       <p> There are no team members associated with this project </p>
