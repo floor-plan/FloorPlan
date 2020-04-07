@@ -2,13 +2,14 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-
-<h2>Sign up as a project manager</h2>
-<form method="post" novalidate>
-  {% csrf_token %}
+<div class="body-margin">
+  <h2 class="signup-title">Sign up as a project manager</h2>
+  <form method="post" novalidate>
+    {% csrf_token %}
     <input type="hidden" name="next" value="{{ next }}">
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-success">Sign up</button>
-</form>
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success button-padding">Sign up</button>
+  </form>
+</div>
 
 {% endblock %}
