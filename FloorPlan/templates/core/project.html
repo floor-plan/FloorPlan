@@ -16,12 +16,16 @@
   </div>
   {% if user.is_project_manager %}
   <div>
-    <span style="font-size :2.5rem;"><a href="{% url 'edit_project' pk=project.pk %}"><i
-          class="fas fa-edit"></i></a></span>
+    <span style="font-size :1.8rem;"><a href="{% url 'edit_project' pk=project.pk %}"><i class="fas fa-edit"><span
+            class="button-text"> Edit
+            Project</span> </i></a></span>
+    <br>
+    <span class="delete-project" style="font-size: 1.8rem;"><a href="{% url 'delete_project' pk=project.pk %}"
+        onclick="return confirm('Are you sure you want to delete this project? Deleting a project cannot be undone.')"><i
+          class="far fa-times-circle delete-project">
+          <span class="button-text delete-project">Delete Project</span>
+        </i></a></span>
 
-    <span style="font-size: 2.5rem; color: Tomato;"><a href='{% url 'delete_project' pk=project.pk %}''
-      onclick="return confirm(' Are you sure you want to delete this project? Deleting a project cannot be
-        undone.')"><i class="far fa-times-circle"></i></a></span>
   </div>
   {% endif %}
 </div>

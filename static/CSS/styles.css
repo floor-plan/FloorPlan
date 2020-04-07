@@ -88,7 +88,11 @@ input[type="checkbox"]:checked+label.strikethrough {
     margin: 12px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; 
+}
+
+.button-text{
+    font-family: var(--default-fonts);
 }
 
 .edit-project-button:hover {
@@ -605,4 +609,8 @@ input {
 
 .bottom-margin {
     margin-top: 1rem;
+}
+
+.delete-project:hover{
+    color: Tomato;
 }
