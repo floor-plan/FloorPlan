@@ -17,7 +17,7 @@
                         <p class="task-align">
                             Due: {{task.due_date.date}}
                             <br>
-                            Assigned to:{{task.assignee}}
+                            Assigned to: <i class="fas fa-user-circle"></i> {{task.assignee}}
                             <br>
                             {% if task.category %}Category:
                             {{task.category|upper }}{% endif %}{% if task.custom_category %}Category:
