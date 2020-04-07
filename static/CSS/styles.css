@@ -67,6 +67,7 @@ input[type="checkbox"]:checked+label.strikethrough {
     display: flex;
     justify-content: space-between;
     margin: 2rem;
+    width: 80%;
 }
 
 .project-details {
@@ -389,7 +390,6 @@ h6 {
 }
 .my-tasks,  
 .project-categories {
-    /* margin-left: 1rem; */
     font-size: 3rem;
     text-shadow: 0 1px 0 #ccc,
     0 2px 0 #c9c9c9,
@@ -537,6 +537,11 @@ h6 {
     right:0;
 }
 
+.button-margin {
+    margin-left: 1rem;
+    margin-top: 1.5rem;
+}
+
 @media screen and (max-width: 600px) {
     .topcorner{
         position: relative;
@@ -635,7 +640,8 @@ input {
     flex-basis: auto;
     margin-left: .5rem;
     margin-right: .5rem;
-    margin-bottom: 6rem;  
+    margin-bottom: 6rem;
+    max-width: 90%;  
 }
 
 .bottom-margin {
