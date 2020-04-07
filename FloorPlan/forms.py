@@ -50,7 +50,7 @@ class TaskForm(forms.ModelForm):
 	class Meta:
 		model = Task
 		widgets = {'due_date' : DateInput}
-		fields = ['project', 'task', 'category', 'assignee', 'due_date']
+		fields = ['task', 'category', 'assignee', 'due_date']
 
 	def clean_date(self):
 		date = self.cleaned_data['due_date']
@@ -64,7 +64,7 @@ class CustomCategoryTaskForm(forms.ModelForm):
 	class Meta:
 		model = Task
 		widgets = {'due_date' : DateInput}
-		fields = ['project', 'task', 'custom_category', 'assignee', 'due_date']
+		fields = ['task', 'custom_category', 'assignee', 'due_date']
     
 
 class NewCategoryForm(forms.ModelForm):

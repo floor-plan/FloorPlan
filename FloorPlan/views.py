@@ -122,21 +122,18 @@ def delete_project(request, pk):
 @project_manager_required
 def new_task(request, pk):  
     project = get_object_or_404(Project, pk=pk)
-    usersprojects = Project.objects.filter(project_team=request.user)
     form = TaskForm(request.POST) 
     task = None
-    assignees = Member.objects.all()
     if request.method == "POST":  
         if form.is_valid():
-            projectpk = form.cleaned_data['project'].pk
-            project_team_data = form.cleaned_data.get("project_team")
-            project_assignee_data = form.cleaned_data.get('assignee')
-            task = form.save()
+            task = form.save(commit=False)
             project.project_team.add(task.assignee)
-            return redirect('project', projectpk) 
+            task.project = project
+            task.save()
+            return redirect('project', project.id)
     else:
             form = TaskForm(instance=task)
-    return render(request, 'core/newtask.html', {'form': form, 'task': task, 'project': project, 'usersprojects': usersprojects, 'pk':pk})
+    return render(request, 'core/newtask.html', {'form': form, 'task': task, 'project': project, 'pk':pk})
 
 
 @login_required
@@ -271,9 +268,11 @@ def new_task_customcategory(request, pk):
     task = None
     if request.method == "POST":  
         if form.is_valid():
-            projectpk = form.cleaned_data['project'].pk
-            task = form.save()
-            return redirect('project', projectpk) 
+            task = form.save(commit=False)
+            project.project_team.add(task.assignee)
+            task.project = project
+            task.save()
+            return redirect('project', project.id)
     else:
             form = CustomCategoryTaskForm(instance=task)
     return render(request, 'core/new_task_customcategory.html', {'form': form, 'task': task, 'project': project})
