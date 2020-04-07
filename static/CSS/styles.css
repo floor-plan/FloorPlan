@@ -391,7 +391,7 @@ h6 {
     /* width: 100%; */
     padding-top: 12px;
 }
-.my-tasks,
+.my-tasks,  
 .project-categories {
     /* margin-left: 1rem; */
     font-size: 3rem;
@@ -497,7 +497,6 @@ h6 {
     color: white!important;
     ;
     background-color: var(--green-gray);
-    /* border: 1px solid var(--dark-gray); */
     border-radius: 12px;
 }
 .small-button:hover {
@@ -508,31 +507,22 @@ h6 {
     display: inline-block;
     background-color: var(--dark-gray);
     flex-flow: row;
-    /* border: red 6px solid; */
     padding: 1rem;
     width: 80%;
     border-radius: 12px;
+    margin-top: 2rem;
 }
 .teammember {
     display: flex;
-    font-size: 1.3rem;
+    font-size: 1rem;
     flex-direction: column;
     align-content: flex-start;
     color: white;
-    /* padding: 12px; */
-    /* margin: .5rem; */
-    /* padding-left: 50px; */
 }
 .custom-category {
     text-transform: uppercase;
 }
 
-/* .submit-button{
-    padding: 8px;
-    background-color: white;
-    color: var(--dark-gray);
-    font-family: "Saira Condensed", sans-serif;
-} */
 .cat-header {
     width: 80%;
     display: flex;
@@ -575,10 +565,7 @@ input {
 .login_div {
     display: flex;
     flex-flow: column;
-<<<<<<< HEAD
     padding: 2rem;
-=======
->>>>>>> master
     width: 100%;
     float: center;
     margin: 2rem;
@@ -589,10 +576,10 @@ input {
 }
 .small-top-margin {
     margin-top: 2rem;
+    margin-left: 1rem;
 }
 .animation {
     animation: 1s ease-out 0s 1 slideInFromBottom;
-<<<<<<< HEAD
 }
 
 .button-padding{
@@ -615,6 +602,4 @@ input {
     justify-content: space-between;
 }
 
-=======
-}
->>>>>>> master
+

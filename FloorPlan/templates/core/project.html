@@ -158,76 +158,15 @@
 {% comment %}===================== End Tasks by Category ====================={% endcomment %}
 
 {% comment %}===================== Custom Category ====================={% endcomment %}
-<!-- <div class="body-margin">
-  <div class="category-container animation">
-
-    <div class='category-container'>
-
-      {% for projectcategory in projectcategories %}
-      <div class="category">
-        <div class="cat-header  task-button-align">
-          <h2 class="category-text">{{projectcategory.category|upper}}</h2>
-          {% if user.is_project_manager %}
-          <div>
-            <a class='small-button' href="{% url 'new_task_customcategory' pk=project.pk %}">Create New Task</a>
-            <a class="small-button" href="{% url 'edit_category_customcategory' pk=projectcategory.pk %}">Edit
-              Category</a>
-            <a class="small-button" href="{% url 'delete_category_customcategory' pk=projectcategory.pk %}"
-              onclick="return confirm('Are you sure you want to delete this custom category?  Deleting a custom category cannot be undone.')">Delete
-              Category</a>
-          </div>
-          {% endif %}
-        </div>
-        <div class="body-margin">
-          {% for task in tasks %}
-          {% if task.category == category %}
-          {% if task.is_complete == True %}
-
-
-          <div class="task strikethrough">
-            <p class="task-text">{{task.task|capfirst}}</p>
-          </div>
-          {% else %}
-          <div class="task task-button-align">
-            <p class="task-test">Task: {{task.task|capfirst}}
-              <br>
-              Due: {{task.due_date.date}}
-              <br>
-              Assigned To: {{task.assignee}}
-              </label>
-            </p>
-
-            <div>
-              <a href="{% url 'edit_task' pk=task.pk %}"><i class="fas fa-edit"></i></a>
-
-              <a class="task-text" href="{% url 'delete_task' pk=task.pk %}"
-                onclick="return confirm('Are you sure you want to delete this task?  Deleting a task cannot be undone.')"><i
-                  class="fas fa-minus-circle"></i></a>
-
-            </div>
-          </div>
-          {% endif %}
-          {% endif %}
-          {% endfor %}
-
-        </div>
-
-        {% endfor %}
-      </div>
-    </div>
-
-
-    {% if user.is_project_manager %}
-    <div class="small-top-margin">
-      <a class='small-button' href="{% url 'new_category' pk=project.pk %}">Create Custom Category</a>
-    </div>
-    {% endif %}
-  </div>
-</div>
-</div> -->
 
 <div class="body-margin">
-  <!-- <h1 class="project-categories top-margin">Custom Categories</h1> -->
+  <h1 class="project-categories">Custom Categories</h1>
+  {% if user.is_project_manager %}
+  <div class="small-top-margin">
+    <a class='small-button' href="{% url 'new_category' pk=project.pk %}"> <i class="fas fa-plus-circle"></i> Create
+      Custom Category</a>
+  </div>
+  {% endif %}
 
   <div class='category-container'>
 
@@ -279,30 +218,26 @@
       {% endif %}
       {% endfor %}
 
-      {% if user.is_project_manager %} <div class="small-top-margin">
-        <a class='small-button' href="{% url 'new_category' pk=project.pk %}"> <i class="fas fa-plus-circle"></i> Create
-          Custom Category</a>
-
-      </div>
-
-      {% endfor %}
     </div>
+    {% endfor %}
+
   </div>
 
   {% comment %} ======================= End Custom Category============================ {% endcomment %}
 
   {% comment %} ============================ TEAM ============================={% endcomment %}
-  <div class="animation">
-    <h2 class='my-tasks  body-margin'>Project Team</h2>
+  <div class="body-margin">
+    <h1 class='my-tasks'>Project Team</h1>
     {% if user.is_project_manager %}
-    <div class="body-margin">
-      <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}"><i class="fas fa-user-plus"></i> Add New
+    <div>
+      <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}"><i class="fas fa-user-plus"></i> Add
+        New
         Team Member(s) To This
         Project</a>
     </div>
     {% endif %}
 
-    <div class='teammember-container body-margin'>
+    <div class='teammember-container'>
 
       {% for teammember in teammembers %}
 
