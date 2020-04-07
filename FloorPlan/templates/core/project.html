@@ -77,7 +77,7 @@
 
 {% if user.is_project_manager == False %}
 
-<div>
+<div class='body-margin'>
   <p>You are not associated with any tasks currently.</p>
 </div>
 
@@ -85,7 +85,7 @@
 
 {% if user.is_project_manager %}
 
-<div>
+<div class='body-margin'>
   <div>
     <p>You are not associated with any tasks currently.</p>
   </div>
@@ -222,7 +222,7 @@
   <h2 class='my-tasks  body-margin'>Project Team</h2>
   {% if user.is_project_manager %}
   <div class="body-margin">
-    <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member(s) To This
+    <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}"><i class="fas fa-user-plus"></i> Add New Team Member(s) To This
       Project</a>
   </div>
   {% endif %}
@@ -233,14 +233,14 @@
 
     <div class='teammember'>
 
-      <p>Name: {{teammember.first_name}} {{teammember.last_name}} | username: {{teammember.username}}</p>
+      <p><span class='font-size:4em;'><i class="fas fa-user-circle"></i></span> Name: {{teammember.first_name}} {{teammember.last_name}} | username: {{teammember.username}}</p>
 
       {% empty %}
       <p> There are no team members associated with this project </p>
 
       {% if user.is_project_manager %}
       <div>
-        <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}">Add New Team Member(s) To This
+        <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}"> <i class="fas fa-user-plus"></i> Add New Team Member(s) To This
           Project</a>
       </div>
 

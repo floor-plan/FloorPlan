@@ -426,7 +426,7 @@ h6 {
     padding: 8px;
     background-color: var(--dark-gray);
     border: solid 1px var(--background-color);
-    border-radius: 25px;
+    border-radius: 12px;
 }
 @keyframes slideInFromRight {
     0% {
@@ -484,15 +484,16 @@ h6 {
 }
 .small-button {
     font-size: .8rem;
-    padding: 4px;
-    color: white;
-    background-color: var(--dark-gray);
-    border: 1px solid var(--dark-gray);
+    padding: 8px;
+    color: white!important;
+    ;
+    background-color: var(--green-gray);
+    /* border: 1px solid var(--dark-gray); */
     border-radius: 12px;
 }
 .small-button:hover {
     color: white;
-    background-color: var(--green-gray);
+    background-color: var(--dark-gray);
 }
 .teammember-container {
     display: inline-block;
@@ -577,12 +578,10 @@ input {
 .small-top {
     padding-top: 2rem;
 }
-
-.small-top-margin{
+.small-top-margin {
     margin-top: 2rem;
 }
-
-.animation{
+.animation {
     animation: 1s ease-out 0s 1 slideInFromBottom;
 }
 
