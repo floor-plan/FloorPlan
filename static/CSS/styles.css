@@ -561,3 +561,15 @@ input {
 .top-margin {
     padding-top: 3rem;
 }
+
+.login_div {
+    display: flex;
+    flex-flow: column;
+ 
+    
+    width: 100%;
+    float: center;
+    margin: 2rem;
+    color: var(--dark-brown);
+}
+
