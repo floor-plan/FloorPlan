@@ -170,6 +170,10 @@ a:active {
     color: var(--green-gray);
 }
 
+a.logout:visited, a.login:visited{
+    color:black;
+}
+
 h1,
 h2,
 h3,
@@ -538,14 +542,29 @@ h6 {
         top: 0;
         right: 0;
     }
+    .small-button{
+        position: relative;
+        font-size: .8rem;
+        padding: 8px;
+        color: white!important;
+        ;
+        background-color: var(--green-gray);
+        border-radius: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        margin: 1rem;
+    }
 }
 
-/* .task-button-align {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-    align-items: flex-start;
-} */
+.large-button{
+    font-size: .8rem;
+    padding: 8px;
+    color: white!important;
+    ;
+    background-color: var(--green-gray);
+    border-radius: 10px;
+}
+
 .task-button-align {
     color: var(--dark-gray);
 }
