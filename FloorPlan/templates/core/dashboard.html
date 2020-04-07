@@ -61,7 +61,7 @@
         <h1 class="project-tasks project-title">
             <div class="projects-header">Projects</div>
             {% if user.is_project_manager %}
-            <a class='project-button' href="{% url 'new_project' %}">New Project</a>
+            <a class='project-button' href="{% url 'new_project' %}"> <i class="fas fa-plus-circle"></i> New Project</a>
             {% endif %}
         </h1>
 

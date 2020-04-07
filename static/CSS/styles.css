@@ -426,7 +426,7 @@ h6 {
     padding: 8px;
     background-color: var(--dark-gray);
     border: solid 1px var(--background-color);
-    border-radius: 25px;
+    border-radius: 12px;
 }
 @keyframes slideInFromRight {
     0% {
@@ -503,7 +503,6 @@ h6 {
     padding: 1rem;
     width: 80%;
     border-radius: 12px;
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, 5);
 }
 .teammember {
     display: flex;
