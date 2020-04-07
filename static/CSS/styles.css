@@ -518,8 +518,9 @@ h6 {
 }
 
 .cat-header {
-    width: 80%;
+    width: 90%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 1rem;
     align-items: flex-start;
@@ -529,6 +530,14 @@ h6 {
     position:absolute;
     top:0;
     right:0;
+}
+
+@media screen and (max-width: 600px) {
+    .topcorner{
+        position: relative;
+        top: 0;
+        right: 0;
+    }
 }
 
 /* .task-button-align {
