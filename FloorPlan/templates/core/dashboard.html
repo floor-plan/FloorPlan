@@ -1,18 +1,18 @@
 {% extends 'base.html'%}{% load static %} {% block content %}
-<div class="body-margin">
-    <p class="user-loggedin">Logged in as: {{request.user.first_name}} {{request.user.last_name}}</p>
-    <h1 class="project-tasks my-tasks">My Tasks</h1>
+<div class="dashboard">
     <div class="task-container">
-
+        <h1 class="project-tasks my-tasks">My Tasks</h1>
 
         <a id='update-button' class='hidden task-update-button' href="{% url 'dashboard' %}">Update Tasks</a>
         {% for task in tasks %}
         {% if task.is_complete == False and task.assignee == user %}
 
         <div class="form-group">
-            <div class="checkbox task-text">
-                <input class='checkbox' type="checkbox" value="1" id="{{task.pk}}" />
+            <!-- <div class="checkbox task-text">
+                <input class='checkbox' type="checkbox" value="1" id="{{task.pk}}" /> -->
                 <label class='task-text project-tasks'><span class='{{task.category|lower }}'>
+                    <div class="checkbox">
+                        <input class='checkbox' type="checkbox" value="1" id="{{task.pk}}" />
                         Task: {{task.task|capfirst}}
                         <p class="task-align">
                             Due: {{task.due_date.date}}
@@ -71,7 +71,11 @@
         <a href="{% url 'project' pk=project.pk %}" class="project-link-container">
 
             <p class="project-text">
-                Project Name: {{project.name | capfirst}} | Address: {{project.address}} | Lot: {{project.lot_number}}
+                Project Name: {{project.name | capfirst}} 
+                <br>
+                Address: {{project.address}} 
+                <br>
+                Lot: {{project.lot_number}}
             </p>
 
             <h3>Details</h3>
