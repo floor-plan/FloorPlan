@@ -563,6 +563,18 @@ input {
 .top-margin {
     padding-top: 3rem;
 }
+
+.login_div {
+    display: flex;
+    flex-flow: column;
+ 
+    
+    width: 100%;
+    float: center;
+    margin: 2rem;
+    color: var(--dark-brown);
+}
+
 .small-top {
     padding-top: 2rem;
 }
@@ -572,3 +584,4 @@ input {
 .animation {
     animation: 1s ease-out 0s 1 slideInFromBottom;
 }
+
