@@ -170,7 +170,7 @@ a:active {
     color: var(--green-gray);
 }
 
-a.logout:visited, a.login:visited{
+a.logout:visited, a.login:visited, a.login, a.logout{
     color:black;
 }
 
