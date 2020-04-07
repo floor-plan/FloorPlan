@@ -237,9 +237,10 @@ h6 {
 .task-container {
     display: flex;
     flex-flow: column;
-    width: 52%;
+    width: 55%;
     min-width: 400px;
     margin: 1rem;
+    margin-left: 3rem;
     animation: 1s ease-out 0s 1 slideInFromBottom;
 }
 .heading-container {
@@ -325,9 +326,10 @@ h6 {
 }
 .project-container {
     display: flex;
+    flex-wrap: wrap;
     flex-flow: column;
-    width: 33%;
-    min-width: 200px;
+    width: 35%;
+    min-width: 350px;
     height: 300px;
     /* margin: 1rem; */
     animation: 1s ease-out 0s 1 slideInFromBottom;
@@ -419,7 +421,7 @@ h6 {
     align-items: center;
     justify-content: space-between;
     font-size: 3rem;
-    margin: 1rem;
+    /* margin: 1rem; */
 }
 .project-button {
     font-size: 1rem;
@@ -455,7 +457,7 @@ h6 {
     box-shadow: 1px 2px 4px rgba(0, 0, 0, 5);
     display: block;
     text-decoration: none;
-    margin: 1rem;
+    margin-top: 2rem;
 }
 .task-link-container {
     padding-left: 25px;
