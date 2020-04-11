@@ -1,27 +1,29 @@
-# Django Project Template
+# FloorPlan
 
-This project was generated from the Momentum Django project template. This template sets up some minimal changes:
+An application aimed at the construction industry to simplify work flow with a task management system. All users are allowed to view and mark tasks as complete, but only project managers are allowed to edit. When creating an account a user must select which group they belong and their permissions will be assigned to that username. It is easy to view other members of the team associated with the project and check the box to a task that has been completed, if assigned to the logged-in user.    
 
-- [django-extensions](https://django-extensions.readthedocs.io/en/latest/) and [django-debug-toolbar](https://django-debug-toolbar.readthedocs.io/en/latest/) are both installed and set up.
-- [django-environ](https://django-environ.readthedocs.io/en/latest/) is set up and the `DEBUG`, `SECRET_KEY`, and `DATABASES` settings are set by this package.
-- There is a custom user model defined in `users.models.User`.
-- There is a `templates/` and a `static/` directory at the top level, both of which are set up to be used.
-- A `.gitignore` file is provided.
-- Pipenv is used to manage dependencies.
 
-## Using this template
+## Requirements
 
-In an empty directory, run:
+This app requires the use of Python 3.7.6, Django, and Gunicorn.
 
-```
-pipenv --three
-pipenv install django
-pipenv shell
-rm Pipfile Pipfile.lock
-django-admin startproject --template=https://github.com/momentumlearn/django-project-template/archive/master.zip <your_project_name> .
-pipenv install
-cp <your_project_name>/.env.sample <your_project_name>/.env
+
+## Using this application
+
+To run, simply clone this repository into an empty directory in your system by running:
+
+git clone https://github.com/floor-plan/FloorPlan.git
+
+Once in the directory run the following:
+
+pipenv install 
+
+pipenv shell 
+
 ./manage.py migrate
-```
 
-Remember to change `<your_project_name>` to your actual project name. We remove `Pipfile` and `Pipfile.lock` at the beginning because django-admin will not overwrite them with the new ones from our template.
+Then to open locally on your machine:
+
+./manage.py runserver
+
+
