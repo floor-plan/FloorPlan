@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<p> Does signin also show up?</p>
 <form action="{% url 'sign_in' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
