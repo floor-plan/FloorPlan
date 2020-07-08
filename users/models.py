@@ -22,8 +22,6 @@ class Member(AbstractUser):
     
     def __string__(self):
         return f'{self.first_name} {self.last_name}'
-# Consider creating a custom user model from scratch as detailed at
-# https://docs.djangoproject.com/en/3.0/topics/auth/customizing/#specifying-a-custom-user-model
 
     
 

@@ -38,12 +38,6 @@ class ProjectForm(forms.ModelForm):
 
 class DateInput(forms.DateInput):
 	input_type = 'date'
-
-	# def clean_date(self):
-	# 	date = self.cleaned_data['date']
-    #     if date < datetime.date.today():
-	# 		raise forms.ValidationError("The date cannot be in the past!")
-    # 	return date
 	
 
 class TaskForm(forms.ModelForm): 
@@ -73,10 +67,8 @@ class NewCategoryForm(forms.ModelForm):
 		fields = ['category', 'project']
 
 
-
-
 class AddTeamMemberForm(forms.ModelForm):
-	queryset=Member.objects.all(),  #WE SHOULD LOOK AT THIS LATER!
+	queryset=Member.objects.all(),  
 	widget = forms.CheckboxSelectMultiple
 	
 	class Meta:
