@@ -122,7 +122,7 @@ def delete_project(request, pk):
 @project_manager_required
 def new_task(request, pk):  
     project = get_object_or_404(Project, pk=pk)
-    form = TaskForm(request.POST) 
+    form = TaskForm(request.POST)
     task = None
     if request.method == "POST":  
         if form.is_valid():
@@ -221,7 +221,7 @@ def delete_category(request, pk):
 @project_manager_required
 def new_category(request, pk):
     project = get_object_or_404(Project, pk=pk)
-    form = NewCategoryForm(request.POST) 
+    form = NewCategoryForm(request.POST, initial={'project': project.pk}) 
     category = None
     if request.method == "POST":  
         if form.is_valid():
