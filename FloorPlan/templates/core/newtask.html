@@ -1,9 +1,5 @@
 {% extends 'base.html'%} {% block content%}
 
-<!-- <form class="form" action="{% url 'new_task' pk=project.pk %}" method="post">
-    {% csrf_token %} {{ form.as_p }}
-    <input type="submit" class="submit-button button-padding" value="Submit" />
-</form> -->
 
 <form class=“form” action="{% url 'new_task' pk=project.pk %}" method="post">
     {% csrf_token %}
