@@ -26,16 +26,13 @@ urlpatterns = [
     path('project/edit-task/<int:pk>/', views.edit_task, name='edit_task'),
     path('delete-task/<int:pk>/', views.delete_task, name='delete_task'),
     path('project/<int:pk>/add-team-member/', views.add_team_member, name='add_team_member'),
-    # path('edit-team-member/<int:pk>/', views.edit_team_member, name='edit_team_member'),
     path('delete-team-member/<int:pk>/', views.delete_team_member, name='delete_team_member'),
     path('complete_task/<int:pk>/', views.complete_task, name='complete_task'),
     path('project/<int:pk>/new-category/', views.new_category, name='new_category'),
     path('project/edit-category/<int:pk>/', views.edit_category, name='edit_category'),
     path('delete-category/<int:pk>/', views.delete_category, name='delete_category'),
-
     path('project/edit-category-customcategory/<int:pk>/', views.edit_category_customcategory, name='edit_category_customcategory'),
     path('delete-category-customcategory/<int:pk>/', views.delete_category_customcategory, name='delete_category_customcategory'),
-
     path('project/<int:pk>/new-task-customcategory/', views.new_task_customcategory, name='new_task_customcategory'),
     path('project/edit-task-customcategory/<int:pk>/', views.edit_task_customcategory, name='edit_task_customcategory'),
     
@@ -46,12 +43,5 @@ if settings.DEBUG:
     import debug_toolbar
     urlpatterns = [
         path('__debug__/', include(debug_toolbar.urls)),
-
-        # For django versions before 2.0:
-        # url(r'^__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
 
-#Add Django site authentication urls (for login, logout, password management)
-# urlpatterns += [
-#     path('accounts/', include('django.contrib.auth.urls')),
-# ]

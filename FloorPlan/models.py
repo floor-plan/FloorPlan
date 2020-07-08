@@ -1,4 +1,3 @@
-# from django.contrib.auth.models import AbstractUser
 from users.models import Member
 from django.db import models
 from model_utils import Choices

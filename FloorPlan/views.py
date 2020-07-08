@@ -143,17 +143,11 @@ def edit_task(request, pk):
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             projectpk = form.cleaned_data['project'].pk
-            # next = request.POST.get('next', '/')
             form.save()
         return redirect('project', projectpk)
     else:
         form = TaskForm(instance=task)
-    return render(request, 'core/edit_task.html', {'form': form, 'pk':pk, 'task': task})
-
-
-
-    # return HttpResponsePermanentRedirect(request.META.get('HTTP_REFERER', '/'))
-   
+    return render(request, 'core/edit_task.html', {'form': form, 'pk':pk, 'task': task})   
   
 @login_required
 @csrf_exempt
@@ -291,6 +285,5 @@ def edit_task_customcategory(request, pk):
         form = CustomCategoryTaskForm(instance=task)
     return render(request, 'core/edit_task_customcategory.html', {'form': form, 'pk': pk, 'task': task})
     
-#CAN USE COMPLETE TASK AND DELETE TASK FOR THESE AS WELL^^^^
     
     
