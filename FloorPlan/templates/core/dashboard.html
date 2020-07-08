@@ -8,8 +8,6 @@
         {% if task.is_complete == False and task.assignee == user %}
 
         <div class="form-group">
-            <!-- <div class="checkbox task-text">
-                <input class='checkbox' type="checkbox" value="1" id="{{task.pk}}" /> -->
                 <label class='task-text project-tasks'><span class='{{task.category|lower }}'>
                     <div class="checkbox">
                         <input class='checkbox' type="checkbox" value="1" id="{{task.pk}}" />
