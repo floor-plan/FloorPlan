@@ -1,8 +1,20 @@
 {% extends 'base.html'%} {% block content%}
 
-<form class="form" action="{% url 'new_task' pk=project.pk %}" method="post">
+<!-- <form class="form" action="{% url 'new_task' pk=project.pk %}" method="post">
     {% csrf_token %} {{ form.as_p }}
     <input type="submit" class="submit-button button-padding" value="Submit" />
+</form> -->
+
+<form class=“form” action="{% url 'new_task' pk=project.pk %}" method="post">
+    {% csrf_token %}
+    <table class=“form”>
+        <p>Task: {{form.task}}</p>
+        <p>Category: {{form.category}}</p>
+        <p>Assignee: {{form.assignee}}</p>
+        <p>Due Date: {{form.due_date}}</p>
+        <p class="hidden">{{form.project}}</p>
+    </table>
+    <input type="submit" class="button button-padding" value="Submit" />
 </form>
 
 {% endblock %}

@@ -67,7 +67,7 @@ class Task(models.Model):
 	assignee = models.ForeignKey(
 		Member, on_delete=models.CASCADE, related_name='tasks', default='')
 	project = models.ForeignKey(
-		Project, on_delete=models.CASCADE, related_name="tasks")
+		Project, on_delete=models.CASCADE, related_name="tasks", default='')
 	due_date = models.DateTimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)

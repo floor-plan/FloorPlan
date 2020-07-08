@@ -123,14 +123,15 @@ def delete_project(request, pk):
 def new_task(request, pk):  
     project = get_object_or_404(Project, pk=pk)
     form = TaskForm(request.POST)
+    print (TaskForm.visible_fields)
     task = None
     if request.method == "POST":  
         if form.is_valid():
             task = form.save(commit=False)
             project.project_team.add(task.assignee)
             task.project = project
-            task.save()
-            return redirect('project', project.id)
+            form.save()
+            return redirect('project', pk)
     else:
             form = TaskForm(instance=task)
     return render(request, 'core/newtask.html', {'form': form, 'task': task, 'project': project, 'pk':pk})
