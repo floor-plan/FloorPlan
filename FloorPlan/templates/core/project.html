@@ -106,8 +106,8 @@
 <div class="body-margin">
   <h1 class="project-categories top-margin">Categories</h1>
   <div class="button-margin">
-    <a class='small-button' href="{% url 'new_task' pk=project.pk %}"> <i
-        class="fas fa-plus-circle"></i> Create New Task</a>
+    <a class='small-button' href="{% url 'new_task' pk=project.pk %}"> <i class="fas fa-plus-circle"></i> Create New
+      Task</a>
   </div>
 
 
@@ -197,7 +197,7 @@
         {% endif %}
       </div>
       {% for task in tasks %}
-      {% if task.category == category %}
+      {% if task.custom_category == projectcategory %}
       {% if task.is_complete == True %}
 
 
@@ -235,39 +235,39 @@
   {% comment %} ======================= End Custom Category============================ {% endcomment %}
 
   {% comment %} ============================ TEAM ============================={% endcomment %}
-    <h1 class='my-tasks'>Project Team</h1>
-    {% if user.is_project_manager %}
-    <div class="bottom-margin">
-      <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}"><i class="fas fa-user-plus"></i> Add
-        New
-        Team Member(s) To This
-        Project</a>
-    </div>
-    {% endif %}
+  <h1 class='my-tasks'>Project Team</h1>
+  {% if user.is_project_manager %}
+  <div class="bottom-margin">
+    <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}"><i class="fas fa-user-plus"></i> Add
+      New
+      Team Member(s) To This
+      Project</a>
+  </div>
+  {% endif %}
 
-    <div class='teammember-container'>
+  <div class='teammember-container'>
 
-      {% for teammember in teammembers %}
+    {% for teammember in teammembers %}
 
-      <div class='teammember'>
+    <div class='teammember'>
 
-        <p><span class='font-size:4em;'><i class="fas fa-user-circle"></i></span> Name: {{teammember.first_name}}
-          {{teammember.last_name}} | username: {{teammember.username}} | Category: {{teammember.category}} </p>
+      <p><span class='font-size:4em;'><i class="fas fa-user-circle"></i></span> Name: {{teammember.first_name}}
+        {{teammember.last_name}} | username: {{teammember.username}} | Category: {{teammember.category}} </p>
 
-        {% empty %}
-        <p> There are no team members associated with this project </p>
+      {% empty %}
+      <p> There are no team members associated with this project </p>
 
-        {% if user.is_project_manager %}
-        <div>
-          <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}"> <i class="fas fa-user-plus"></i> Add
-            New Team Member(s) To This
-            Project</a>
-        </div>
-
-        {% endif %}
+      {% if user.is_project_manager %}
+      <div>
+        <a class='small-button' href="{% url 'add_team_member' pk=project.pk %}"> <i class="fas fa-user-plus"></i> Add
+          New Team Member(s) To This
+          Project</a>
       </div>
-      {% endfor %}
+
+      {% endif %}
     </div>
+    {% endfor %}
+  </div>
 
   {% comment %} End Team {% endcomment %}
 

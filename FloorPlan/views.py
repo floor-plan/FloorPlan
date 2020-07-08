@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.views.generic import CreateView, TemplateView
 from .forms import ProjectForm, TaskForm, AddTeamMemberForm, ProjectManagerSignUpForm, MemberSignUpForm, NewCategoryForm, CompleteTaskForm, CustomCategoryTaskForm
 from users.models import Member
-from .models import Project, Category, Task, ProjectCategory
+from .models import Project, Category, Task, ProjectCategory, ProjectCategoryTask
 from django.views.decorators.csrf import csrf_exempt
 from .decorators import project_manager_required
 
@@ -75,10 +75,11 @@ def project(request, pk):
     tasks = Task.objects.filter(project=project)
     categories = Category.objects.all()
     projectcategories = ProjectCategory.objects.filter(project=project)
+    customtasks = ProjectCategoryTask.objects.filter(project=project)
     users=Member.objects.all()  
     teammembers=Member.objects.filter(project=project) 
 
-    return render(request, 'core/project.html', {'project': project, 'tasks': tasks, 'categories':categories, 'projectcategories': projectcategories, 'users':users, 'teammembers':teammembers, 'pk': pk})
+    return render(request, 'core/project.html', {'customtasks': customtasks, 'project': project, 'tasks': tasks, 'categories':categories, 'projectcategories': projectcategories, 'users':users, 'teammembers':teammembers, 'pk': pk})
     
 
 @login_required
@@ -222,10 +223,12 @@ def delete_category(request, pk):
 @project_manager_required
 def new_category(request, pk):
     project = get_object_or_404(Project, pk=pk)
-    form = NewCategoryForm(request.POST, initial={'project': project.pk}) 
+    form = NewCategoryForm(request.POST) 
     category = None
     if request.method == "POST":  
         if form.is_valid():
+            category = form.save(commit=False)
+            category.project = project
             projectpk = form.cleaned_data['project'].pk
             category=form.save()
             return redirect('project', projectpk) 
